@@ -14,7 +14,7 @@ class ArtistServiceProvider extends ServiceProvider
     public function boot()
     {
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sedehi');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'sedehi');
+         $this->loadViewsFrom(__DIR__.'/../resources/views', 'artist');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
          $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
@@ -62,9 +62,9 @@ class ArtistServiceProvider extends ServiceProvider
         ], 'artist.views');*/
 
         // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/sedehi'),
-        ], 'artist.views');*/
+        $this->publishes([
+            __DIR__.'/../resources/assets' => public_path('admin'),
+        ], 'artist.assets');
 
         // Publishing the translation files.
         /*$this->publishes([

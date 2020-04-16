@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'path' => 'admin'
+    'path' => 'admin',
+    'resource_path' => 'Http\ArtistResource',
+    'dir' => 'rtl'
 ];
