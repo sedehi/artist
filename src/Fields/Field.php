@@ -2,11 +2,15 @@
 
 namespace Sedehi\Artist\Fields;
 
+use Sedehi\Artist\Traits\Visibility;
+
 class Field
 {
-    public $label;
-    public $name;
-    public $htmlAttributes = [];
+    use Visibility;
+
+    protected $label;
+    protected $name;
+    protected $htmlAttributes = [];
 
     public function __call($method, $args)
     {
