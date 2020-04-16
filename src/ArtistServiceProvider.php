@@ -16,7 +16,7 @@ class ArtistServiceProvider extends ServiceProvider
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sedehi');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'sedehi');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -32,11 +32,6 @@ class ArtistServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/artist.php', 'artist');
-
-        // Register the service the package provides.
-        $this->app->singleton('artist', function ($app) {
-            return new Artist;
-        });
     }
 
     /**
@@ -48,7 +43,7 @@ class ArtistServiceProvider extends ServiceProvider
     {
         return ['artist'];
     }
-    
+
     /**
      * Console-specific booting.
      *
