@@ -8,7 +8,7 @@
                     <thead>
                     <tr>
                         @foreach($resource->fields() as $field)
-                            <th>{{$field->label}}</th>
+                            <th>{{$field->getLabel()}}</th>
                         @endforeach
                     </tr>
                     </thead>
@@ -16,7 +16,7 @@
                     @foreach($items as $item)
                         <tr>
                             @foreach($resource->fields() as $field)
-                                <th>{{ $item->{$field->name} }}</th>
+                                <th>{{ $item->{$field->getname()} }}</th>
                             @endforeach
                         </tr>
                     @endforeach
