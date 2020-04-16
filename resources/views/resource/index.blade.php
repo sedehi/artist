@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">Simple Table</div>
             <div class="card-body">
-                <table class="table table-responsive-sm">
+                <table class="table table-responsive-sm table-bordered">
                     <thead>
                     <tr>
                         @foreach($resource->fields() as $field)
@@ -13,30 +13,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Samppa Nori</td>
-                        <td>2012/01/01</td>
-                        <td>Member</td>
-                        <td><span class="badge badge-success">Active</span></td>
-                    </tr>
+                    @foreach($items as $item)
+                        <tr>
+                            @foreach($resource->fields() as $field)
+                                <th>{{ $item->{$field->name} }}</th>
+                            @endforeach
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+                {{$items->appends(request()->except('page'))->render('artist::pagination.default')}}
             </div>
         </div>
     </div>
 @endsection
-@push('css')
-    <style>
-        thead tr {
-            border-top: none;
-        }
-    </style>
-@endpush

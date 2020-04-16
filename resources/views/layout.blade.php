@@ -8,6 +8,7 @@
     <title>Admin</title>
     <meta name="theme-color" content="#ffffff">
     <link href="{{asset('admin/css/style.css')}}" rel="stylesheet">
+    @stack('css')
 </head>
 <body class="c-app">
 @include('artist::sidebar')
@@ -108,7 +109,7 @@
 <!--[if IE]><!-->
 <script src="{{asset('admin/vendors/@coreui/icons/js/svgxuse.min.js')}}"></script>
 <!--<![endif]-->
-
+@stack('js')
 
 </body>
 </html>

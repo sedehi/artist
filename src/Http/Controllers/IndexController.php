@@ -16,8 +16,9 @@ class IndexController
 
         $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resource;
 
-
         $resource = new $resourceFile;
-        return view($resource::$indexView,compact('section','resource'));
+        $query = $resource::$model::query();
+        $items = $query->paginate($resource::$perPage);
+        return view($resource::$indexView,compact('section','resource','items'));
     }
 }
