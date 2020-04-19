@@ -45,7 +45,7 @@ trait Visibility
     {
         $property = $callback();
 
-        if (!is_bool($property)) {
+        if (! is_bool($property)) {
             throw new \Exception(get_called_class().'::'.__FUNCTION__.'()'.' Should return boolean');
         }
 
@@ -54,28 +54,28 @@ trait Visibility
 
     public function showOnIndex($callback)
     {
-        $this->showCallback($this->showOnIndex,$callback);
+        $this->showCallback($this->showOnIndex, $callback);
 
         return $this;
     }
 
     public function showOnDetails($callback)
     {
-        $this->showCallback($this->showOnDetails,$callback);
+        $this->showCallback($this->showOnDetails, $callback);
 
         return $this;
     }
 
     public function showOnCreate($callback)
     {
-        $this->showCallback($this->showOnCreate,$callback);
+        $this->showCallback($this->showOnCreate, $callback);
 
         return $this;
     }
 
     public function showOnUpdate($callback)
     {
-        $this->showCallback($this->showOnUpdate,$callback);
+        $this->showCallback($this->showOnUpdate, $callback);
 
         return $this;
     }
@@ -84,11 +84,11 @@ trait Visibility
     {
         $property = $callback();
 
-        if (!is_bool($property)) {
+        if (! is_bool($property)) {
             throw new \Exception(get_called_class().'::'.__FUNCTION__.'()'.' Should return boolean');
         }
 
-        $property = !$property;
+        $property = ! $property;
 
         return $this;
     }
@@ -97,10 +97,11 @@ trait Visibility
     {
         if (is_null($callback)) {
             $this->showOnIndex = false;
+
             return $this;
         }
 
-        $this->hideCallback($this->showOnIndex,$callback);
+        $this->hideCallback($this->showOnIndex, $callback);
 
         return $this;
     }
@@ -109,10 +110,11 @@ trait Visibility
     {
         if (is_null($callback)) {
             $this->showOnDetails = false;
+
             return $this;
         }
 
-        $this->hideCallback($this->showOnDetails,$callback);
+        $this->hideCallback($this->showOnDetails, $callback);
 
         return $this;
     }
@@ -121,10 +123,11 @@ trait Visibility
     {
         if (is_null($callback)) {
             $this->showOnCreate = false;
+
             return $this;
         }
 
-        $this->hideCallback($this->showOnCreate,$callback);
+        $this->hideCallback($this->showOnCreate, $callback);
 
         return $this;
     }
@@ -133,10 +136,11 @@ trait Visibility
     {
         if (is_null($callback)) {
             $this->showOnUpdate = false;
+
             return $this;
         }
 
-        $this->hideCallback($this->showOnUpdate,$callback);
+        $this->hideCallback($this->showOnUpdate, $callback);
 
         return $this;
     }
