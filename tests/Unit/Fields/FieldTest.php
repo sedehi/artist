@@ -18,12 +18,12 @@ class FieldTest extends ArtistTestCase
             ])
             ->sortable();
 
-        $this->assertEquals('name',$field->getName());
-        $this->assertEquals('Name: ',$field->getLabel());
+        $this->assertEquals('name', $field->getName());
+        $this->assertEquals('Name: ', $field->getLabel());
         $this->assertEquals([
             'id'        => 'test',
             'disabled'  => true,
-        ],$field->getHtmlAttributes());
-        $this->assertEquals(true,$field->getSortable());
+        ], $field->getHtmlAttributes());
+        $this->assertEquals(true, $field->getSortable());
     }
 }
