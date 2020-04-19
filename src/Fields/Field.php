@@ -11,6 +11,7 @@ class Field
     protected $label;
     protected $name;
     protected $htmlAttributes = [];
+    protected $sortable = false;
 
     public function __call($method, $args)
     {
@@ -26,5 +27,12 @@ class Field
     public function __toString()
     {
         return view($this->viewPath, ['data' => $this])->render();
+    }
+
+    public function sortable()
+    {
+        $this->sortable = true;
+
+        return $this;
     }
 }
