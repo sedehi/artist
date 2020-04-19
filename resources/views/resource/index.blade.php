@@ -7,7 +7,7 @@
                 <table class="table table-responsive-sm table-bordered">
                     <thead>
                     <tr>
-                        @foreach($resource->fields() as $field)
+                        @foreach($resource->fieldsForIndex() as $field)
                             <th>{{$field->getLabel()}}</th>
                         @endforeach
                     </tr>
