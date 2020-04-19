@@ -3,5 +3,5 @@
 return [
     'path' => 'admin',
     'resource_path' => 'Http\ArtistResource',
-    'dir' => 'rtl'
+    'dir' => 'rtl',
 ];

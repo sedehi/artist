@@ -1,6 +1,7 @@
 <?php
 
 namespace Sedehi\Artist\Tests\Unit;
+
 use Tests\TestCase;
 
 class ExampleTest extends TestCase

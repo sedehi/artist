@@ -1,15 +1,16 @@
 <?php
+
 namespace Sedehi\Artist\Http\Controllers;
 
 class IndexController
 {
-    public function __invoke($section = null,$resource = null)
+    public function __invoke($section = null, $resource = null)
     {
-        if($section == null && $resource == null){
+        if ($section == null && $resource == null) {
             abort(404);
         }
 
-        if($resource == null){
+        if ($resource == null) {
             $resource = $section;
             $section = null;
         }
