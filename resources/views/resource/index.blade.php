@@ -15,7 +15,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
-                            @foreach($resource->fields() as $field)
+                            @foreach($resource->fieldsForIndex() as $field)
                                 <th>{{ $item->{$field->getname()} }}</th>
                             @endforeach
                         </tr>

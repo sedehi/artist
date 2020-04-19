@@ -14,4 +14,12 @@ class Resource
     {
 
     }
+
+    public function fieldsForIndex()
+    {
+        return dd(array_filter($this->fields(),function ($item){
+            return $item->showOnIndex;
+        }));
+
+    }
 }

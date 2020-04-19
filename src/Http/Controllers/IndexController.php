@@ -19,6 +19,7 @@ class IndexController
         $resource = new $resourceFile;
         $query = $resource::$model::query();
         $items = $query->paginate($resource::$perPage);
+        dd($resource->fieldsForIndex());
         return view($resource::$indexView,compact('section','resource','items'));
     }
 }
