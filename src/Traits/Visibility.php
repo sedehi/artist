@@ -51,12 +51,13 @@ trait Visibility
 
     private function showCallback(&$property, $callback)
     {
-        if (!is_callable($callback)) {
-            $property = (boolean) $callback;
+        if (! is_callable($callback)) {
+            $property = (bool) $callback;
+
             return $this;
         }
 
-        $property = (boolean) call_user_func($callback);
+        $property = (bool) call_user_func($callback);
 
         return $this;
     }
@@ -91,40 +92,41 @@ trait Visibility
 
     private function hideCallback(&$property, $callback)
     {
-        if (!is_callable($callback)) {
-            $property = ! ((boolean) $callback);
+        if (! is_callable($callback)) {
+            $property = ! ((bool) $callback);
+
             return $this;
         }
 
-        $property = ! ((boolean) call_user_func($callback));
+        $property = ! ((bool) call_user_func($callback));
 
         return $this;
     }
 
     public function hideOnIndex($callback = true)
     {
-        $this->hideCallback($this->showOnIndex,$callback);
+        $this->hideCallback($this->showOnIndex, $callback);
 
         return $this;
     }
 
     public function hideOnDetails($callback = true)
     {
-        $this->hideCallback($this->showOnDetails,$callback);
+        $this->hideCallback($this->showOnDetails, $callback);
 
         return $this;
     }
 
     public function hideOnCreate($callback = true)
     {
-        $this->hideCallback($this->showOnCreate,$callback);
+        $this->hideCallback($this->showOnCreate, $callback);
 
         return $this;
     }
 
     public function hideOnUpdate($callback = true)
     {
-        $this->hideCallback($this->showOnUpdate,$callback);
+        $this->hideCallback($this->showOnUpdate, $callback);
 
         return $this;
     }
