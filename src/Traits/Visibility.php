@@ -63,28 +63,28 @@ trait Visibility
 
     public function showOnIndex($callback = true)
     {
-        $this->showCallback($this->showOnIndex,$callback);
+        $this->showCallback($this->showOnIndex, $callback);
 
         return $this;
     }
 
     public function showOnDetails($callback = true)
     {
-        $this->showCallback($this->showOnDetails,$callback);
+        $this->showCallback($this->showOnDetails, $callback);
 
         return $this;
     }
 
     public function showOnCreate($callback = true)
     {
-        $this->showCallback($this->showOnCreate,$callback);
+        $this->showCallback($this->showOnCreate, $callback);
 
         return $this;
     }
 
     public function showOnUpdate($callback = true)
     {
-        $this->showCallback($this->showOnUpdate,$callback);
+        $this->showCallback($this->showOnUpdate, $callback);
 
         return $this;
     }
