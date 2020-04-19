@@ -15,6 +15,8 @@ trait Visibility
         $this->showOnDetails = false;
         $this->showOnCreate = false;
         $this->showOnUpdate = false;
+
+        return $this;
     }
 
     public function onlyOnDetail()
@@ -23,6 +25,8 @@ trait Visibility
         $this->showOnIndex = false;
         $this->showOnCreate = false;
         $this->showOnUpdate = false;
+
+        return $this;
     }
 
     public function onlyOnForms()
@@ -31,6 +35,8 @@ trait Visibility
         $this->showOnUpdate = true;
         $this->showOnIndex = false;
         $this->showOnDetails = false;
+
+        return $this;
     }
 
     public function exceptOnForms()
@@ -39,41 +45,44 @@ trait Visibility
         $this->showOnUpdate = false;
         $this->showOnIndex = true;
         $this->showOnDetails = true;
-    }
-
-    private function showCallback(&$property, $callback)
-    {
-        $property = $callback();
-
-        if (!is_bool($property)) {
-            throw new \Exception(get_called_class().'::'.__FUNCTION__.'()'.' Should return boolean');
-        }
 
         return $this;
     }
 
-    public function showOnIndex($callback)
+    private function showCallback(&$property, $callback)
+    {
+        if (!is_callable($callback)) {
+            $property = (boolean) $callback;
+            return $this;
+        }
+
+        $property = (boolean) call_user_func($callback);
+
+        return $this;
+    }
+
+    public function showOnIndex($callback = true)
     {
         $this->showCallback($this->showOnIndex,$callback);
 
         return $this;
     }
 
-    public function showOnDetails($callback)
+    public function showOnDetails($callback = true)
     {
         $this->showCallback($this->showOnDetails,$callback);
 
         return $this;
     }
 
-    public function showOnCreate($callback)
+    public function showOnCreate($callback = true)
     {
         $this->showCallback($this->showOnCreate,$callback);
 
         return $this;
     }
 
-    public function showOnUpdate($callback)
+    public function showOnUpdate($callback = true)
     {
         $this->showCallback($this->showOnUpdate,$callback);
 
@@ -82,60 +91,39 @@ trait Visibility
 
     private function hideCallback(&$property, $callback)
     {
-        $property = $callback();
-
-        if (!is_bool($property)) {
-            throw new \Exception(get_called_class().'::'.__FUNCTION__.'()'.' Should return boolean');
+        if (!is_callable($callback)) {
+            $property = ! ((boolean) $callback);
+            return $this;
         }
 
-        $property = !$property;
+        $property = ! ((boolean) call_user_func($callback));
 
         return $this;
     }
 
-    public function hideOnIndex($callback = null)
+    public function hideOnIndex($callback = true)
     {
-        if (is_null($callback)) {
-            $this->showOnIndex = false;
-            return $this;
-        }
-
         $this->hideCallback($this->showOnIndex,$callback);
 
         return $this;
     }
 
-    public function hideOnDetails($callback = null)
+    public function hideOnDetails($callback = true)
     {
-        if (is_null($callback)) {
-            $this->showOnDetails = false;
-            return $this;
-        }
-
         $this->hideCallback($this->showOnDetails,$callback);
 
         return $this;
     }
 
-    public function hideOnCreate($callback = null)
+    public function hideOnCreate($callback = true)
     {
-        if (is_null($callback)) {
-            $this->showOnCreate = false;
-            return $this;
-        }
-
         $this->hideCallback($this->showOnCreate,$callback);
 
         return $this;
     }
 
-    public function hideOnUpdate($callback = null)
+    public function hideOnUpdate($callback = true)
     {
-        if (is_null($callback)) {
-            $this->showOnUpdate = false;
-            return $this;
-        }
-
         $this->hideCallback($this->showOnUpdate,$callback);
 
         return $this;
