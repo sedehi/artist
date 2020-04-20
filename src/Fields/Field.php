@@ -12,6 +12,8 @@ class Field
     protected $name;
     protected $htmlAttributes = [];
     protected $sortable = false;
+    protected $defaultValue;
+    protected $readOnly = false;
 
     public function __call($method, $args)
     {
@@ -44,5 +46,31 @@ class Field
     public function canSort()
     {
         return true;
+    }
+
+    public function default($value = null)
+    {
+        if (! is_callable($value)) {
+            $this->defaultValue = $value;
+
+            return $this;
+        }
+
+        $this->defaultValue = call_user_func($value);
+
+        return $this;
+    }
+
+    public function readonly($callback = true)
+    {
+        if (! is_callable($callback)) {
+            $this->readOnly = (bool) $callback;
+
+            return $this;
+        }
+
+        $this->readOnly = (bool) call_user_func($callback);
+
+        return $this;
     }
 }

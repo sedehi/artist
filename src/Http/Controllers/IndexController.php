@@ -1,6 +1,7 @@
 <?php
 
 namespace Sedehi\Artist\Http\Controllers;
+
 use Illuminate\Routing\Controller as BaseController;
 
 class IndexController extends BaseController
