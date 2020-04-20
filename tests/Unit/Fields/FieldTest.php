@@ -43,4 +43,21 @@ class FieldTest extends ArtistTestCase
 
         $this->assertEquals('test', $field->getDefaultValue());
     }
+
+    public function test_readonly()
+    {
+        $field = Text::make()
+            ->name('name')
+            ->readOnly();
+
+        $this->assertTrue($field->getReadOnly());
+
+        $field = Text::make()
+            ->name('name')
+            ->readOnly(function () {
+                return false;
+            });
+
+        $this->assertFalse($field->getReadOnly());
+    }
 }
