@@ -2,7 +2,7 @@
     <form class="form-horizontal" action="{{$formAction}}" method="{{$formMethod}}" enctype="multipart/form-data">
         @foreach($resource->fieldsForCreate() as $field)
             <div class="form-group row">
-{{--               {!! $field !!}--}}
+               {!! $field !!}
             </div>
         @endforeach
 {{--        <div class="form-group row">--}}
