@@ -1,8 +1,8 @@
 <div class="card-body">
-    <form class="form-horizontal" action="{{$formAction}}" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{$formAction}}" method="{{$formMethod}}" enctype="multipart/form-data">
         @foreach($resource->fieldsForCreate() as $field)
             <div class="form-group row">
-               {!! $field !!}
+{{--               {!! $field !!}--}}
             </div>
         @endforeach
 {{--        <div class="form-group row">--}}

@@ -10,4 +10,11 @@ class Text extends Field
     {
         return new self;
     }
+
+    public function placeholder($text)
+    {
+        $this->htmlAttributes['placeholder'] = $text;
+
+        return $this;
+    }
 }

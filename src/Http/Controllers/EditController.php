@@ -3,9 +3,9 @@
 namespace Sedehi\Artist\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 
-class CreateController extends BaseController
+class EditController extends BaseController
 {
-    public function create($section = null, $resource = null)
+    public function edit($section = null, $resource = null,$resourceId)
     {
         if ($section == null && $resource == null) {
             abort(404);
@@ -19,13 +19,15 @@ class CreateController extends BaseController
         $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resource;
 
         $resource = new $resourceFile;
-        $formAction = action([self::class,'store']);
-        $formMethod = 'post';
-        return view($resource::$createView, compact('section', 'resource','formAction','formMethod'));
+        $query = $resource::$model::query();
+        $item = $query->findOrFail($resourceId);
+        $formAction = action([self::class,'update'],['resourceId' =>$resourceId]);
+        $formMethod = 'PUT';
+        return view($resource::$editView, compact('section', 'resource','formAction','formMethod','item'));
     }
 
 
-    public function store()
+    public function update()
     {
 
     }
