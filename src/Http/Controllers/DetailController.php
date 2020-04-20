@@ -1,11 +1,12 @@
 <?php
 
 namespace Sedehi\Artist\Http\Controllers;
+
 use Illuminate\Routing\Controller as BaseController;
 
 class DetailController extends BaseController
 {
-    public function __invoke($section = null, $resource = null,$resourceId)
+    public function __invoke($section, $resource, $resourceId)
     {
         if ($section == null && $resource == null) {
             abort(404);
@@ -21,6 +22,7 @@ class DetailController extends BaseController
         $resource = new $resourceFile;
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
+
         return view($resource::$detailView, compact('section', 'resource', 'item'));
     }
 }
