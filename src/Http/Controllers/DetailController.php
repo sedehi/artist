@@ -23,6 +23,6 @@ class DetailController extends BaseController
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
 
-        return view($resource::$detailView, compact('section', 'resource', 'item','resourceName','resourceId'));
+        return view($resource::$detailView, compact('section', 'resource', 'item', 'resourceName', 'resourceId'));
     }
 }
