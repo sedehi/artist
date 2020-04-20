@@ -23,5 +23,7 @@
                 @endif
             @endforeach
     >
-    <span class="help-block">This is a help text</span>
+    @if (isset($data->help))
+        <span class="help-block">{!! $data->getHelp() !!}</span>
+    @endif
 </div>
