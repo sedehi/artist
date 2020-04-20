@@ -6,6 +6,8 @@ class Resource
 {
     public static $indexView = 'artist::resource.index';
 
+    public static $detailView = 'artist::resource.detail';
+
     public static $perPage = 15;
 
     public function fields()
@@ -23,7 +25,7 @@ class Resource
     public function fieldsForDetail()
     {
         return array_filter($this->fields(), function ($item) {
-            return $item->getShowOnDetails();
+            return $item->getShowOnDetail();
         });
     }
 

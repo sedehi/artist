@@ -4,9 +4,9 @@ namespace Sedehi\Artist\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 
-class IndexController extends BaseController
+class DetailController extends BaseController
 {
-    public function __invoke($section = null, $resource = null)
+    public function __invoke($section, $resource, $resourceId)
     {
         if ($section == null && $resource == null) {
             abort(404);
@@ -21,8 +21,8 @@ class IndexController extends BaseController
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();
-        $items = $query->paginate($resource::$perPage);
+        $item = $query->findOrFail($resourceId);
 
-        return view($resource::$indexView, compact('section', 'resource', 'items'));
+        return view($resource::$detailView, compact('section', 'resource', 'item'));
     }
 }
