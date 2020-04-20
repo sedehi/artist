@@ -65,11 +65,17 @@ class Field
     {
         if (! is_callable($callback)) {
             $this->readOnly = (boolean) $callback;
-
+            if ($this->readOnly) {
+                $this->htmlAttributes['disabled'] = true;
+            }
             return $this;
         }
 
         $this->readOnly = (boolean) call_user_func($callback);
+
+        if ($this->readOnly) {
+            $this->htmlAttributes['disabled'] = true;
+        }
 
         return $this;
     }

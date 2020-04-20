@@ -51,6 +51,16 @@ class FieldTest extends ArtistTestCase
             ->readOnly();
 
         $this->assertTrue($field->getReadOnly());
+        $this->assertArrayHasKey('disabled',$field->getHtmlAttributes());
+
+        $field = Text::make()
+            ->name('name')
+            ->readOnly(function () {
+                return true;
+            });
+
+        $this->assertTrue($field->getReadOnly());
+        $this->assertArrayHasKey('disabled',$field->getHtmlAttributes());
 
         $field = Text::make()
             ->name('name')
@@ -59,5 +69,6 @@ class FieldTest extends ArtistTestCase
             });
 
         $this->assertFalse($field->getReadOnly());
+        $this->assertArrayNotHasKey('disabled',$field->getHtmlAttributes());
     }
 }
