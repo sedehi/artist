@@ -5,14 +5,14 @@ namespace Sedehi\Artist\Traits;
 trait Visibility
 {
     protected $showOnIndex = true;
-    protected $showOnDetails = true;
+    protected $showOnDetail = true;
     protected $showOnCreate = true;
     protected $showOnUpdate = true;
 
     public function onlyOnIndex()
     {
         $this->showOnIndex = true;
-        $this->showOnDetails = false;
+        $this->showOnDetail = false;
         $this->showOnCreate = false;
         $this->showOnUpdate = false;
 
@@ -21,7 +21,7 @@ trait Visibility
 
     public function onlyOnDetail()
     {
-        $this->showOnDetails = true;
+        $this->showOnDetail = true;
         $this->showOnIndex = false;
         $this->showOnCreate = false;
         $this->showOnUpdate = false;
@@ -34,7 +34,7 @@ trait Visibility
         $this->showOnCreate = true;
         $this->showOnUpdate = true;
         $this->showOnIndex = false;
-        $this->showOnDetails = false;
+        $this->showOnDetail = false;
 
         return $this;
     }
@@ -44,7 +44,7 @@ trait Visibility
         $this->showOnCreate = false;
         $this->showOnUpdate = false;
         $this->showOnIndex = true;
-        $this->showOnDetails = true;
+        $this->showOnDetail = true;
 
         return $this;
     }
@@ -69,9 +69,9 @@ trait Visibility
         return $this;
     }
 
-    public function showOnDetails($callback = true)
+    public function showOnDetail($callback = true)
     {
-        $this->showCallback($this->showOnDetails, $callback);
+        $this->showCallback($this->showOnDetail, $callback);
 
         return $this;
     }
@@ -110,9 +110,9 @@ trait Visibility
         return $this;
     }
 
-    public function hideOnDetails($callback = true)
+    public function hideOnDetail($callback = true)
     {
-        $this->hideCallback($this->showOnDetails, $callback);
+        $this->hideCallback($this->showOnDetail, $callback);
 
         return $this;
     }
