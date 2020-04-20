@@ -1,11 +1,12 @@
 <?php
 
 namespace Sedehi\Artist\Http\Controllers;
+
 use Illuminate\Routing\Controller as BaseController;
 
 class EditController extends BaseController
 {
-    public function edit($section = null, $resource = null,$resourceId)
+    public function edit($section, $resource, $resourceId)
     {
         if ($section == null && $resource == null) {
             abort(404);
@@ -21,14 +22,13 @@ class EditController extends BaseController
         $resource = new $resourceFile;
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
-        $formAction = action([self::class,'update'],['resourceId' =>$resourceId]);
+        $formAction = action([self::class, 'update'], ['resourceId' =>$resourceId]);
         $formMethod = 'PUT';
-        return view($resource::$editView, compact('section', 'resource','formAction','formMethod','item'));
-    }
 
+        return view($resource::$editView, compact('section', 'resource', 'formAction', 'formMethod', 'item'));
+    }
 
     public function update()
     {
-
     }
 }

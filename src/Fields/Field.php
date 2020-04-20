@@ -64,10 +64,11 @@ class Field
     public function readonly($callback = true)
     {
         if (! is_callable($callback)) {
-            $this->readOnly = (boolean) $callback;
+            $this->readOnly = (bool) $callback;
             if ($this->readOnly) {
                 $this->htmlAttributes['disabled'] = true;
             }
+
             return $this;
         }
 

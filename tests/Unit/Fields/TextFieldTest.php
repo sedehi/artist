@@ -16,7 +16,6 @@ class TextFieldTest extends ArtistTestCase
             ->name('name')
             ->placeholder('test PlaceHolder');
 
-        $this->assertArrayHasKey('placeholder',$field->getHtmlAttributes());
-
+        $this->assertArrayHasKey('placeholder', $field->getHtmlAttributes());
     }
 }
