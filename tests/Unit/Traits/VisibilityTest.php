@@ -67,71 +67,71 @@ class VisibilityTest extends ArtistTestCase
         // OnlyOnIndex
         $field = Text::make()->name('name')->onlyOnIndex();
         $this->assertTrue($field->getShowOnIndex());
-        $this->assertFalse($field->getShowOnDetails());
+        $this->assertFalse($field->getShowOnDetail());
         $this->assertFalse($field->getShowOnCreate());
         $this->assertFalse($field->getShowOnUpdate());
     }
 
     public function test_details_visibility()
     {
-        // ShowOnDetails
+        // ShowOnDetail
         $field = Text::make()->name('name');
-        $this->assertTrue($field->getShowOnDetails());
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails();
-        $this->assertTrue($field->getShowOnDetails());
+        $field = Text::make()->name('name')->showOnDetail();
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails(0);
-        $this->assertFalse($field->getShowOnDetails());
+        $field = Text::make()->name('name')->showOnDetail(0);
+        $this->assertFalse($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails(1);
-        $this->assertTrue($field->getShowOnDetails());
+        $field = Text::make()->name('name')->showOnDetail(1);
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails(false);
-        $this->assertFalse($field->getShowOnDetails());
+        $field = Text::make()->name('name')->showOnDetail(false);
+        $this->assertFalse($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails(true);
-        $this->assertTrue($field->getShowOnDetails());
+        $field = Text::make()->name('name')->showOnDetail(true);
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails(function () {
+        $field = Text::make()->name('name')->showOnDetail(function () {
             return true;
         });
-        $this->assertTrue($field->getShowOnDetails());
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->showOnDetails(function () {
+        $field = Text::make()->name('name')->showOnDetail(function () {
             return false;
         });
-        $this->assertFalse($field->getShowOnDetails());
+        $this->assertFalse($field->getShowOnDetail());
 
-        // HideOnDetails
-        $field = Text::make()->name('name')->hideOnDetails();
-        $this->assertFalse($field->getShowOnDetails());
+        // HideOnDetail
+        $field = Text::make()->name('name')->hideOnDetail();
+        $this->assertFalse($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->hideOnDetails(0);
-        $this->assertTrue($field->getShowOnDetails());
+        $field = Text::make()->name('name')->hideOnDetail(0);
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->hideOnDetails(1);
-        $this->assertFalse($field->getShowOnDetails());
+        $field = Text::make()->name('name')->hideOnDetail(1);
+        $this->assertFalse($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->hideOnDetails(false);
-        $this->assertTrue($field->getShowOnDetails());
+        $field = Text::make()->name('name')->hideOnDetail(false);
+        $this->assertTrue($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->hideOnDetails(true);
-        $this->assertFalse($field->getShowOnDetails());
+        $field = Text::make()->name('name')->hideOnDetail(true);
+        $this->assertFalse($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->hideOnDetails(function () {
+        $field = Text::make()->name('name')->hideOnDetail(function () {
             return true;
         });
-        $this->assertFalse($field->getShowOnDetails());
+        $this->assertFalse($field->getShowOnDetail());
 
-        $field = Text::make()->name('name')->hideOnDetails(function () {
+        $field = Text::make()->name('name')->hideOnDetail(function () {
             return false;
         });
-        $this->assertTrue($field->getShowOnDetails());
+        $this->assertTrue($field->getShowOnDetail());
 
         // OnlyOnDetail
         $field = Text::make()->name('name')->onlyOnDetail();
-        $this->assertTrue($field->getShowOnDetails());
+        $this->assertTrue($field->getShowOnDetail());
         $this->assertFalse($field->getShowOnIndex());
         $this->assertFalse($field->getShowOnCreate());
         $this->assertFalse($field->getShowOnUpdate());
@@ -198,14 +198,14 @@ class VisibilityTest extends ArtistTestCase
         $field = Text::make()->name('name')->onlyOnForms();
         $this->assertTrue($field->getShowOnCreate());
         $this->assertTrue($field->getShowOnUpdate());
-        $this->assertFalse($field->getShowOnDetails());
+        $this->assertFalse($field->getShowOnDetail());
         $this->assertFalse($field->getShowOnIndex());
 
         // ExceptOnForms
         $field = Text::make()->name('name')->exceptOnForms();
         $this->assertFalse($field->getShowOnCreate());
         $this->assertFalse($field->getShowOnUpdate());
-        $this->assertTrue($field->getShowOnDetails());
+        $this->assertTrue($field->getShowOnDetail());
         $this->assertTrue($field->getShowOnIndex());
     }
 
@@ -270,14 +270,14 @@ class VisibilityTest extends ArtistTestCase
         $field = Text::make()->name('name')->onlyOnForms();
         $this->assertTrue($field->getShowOnCreate());
         $this->assertTrue($field->getShowOnUpdate());
-        $this->assertFalse($field->getShowOnDetails());
+        $this->assertFalse($field->getShowOnDetail());
         $this->assertFalse($field->getShowOnIndex());
 
         // ExceptOnForms
         $field = Text::make()->name('name')->exceptOnForms();
         $this->assertFalse($field->getShowOnCreate());
         $this->assertFalse($field->getShowOnUpdate());
-        $this->assertTrue($field->getShowOnDetails());
+        $this->assertTrue($field->getShowOnDetail());
         $this->assertTrue($field->getShowOnIndex());
     }
 }
