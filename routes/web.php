@@ -7,5 +7,4 @@ Route::group(['prefix' => config('artist.path'), 'namespace' => 'Sedehi\Artist\H
     Route::get('create/{section?}/{resource?}', 'CreateController@create');
     Route::post('create/{section?}/{resource?}', 'CreateController@store');
     Route::get('detail/{section?}/{resource?}/{resourceId}', 'DetailController');
-
 });

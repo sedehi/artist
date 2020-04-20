@@ -1,6 +1,7 @@
 <?php
 
 namespace Sedehi\Artist\Http\Controllers;
+
 use Illuminate\Routing\Controller as BaseController;
 
 class CreateController extends BaseController
@@ -19,13 +20,12 @@ class CreateController extends BaseController
         $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resource;
 
         $resource = new $resourceFile;
-        $formAction = action([self::class,'store']);
-        return view($resource::$createView, compact('section', 'resource','formAction'));
-    }
+        $formAction = action([self::class, 'store']);
 
+        return view($resource::$createView, compact('section', 'resource', 'formAction'));
+    }
 
     public function store()
     {
-
     }
 }
