@@ -8,6 +8,7 @@
     <title>Admin</title>
     <meta name="theme-color" content="#ffffff">
     <link href="{{asset('admin/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('admin/css/all.min.css')}}" rel="stylesheet">
     @stack('css')
 </head>
 <body class="c-app">

@@ -35,4 +35,14 @@ class Field
 
         return $this;
     }
+
+    public function isSorting($type = 'asc')
+    {
+        return true;
+    }
+
+    public function canSort()
+    {
+        return true;
+    }
 }

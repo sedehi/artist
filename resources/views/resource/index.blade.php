@@ -8,7 +8,19 @@
                     <thead>
                     <tr>
                         @foreach($resource->fieldsForIndex() as $field)
-                            <th>{{$field->getLabel()}}</th>
+                            <th>{{$field->getLabel()}}
+                                @if($field->getSortable())
+                                    @if($field->canSort())
+                                        @if($field->isSorting('asc'))
+                                            <i class="fas fa-sort-up"></i>
+                                        @else
+                                            <i class="fas fa-sort-down"></i>
+                                        @endif
+                                    @else
+                                        <i class="fas fa-sort"></i>
+                                    @endif
+                                @endif
+                            </th>
                         @endforeach
                     </tr>
                     </thead>
