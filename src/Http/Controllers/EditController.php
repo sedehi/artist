@@ -16,19 +16,20 @@ class EditController extends BaseController
             $resource = $section;
             $section = null;
         }
+        $formAction = action([self::class,'update'], ['section' => $section,'resourceId' =>$resourceId,'resource' => $resource]);
+        $formMethod = 'PUT';
 
         $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resource;
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
-        $formAction = action([self::class, 'update'], ['resourceId' =>$resourceId]);
-        $formMethod = 'PUT';
+
 
         return view($resource::$editView, compact('section', 'resource', 'formAction', 'formMethod', 'item'));
     }
 
-    public function update()
+    public function update($section, $resource, $resourceId)
     {
     }
 }

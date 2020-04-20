@@ -16,12 +16,12 @@ class CreateController extends BaseController
             $resource = $section;
             $section = null;
         }
+        $formAction = action([self::class, 'store'],['section' => $section,'resource' => $resource]);
+        $formMethod = 'post';
 
         $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resource;
 
         $resource = new $resourceFile;
-        $formAction = action([self::class, 'store']);
-        $formMethod = 'post';
 
         return view($resource::$createView, compact('section', 'resource', 'formAction', 'formMethod'));
     }
