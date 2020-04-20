@@ -64,12 +64,12 @@ class Field
     public function readonly($callback = true)
     {
         if (! is_callable($callback)) {
-            $this->readOnly = (boolean) $callback;
+            $this->readOnly = (bool) $callback;
 
             return $this;
         }
 
-        $this->readOnly = (boolean) call_user_func($callback);
+        $this->readOnly = (bool) call_user_func($callback);
 
         return $this;
     }
