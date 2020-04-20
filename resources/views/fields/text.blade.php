@@ -13,3 +13,11 @@
            @endforeach
        @endif
 >
+
+
+
+<label class="col-md-3 col-form-label" for="{{$field->getName()}}">{{$field->getLabel()}}</label>
+<div class="col-md-9">
+    <input class="form-control" id="{{$field->getName()}}" type="text" name="text-input" placeholder="Text">
+    <span class="help-block">This is a help text</span>
+</div>
