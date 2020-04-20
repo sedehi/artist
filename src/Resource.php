@@ -10,6 +10,8 @@ class Resource
 
     public static $createView = 'artist::resource.create';
 
+    public static $editView = 'artist::resource.edit';
+
     public static $perPage = 15;
 
     public function fields()
