@@ -1,6 +1,7 @@
 <?php
 
 namespace Sedehi\Artist\Http\Controllers;
+
 use Illuminate\Routing\Controller as BaseController;
 
 class CreateController extends BaseController
@@ -24,9 +25,7 @@ class CreateController extends BaseController
         return view($resource::$createView, compact('section', 'resource','formAction','formMethod'));
     }
 
-
     public function store()
     {
-
     }
 }
