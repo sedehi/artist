@@ -26,4 +26,21 @@ class FieldTest extends ArtistTestCase
         ], $field->getHtmlAttributes());
         $this->assertEquals(true, $field->getSortable());
     }
+
+    public function test_default_value()
+    {
+        $field = Text::make()
+            ->name('name')
+            ->default('val');
+
+        $this->assertEquals('val', $field->getDefaultValue());
+
+        $field = Text::make()
+            ->name('name')
+            ->default(function () {
+                return 'test';
+            });
+
+        $this->assertEquals('test', $field->getDefaultValue());
+    }
 }

@@ -12,6 +12,7 @@ class Field
     protected $name;
     protected $htmlAttributes = [];
     protected $sortable = false;
+    protected $defaultValue;
 
     public function __call($method, $args)
     {
@@ -44,5 +45,18 @@ class Field
     public function canSort()
     {
         return true;
+    }
+
+    public function default($value = null)
+    {
+        if (! is_callable($value)) {
+            $this->defaultValue = $value;
+
+            return $this;
+        }
+
+        $this->defaultValue = call_user_func($value);
+
+        return $this;
     }
 }
