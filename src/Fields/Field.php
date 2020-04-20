@@ -10,7 +10,7 @@ class Field
 
     protected $label;
     protected $name;
-    protected $htmlAttributes = [];
+    public $htmlAttributes = [];
     protected $sortable = false;
     protected $defaultValue;
     protected $readOnly = false;
@@ -71,7 +71,7 @@ class Field
             return $this;
         }
 
-        $this->readOnly = (boolean) call_user_func($callback);
+        $this->readOnly = (bool) call_user_func($callback);
 
         if ($this->readOnly) {
             $this->htmlAttributes['disabled'] = true;

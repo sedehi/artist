@@ -7,7 +7,10 @@ use Sedehi\Artist\Tests\ArtistTestCase;
 
 class FieldTest extends ArtistTestCase
 {
-    public function test_dynamic_properties()
+    /**
+     * @test
+     */
+    public function dynamic_properties()
     {
         $field = Text::make()
             ->name('name')
@@ -27,7 +30,10 @@ class FieldTest extends ArtistTestCase
         $this->assertEquals(true, $field->getSortable());
     }
 
-    public function test_default_value()
+    /**
+     * @test
+     */
+    public function default_value()
     {
         $field = Text::make()
             ->name('name')
@@ -44,7 +50,10 @@ class FieldTest extends ArtistTestCase
         $this->assertEquals('test', $field->getDefaultValue());
     }
 
-    public function test_readonly()
+    /**
+     * @test
+     */
+    public function readonly()
     {
         $field = Text::make()
             ->name('name')
@@ -70,5 +79,27 @@ class FieldTest extends ArtistTestCase
 
         $this->assertFalse($field->getReadOnly());
         $this->assertArrayNotHasKey('disabled',$field->getHtmlAttributes());
+    }
+
+    /**
+     * @test
+     */
+    public function html_disabled_attribute()
+    {
+        $field = Text::make()
+            ->name('name')
+            ->readOnly();
+
+        $this->assertArrayHasKey('disabled',$field->getHtmlAttributes());
+        $this->assertStringContainsString('disabled',$field);
+
+        $field = Text::make()
+            ->name('name')
+            ->htmlAttributes([
+                'disabled'  =>  true
+            ]);
+
+        $this->assertArrayHasKey('disabled',$field->getHtmlAttributes());
+        $this->assertStringContainsString('disabled',$field);
     }
 }

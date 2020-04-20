@@ -1,15 +1,27 @@
-<label for="{{ $data->getName() }}">
+<label class="col-md-3 col-form-label" for="{{$data->getName()}}">
     @if (!is_null($data->getLabel()))
         {{ $data->getLabel() }}
     @else
         @lang('validation.attributes.'.$data->getName())
     @endif
 </label>
-<input type="text"
-       name="{{ $data->getName() }}"
-       @if (count($data->getHtmlAttributes()))
-           @foreach ($data->getHtmlAttributes() as $attrKey => $attrValue)
-               "{{ $attrKey }}"="{{ $attrValue }}"
-           @endforeach
-       @endif
->
+<div class="col-md-9">
+    <input class="form-control"
+            type="text"
+            name="{{ $data->getName() }}"
+            @if (\Illuminate\Support\Arr::has($data->getHtmlAttributes(),'id'))
+                id="{{ $data->getHtmlAttributes()['id'] }}"
+                @php unset($data->htmlAttributes['id']) @endphp
+            @else
+                id="{{$data->getName()}}"
+            @endif
+            @foreach ($data->getHtmlAttributes() as $attrKey => $attrValue)
+                @if ($attrKey === 'disabled')
+                    disabled
+                @else
+                    "{{ $attrKey }}"="{{ $attrValue }}"
+                @endif
+            @endforeach
+    >
+    <span class="help-block">This is a help text</span>
+</div>

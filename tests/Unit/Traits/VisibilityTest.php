@@ -7,7 +7,10 @@ use Sedehi\Artist\Tests\ArtistTestCase;
 
 class VisibilityTest extends ArtistTestCase
 {
-    public function test_index_visibility()
+    /**
+     * @test
+     */
+    public function index_visibility()
     {
         // ShowOnIndex
         $field = Text::make()->name('name');
@@ -72,7 +75,10 @@ class VisibilityTest extends ArtistTestCase
         $this->assertFalse($field->getShowOnUpdate());
     }
 
-    public function test_details_visibility()
+    /**
+     * @test
+     */
+    public function details_visibility()
     {
         // ShowOnDetail
         $field = Text::make()->name('name');
@@ -137,7 +143,10 @@ class VisibilityTest extends ArtistTestCase
         $this->assertFalse($field->getShowOnUpdate());
     }
 
-    public function test_create_visibility()
+    /**
+     * @test
+     */
+    public function create_visibility()
     {
         // ShowOnCreate
         $field = Text::make()->name('name');
@@ -209,7 +218,10 @@ class VisibilityTest extends ArtistTestCase
         $this->assertTrue($field->getShowOnIndex());
     }
 
-    public function test_update_visibility()
+    /**
+     * @test
+     */
+    public function update_visibility()
     {
         // ShowOnUpdate
         $field = Text::make()->name('name');
