@@ -1,5 +1,6 @@
-<div class="card-body">
-    <form class="form-horizontal" action="{{$formAction}}" method="{{$formMethod}}" enctype="multipart/form-data">
+<form class="form-horizontal" action="{{$formAction}}" method="{{$formMethod}}" enctype="multipart/form-data">
+    <div class="card-body">
+
         @foreach($resource->fieldsForCreate() as $field)
             <div class="form-group row">
                {!! $field !!}
@@ -113,10 +114,10 @@
 {{--                <input id="file-input" type="file" name="file-input">--}}
 {{--            </div>--}}
 {{--        </div>--}}
-    </form>
 </div>
 <div class="card-footer">
     <button class="btn btn-md btn-primary" type="submit">Create</button>
     <button class="btn btn-md btn-primary" type="submit">Create and Add Another</button>
     <button class="btn btn-md btn-danger" type="reset"> Reset</button>
 </div>
+</form>

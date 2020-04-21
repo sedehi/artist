@@ -2,11 +2,12 @@
 
 namespace Sedehi\Artist\Fields;
 
+use Sedehi\Artist\Traits\ValidationRule;
 use Sedehi\Artist\Traits\Visibility;
 
 class Field
 {
-    use Visibility;
+    use Visibility, ValidationRule;
 
     protected $label;
     protected $name;
