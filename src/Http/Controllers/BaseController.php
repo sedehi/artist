@@ -7,5 +7,5 @@ use Sedehi\Artist\Traits\Resource;
 
 class BaseController extends Controller
 {
-   use  Resource;
+    use  Resource;
 }
