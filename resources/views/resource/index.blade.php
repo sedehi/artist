@@ -2,6 +2,12 @@
 @section('content')
     <div class="col-lg-12">
         <div class="card">
+            <div class="card-header"><strong>Search Form</strong></div>
+            @include('artist::resource.searchForm')
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
             <div class="card-header">Simple Table</div>
             <div class="card-body">
                 <table class="table table-responsive-sm table-bordered">

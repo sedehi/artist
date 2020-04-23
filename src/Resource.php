@@ -46,4 +46,12 @@ class Resource
             return $item->getShowOnUpdate();
         });
     }
+
+
+    public function fieldsForSearch()
+    {
+        return array_filter($this->fields(), function ($item) {
+            return $item->getSearchRules();
+        });
+    }
 }

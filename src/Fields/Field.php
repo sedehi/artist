@@ -15,6 +15,7 @@ class Field
     protected $sortable = false;
     protected $defaultValue;
     protected $readOnly = false;
+    protected $searchRules = null;
 
     public function __call($method, $args)
     {
@@ -35,6 +36,13 @@ class Field
     public function sortable()
     {
         $this->sortable = true;
+
+        return $this;
+    }
+
+    public function search($rules)
+    {
+        $this->searchRules = $rules;
 
         return $this;
     }
