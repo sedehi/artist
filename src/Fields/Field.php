@@ -32,7 +32,7 @@ class Field
     {
         return view($this->viewPath, [
             'data'  => $this,
-            'model' => $model
+            'model' => $model,
         ])->render();
     }
 
