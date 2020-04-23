@@ -47,7 +47,6 @@ class Resource
         });
     }
 
-
     public function fieldsForSearch()
     {
         return array_filter($this->fields(), function ($item) {
