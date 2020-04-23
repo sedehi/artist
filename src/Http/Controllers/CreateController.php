@@ -2,6 +2,8 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
+use Sedehi\Artist\Http\Requests\CreateRequest;
+
 class CreateController extends BaseController
 {
     public function create($section = null, $resource = null)
@@ -24,7 +26,8 @@ class CreateController extends BaseController
         return view($resource::$createView, compact('section', 'resource', 'formAction', 'formMethod'));
     }
 
-    public function store()
+    public function store(CreateRequest $request)
     {
+        dd($request->all());
     }
 }
