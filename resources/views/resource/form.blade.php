@@ -1,9 +1,18 @@
+@php
+    if (in_array($formMethod,['PUT','PATCH'])) {
+        $updateMethod = $formMethod;
+        $formMethod = 'POST';
+    }
+@endphp
 <form class="form-horizontal" action="{{$formAction}}" method="{{$formMethod}}" enctype="multipart/form-data">
+    @if (isset($updateMethod))
+        @method($updateMethod)
+    @endif
     <div class="card-body">
 
         @foreach($resource->fieldsForCreate() as $field)
             <div class="form-group row">
-               {!! $field !!}
+               {!! $field->render($item ?? null) !!}
             </div>
         @endforeach
 {{--        <div class="form-group row">--}}

@@ -28,9 +28,12 @@ class Field
         return $this;
     }
 
-    public function __toString()
+    public function render($model = null)
     {
-        return view($this->viewPath, ['data' => $this])->render();
+        return view($this->viewPath, [
+            'data'  => $this,
+            'model' => $model
+        ])->render();
     }
 
     public function sortable()

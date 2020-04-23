@@ -24,6 +24,8 @@
             @endforeach
             @if (old($data->getName()))
                 value="{{ old($data->getName()) }}"
+            @elseif(isset($model))
+                value="{{ $model->{$data->getName()} }}"
             @endif
     >
     @if (isset($data->help))

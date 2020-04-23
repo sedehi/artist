@@ -29,13 +29,12 @@ class CreateController extends BaseController
 
     public function store(CreateRequest $request)
     {
-        dd($request->all());
         $resourceClass = $this->getResource();
         $resource = new $resourceClass;
         $resource::$model::create($request->all());
         return redirect()->route('artist.resource.index',[
-            $resourceClass::name()
+            $resourceClass::name(),
+            'section' => $request->get('section')
         ]);
-
     }
 }

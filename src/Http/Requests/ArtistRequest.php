@@ -3,6 +3,7 @@
 namespace Sedehi\Artist\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class ArtistRequest extends FormRequest
 {
@@ -10,17 +11,27 @@ class ArtistRequest extends FormRequest
     {
         $rules = [];
 
-        foreach ($fields as $field) {
-            $fieldRules = $field->getCreationRules();
-            foreach ($fieldRules as $fieldRule) {
-                if (is_string($fieldRule)) {
-//                    dd($this->route()->parameters());
-//                    dd($fieldRule);
+        switch ($this->route()->getActionMethod()) {
+            case 'store':
+                foreach ($fields as $field) {
+                    $fieldRules = $field->getCreationRules();
+                    $rules[$field->getName()] = $fieldRules;
                 }
-            }
-            $rules[$field->getName()] = $fieldRules;
+                break;
+            case 'update':
+                foreach ($fields as $field) {
+                    $fieldRules = $field->getUpdateRules();
+                    foreach ($fieldRules as $fieldRule) {
+                        if (is_string($fieldRule) && Str::contains($fieldRule,'{{resourceId}}')) {
+                            $arrKey = array_search($fieldRule,$fieldRules);
+                            $fieldRules[$arrKey] = str_replace('{{resourceId}}',$this->route()->parameter('resourceId'),$fieldRule);
+                        }
+                    }
+                    $rules[$field->getName()] = $fieldRules;
+                }
+                break;
         }
-//        dd($rules);
+
         return $rules;
     }
 }

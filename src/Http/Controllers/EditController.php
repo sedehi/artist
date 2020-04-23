@@ -2,6 +2,8 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
+use Sedehi\Artist\Http\Requests\UpdateRequest;
+
 class EditController extends BaseController
 {
     public function edit($resource, $resourceId)
@@ -27,7 +29,15 @@ class EditController extends BaseController
         return view($resource::$editView, compact('section', 'resource', 'formAction', 'formMethod', 'item'));
     }
 
-    public function update($resource, $resourceId)
+    public function update($resource, $resourceId, UpdateRequest $request)
     {
+        $section = $request->get('section');
+        $resourceClass = $this->getResource($resource,$section);
+        $model = $resourceClass::$model::findOrFail($resourceId);
+        $model->fill($request->all())->save();
+        return redirect()->route('artist.resource.index',[
+            $resourceClass::name(),
+            'section' => $section
+        ]);
     }
 }
