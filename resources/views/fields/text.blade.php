@@ -22,6 +22,9 @@
                     "{{ $attrKey }}"="{{ $attrValue }}"
                 @endif
             @endforeach
+            @if (old($data->getName()))
+                value="{{ old($data->getName()) }}"
+            @endif
     >
     @if (isset($data->help))
         <span class="help-block">{!! $data->getHelp() !!}</span>
