@@ -91,7 +91,7 @@ class FieldTest extends ArtistTestCase
             ->readOnly();
 
         $this->assertArrayHasKey('disabled', $field->getHtmlAttributes());
-        $this->assertStringContainsString('disabled', $field);
+        $this->assertStringContainsString('disabled', $field->render());
 
         $field = Text::make()
             ->name('name')
@@ -100,6 +100,6 @@ class FieldTest extends ArtistTestCase
             ]);
 
         $this->assertArrayHasKey('disabled', $field->getHtmlAttributes());
-        $this->assertStringContainsString('disabled', $field);
+        $this->assertStringContainsString('disabled', $field->render());
     }
 }
