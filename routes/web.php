@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => config('artist.path'),'middleware' => 'web', 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
+Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
     Route::get('index/{resource?}', 'IndexController')->name('artist.resource.index');
     Route::get('create/{resource?}', 'CreateController@create')->name('artist.resource.create');
     Route::post('create/{resource?}', 'CreateController@store')->name('artist.resource.store');
