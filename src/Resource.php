@@ -53,5 +53,4 @@ class Resource
             return $item->getSearchRules();
         });
     }
-
 }
