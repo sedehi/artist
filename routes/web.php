@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => config('artist.path'), 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
-    Route::get('index/{section?}/{resource?}', 'IndexController');
-    Route::get('create/{section?}/{resource?}', 'CreateController@create');
-    Route::post('create/{section?}/{resource?}', 'CreateController@store');
-    Route::get('edit/{section?}/{resource?}/{resourceId}', 'EditController@edit');
-    Route::match(['PUT', 'PATCH'], 'edit/{section?}/{resource?}/{resourceId}', 'EditController@update');
-    Route::get('detail/{section?}/{resource?}/{resourceId}', 'DetailController');
+    Route::get('index/{resource?}', 'IndexController')->name('artist.resource.index');
+    Route::get('create/{resource?}', 'CreateController@create')->name('artist.resource.create');
+    Route::post('create/{resource?}', 'CreateController@store')->name('artist.resource.store');
+    Route::get('edit/{resource?}/{resourceId}', 'EditController@edit')->name('artist.resource.edit');
+    Route::match(['PUT', 'PATCH'], 'edit/{resource?}/{resourceId}', 'EditController@update')->name('artist.resource.update');
+    Route::get('detail/{resource?}/{resourceId}', 'DetailController')->name('artist.resource.detail');
 });
