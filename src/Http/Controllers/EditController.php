@@ -32,12 +32,13 @@ class EditController extends BaseController
     public function update($resource, $resourceId, UpdateRequest $request)
     {
         $section = $request->get('section');
-        $resourceClass = $this->getResource($resource,$section);
+        $resourceClass = $this->getResource($resource, $section);
         $model = $resourceClass::$model::findOrFail($resourceId);
         $model->fill($request->all())->save();
-        return redirect()->route('artist.resource.index',[
+
+        return redirect()->route('artist.resource.index', [
             $resourceClass::name(),
-            'section' => $section
+            'section' => $section,
         ]);
     }
 }

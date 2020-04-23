@@ -32,9 +32,10 @@ class CreateController extends BaseController
         $resourceClass = $this->getResource();
         $resource = new $resourceClass;
         $resource::$model::create($request->all());
-        return redirect()->route('artist.resource.index',[
+
+        return redirect()->route('artist.resource.index', [
             $resourceClass::name(),
-            'section' => $request->get('section')
+            'section' => $request->get('section'),
         ]);
     }
 }

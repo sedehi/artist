@@ -22,9 +22,9 @@ class ArtistRequest extends FormRequest
                 foreach ($fields as $field) {
                     $fieldRules = $field->getUpdateRules();
                     foreach ($fieldRules as $fieldRule) {
-                        if (is_string($fieldRule) && Str::contains($fieldRule,'{{resourceId}}')) {
-                            $arrKey = array_search($fieldRule,$fieldRules);
-                            $fieldRules[$arrKey] = str_replace('{{resourceId}}',$this->route()->parameter('resourceId'),$fieldRule);
+                        if (is_string($fieldRule) && Str::contains($fieldRule, '{{resourceId}}')) {
+                            $arrKey = array_search($fieldRule, $fieldRules);
+                            $fieldRules[$arrKey] = str_replace('{{resourceId}}', $this->route()->parameter('resourceId'), $fieldRule);
                         }
                     }
                     $rules[$field->getName()] = $fieldRules;
