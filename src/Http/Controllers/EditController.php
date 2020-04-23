@@ -15,7 +15,7 @@ class EditController extends BaseController
             $resource = $section;
             $section = null;
         }
-        $formAction = action([self::class, 'update'], ['section' => $section, 'resourceId' =>$resourceId, 'resource' => $resource]);
+        $formAction = action('artist.resource.update', ['section' => $section, 'resourceId' =>$resourceId, 'resource' => $resource]);
         $formMethod = 'PUT';
 
         $resourceFile = $this->getResource($resource, $section);

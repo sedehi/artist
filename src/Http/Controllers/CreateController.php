@@ -15,7 +15,7 @@ class CreateController extends BaseController
             $resource = $section;
             $section = null;
         }
-        $formAction = action([self::class, 'store'], ['section' => $section, 'resource' => $resource]);
+        $formAction = route('artist.resource.store', ['section' => $section, 'resource' => $resource]);
         $formMethod = 'post';
 
         $resourceFile = $this->getResource($resource, $section);
