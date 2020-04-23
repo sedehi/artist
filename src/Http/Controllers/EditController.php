@@ -4,8 +4,9 @@ namespace Sedehi\Artist\Http\Controllers;
 
 class EditController extends BaseController
 {
-    public function edit($section, $resource, $resourceId)
+    public function edit($resource, $resourceId)
     {
+        $section = request()->query('section');
         if ($section == null && $resource == null) {
             abort(404);
         }
@@ -26,7 +27,7 @@ class EditController extends BaseController
         return view($resource::$editView, compact('section', 'resource', 'formAction', 'formMethod', 'item'));
     }
 
-    public function update($section, $resource, $resourceId)
+    public function update($resource, $resourceId)
     {
     }
 }

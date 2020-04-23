@@ -4,8 +4,9 @@ namespace Sedehi\Artist\Http\Controllers;
 
 class CreateController extends BaseController
 {
-    public function create($section = null, $resource = null)
+    public function create($resource = null)
     {
+        $section = request()->query('section');
         if ($section == null && $resource == null) {
             abort(404);
         }

@@ -4,8 +4,9 @@ namespace Sedehi\Artist\Http\Controllers;
 
 class DetailController extends BaseController
 {
-    public function __invoke($section, $resourceName, $resourceId)
+    public function __invoke($resourceName, $resourceId)
     {
+        $section = request()->query('section');
         if ($section == null && $resourceName == null) {
             abort(404);
         }

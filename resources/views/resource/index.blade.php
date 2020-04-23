@@ -8,11 +8,25 @@
     </div>
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">Simple Table</div>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="float-right">Title</h5>
+                        <button type="button" class="btn btn-danger btn-delete float-left"><i class="fa fa-trash"></i></button>
+                        <a class="btn btn-success float-left ml-1 text-white" href="{{ route('artist.resource.create',['resource'=> $resourceName]) }}"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-info float-left ml-1 text-white"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
                 <table class="table table-responsive-sm table-bordered">
                     <thead>
                     <tr>
+                        <th style="width: 40px">
+                            <div class="form-check">
+                                <input class="form-check-input position-static" type="checkbox" id="check-all" value="1">
+                            </div>
+                        </th>
                         @foreach($resource->fieldsForIndex() as $field)
                             <th>{{$field->getLabel()}}
                                 @if($field->getSortable())
@@ -33,8 +47,13 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input position-static delete-item" type="checkbox" value="1">
+                                </div>
+                            </td>
                             @foreach($resource->fieldsForIndex() as $field)
-                                <th>{{ $item->{$field->getname()} }}</th>
+                                <td>{{ $item->{$field->getname()} }}</td>
                             @endforeach
                         </tr>
                     @endforeach
@@ -45,3 +64,19 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).on('change', '.delete-item , #check-all', function () {
+            var btn = $('.delete-btn');
+            {{--btn.html('@lang('admin.delete')');--}}
+            $(this).closest('table').find('.delete-item:checked').each(function () {
+                btn.append('<input type="hidden" name="deleteId[]" value="' + $(this).val() + '">');
+            });
+
+        });
+        var deleteBtn = '<button type="button" class="file-input-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="Remove"{dataKey}>' +
+            '<i class="fa fa-trash"></i>' +
+            '</button>';
+    </script>
+
+@endpush
