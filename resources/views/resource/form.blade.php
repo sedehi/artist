@@ -11,7 +11,7 @@
     <div class="card-body">
 
         @foreach($resource->fieldsForCreate() as $field)
-            <div class="form-group row">
+            <div class="form-group row mb-4">
                {!! $field->render($item ?? null) !!}
             </div>
         @endforeach
