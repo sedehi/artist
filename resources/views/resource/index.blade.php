@@ -1,6 +1,6 @@
 @extends('artist::layout')
 @section('content')
-    <div class="col-lg-12 collapse" id="collapseSearch" >
+    <div class="col-lg-12 collapse" id="collapseSearch">
         <div class="card">
             <div class="card-header"><strong>Search Form</strong></div>
             @include('artist::resource.searchForm')
@@ -9,12 +9,12 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <div class="row">
+                <div class="row" style="display: contents">
                     <div class="col-md-12">
                         <h5 class="float-right">Title</h5>
-                        <button type="button" class="btn btn-danger btn-delete float-left"><i class="fa fa-trash"></i></button>
-                        <a class="btn btn-success float-left ml-1 text-white" href="{{ route('artist.resource.create',['resource'=> $resourceName]) }}"><i class="fa fa-plus"></i></a>
-                        <a class="btn btn-info float-left ml-1 text-white" data-toggle="collapse" href="#collapseSearch"><i class="fa fa-search"></i></a>
+                        <button type="button" class="btn btn-danger btn-delete float-left d-none"><i class="fas fa-trash"></i></button>
+                        <a class="btn btn-success float-left ml-1 text-white" href="{{ route('artist.resource.create',['resource'=> $resourceName]) }}"><i class="fas fa-plus"></i></a>
+                        <a class="btn btn-info float-left ml-1 text-white" data-toggle="collapse" href="#collapseSearch"><i class="fas fa-search"></i></a>
                     </div>
                 </div>
             </div>
@@ -68,14 +68,7 @@
 @endsection
 @push('js')
     <script>
-        $(document).on('change', '.delete-item , #check-all', function () {
-            var btn = $('.delete-btn');
-            {{--btn.html('@lang('admin.delete')');--}}
-            $(this).closest('table').find('.delete-item:checked').each(function () {
-                btn.append('<input type="hidden" name="deleteId[]" value="' + $(this).val() + '">');
-            });
 
-        });
         var deleteBtn = '<button type="button" class="file-input-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="Remove"{dataKey}>' +
             '<i class="fa fa-trash"></i>' +
             '</button>';

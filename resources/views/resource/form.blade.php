@@ -2,8 +2,8 @@
     <div class="card-body">
 
         @foreach($resource->fieldsForCreate() as $field)
-            <div class="form-group row">
-               {!! $field !!}
+            <div class="form-group row mb-4">
+                {!! $field !!}
             </div>
         @endforeach
 {{--        <div class="form-group row">--}}
