@@ -17,7 +17,7 @@ class EditController extends BaseController
         $formAction = action([self::class, 'update'], ['section' => $section, 'resourceId' =>$resourceId, 'resource' => $resource]);
         $formMethod = 'PUT';
 
-        $resourceFile = $this->getResource($resource,$section);
+        $resourceFile = $this->getResource($resource, $section);
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();
