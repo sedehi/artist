@@ -22,11 +22,7 @@
                     "{{ $attrKey }}"="{{ $attrValue }}"
                 @endif
             @endforeach
-            @if (old($data->getName()))
-                value="{{ old($data->getName()) }}"
-            @elseif(isset($model))
-                value="{{ $model->{$data->getName()} }}"
-            @endif
+            value="{{ old($data->getName(),isset($model) ? $model->{$data->getName()} : null) }}"
     >
     @if (isset($data->help))
         <span class="help-block">{!! $data->getHelp() !!}</span>
