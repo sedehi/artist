@@ -68,7 +68,14 @@
 @endsection
 @push('js')
     <script>
+        $(document).on('change', '.delete-item , #check-all', function () {
+            console.log('navid');
+            var btn = $('.delete-btn');
+            $(this).closest('table').find('.delete-item:checked').each(function () {
+                btn.append('<input type="hidden" name="deleteId[]" value="' + $(this).val() + '">');
+            });
 
+        });
         var deleteBtn = '<button type="button" class="file-input-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="Remove"{dataKey}>' +
             '<i class="fa fa-trash"></i>' +
             '</button>';

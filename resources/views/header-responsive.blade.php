@@ -5,9 +5,9 @@
         </button>
         <div class="navbar-nav flex-row order-md-last">
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-toggle="dropdown">
+                <a href="#" class="nav-link d-flex lh-1 text-reset pl-4 pr-4" data-toggle="dropdown">
                     <span class="avatar" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                    <div class="d-none d-xl-block pl-2">
+                    <div class="d-none d-xl-block pl-2 pr-2">
                         <div>Paweł Kuna</div>
                         <div class="mt-1 small text-muted">UI Designer</div>
                     </div>

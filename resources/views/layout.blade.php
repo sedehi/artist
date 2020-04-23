@@ -16,6 +16,7 @@
     <meta name="robots" content="noindex,nofollow,noarchive"/>
     <link href="{{asset('admin/css/tabler.min.css')}}" rel="stylesheet"/>
     <link href="{{asset('admin/css/all.min.css')}}" rel="stylesheet"/>
+    @stack('css')
 </head>
 <body class="antialiased">
 @include('artist::header')
@@ -33,5 +34,6 @@
 <script src="{{asset('admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Tabler Core -->
 <script src="{{asset('admin/js/tabler.min.js')}}"></script>
+@stack('js')
 </body>
 </html>
