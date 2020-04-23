@@ -15,7 +15,7 @@ class IndexController extends BaseController
             $section = null;
         }
 
-        $resourceFile = $this->getResource($resource,$section);
+        $resourceFile = $this->getResource($resource, $section);
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();

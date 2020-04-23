@@ -2,7 +2,6 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
-
 class CreateController extends BaseController
 {
     public function create($section = null, $resource = null)
@@ -18,7 +17,7 @@ class CreateController extends BaseController
         $formAction = action([self::class, 'store'], ['section' => $section, 'resource' => $resource]);
         $formMethod = 'post';
 
-        $resourceFile = $this->getResource($resource,$section);
+        $resourceFile = $this->getResource($resource, $section);
 
         $resource = new $resourceFile;
 

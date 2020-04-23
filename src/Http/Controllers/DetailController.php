@@ -15,7 +15,7 @@ class DetailController extends BaseController
             $section = null;
         }
 
-        $resourceFile = $this->getResource($resourceName,$section);
+        $resourceFile = $this->getResource($resourceName, $section);
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();
