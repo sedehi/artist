@@ -2,8 +2,6 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
-
 class DetailController extends BaseController
 {
     public function __invoke($section, $resourceName, $resourceId)
@@ -17,7 +15,7 @@ class DetailController extends BaseController
             $section = null;
         }
 
-        $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resourceName;
+        $resourceFile = $this->getResource($resourceName,$section);
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();

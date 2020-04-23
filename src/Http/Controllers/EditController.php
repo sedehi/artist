@@ -2,8 +2,6 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
-
 class EditController extends BaseController
 {
     public function edit($section, $resource, $resourceId)
@@ -19,7 +17,7 @@ class EditController extends BaseController
         $formAction = action([self::class, 'update'], ['section' => $section, 'resourceId' =>$resourceId, 'resource' => $resource]);
         $formMethod = 'PUT';
 
-        $resourceFile = app()->getNamespace().config('artist.resource_path').'\\'.$resource;
+        $resourceFile = $this->getResource($resource,$section);
 
         $resource = new $resourceFile;
         $query = $resource::$model::query();
