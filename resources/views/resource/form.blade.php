@@ -8,6 +8,7 @@
     @if (isset($updateMethod))
         @method($updateMethod)
     @endif
+    @csrf
     <div class="card-body">
 
         @foreach($resource->fieldsForCreate() as $field)
