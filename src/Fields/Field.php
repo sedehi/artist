@@ -9,6 +9,7 @@ class Field
 {
     use Visibility, ValidationRule;
 
+    protected $model;
     protected $label;
     protected $name;
     public $htmlAttributes = [];
@@ -16,6 +17,13 @@ class Field
     protected $defaultValue;
     protected $readOnly = false;
     protected $searchRules = null;
+    protected $defaultClass = 'form-control';
+
+    public function __construct()
+    {
+        $this->htmlAttributes['class'] = $this->defaultClass;
+        $this->htmlAttributes['type'] = $this->type;
+    }
 
     public function __call($method, $args)
     {
@@ -28,11 +36,25 @@ class Field
         return $this;
     }
 
-    public function render($model = null)
+    public function htmlAttribute($value)
+    {
+        $this->htmlAttributes = array_merge($this->htmlAttributes,$value);
+
+        return $this;
+    }
+
+    public function name($name)
+    {
+        $this->name = $name;
+        $this->htmlAttributes['id'] = $name;
+        $this->htmlAttributes['name'] = $name;
+        return $this;
+    }
+
+    public function render()
     {
         return view($this->viewPath, [
-            'data'  => $this,
-            'model' => $model,
+            'field' => $this
         ])->render();
     }
 
@@ -89,6 +111,43 @@ class Field
         if ($this->readOnly) {
             $this->htmlAttributes['disabled'] = true;
         }
+
+        return $this;
+    }
+
+    public function getHtmlAttribute($key = null)
+    {
+        if (is_null($key)) {
+            return $this->htmlAttributes;
+        }
+
+        if (isset($this->htmlAttributes[$key])) {
+            return $this->htmlAttributes[$key];
+        }
+
+        return null;
+    }
+
+    public function getLabel()
+    {
+        return isset($this->label) ? $this->label : trans('validation.attributes.'.$this->name);
+    }
+
+    public function value()
+    {
+        return optional($this->model)->{$this->name};
+    }
+
+    public function appendClass($value)
+    {
+        $this->htmlAttributes['class'] .= ' '.$value;
+
+        return $this;
+    }
+
+    public function model($model)
+    {
+        $this->model = $model;
 
         return $this;
     }

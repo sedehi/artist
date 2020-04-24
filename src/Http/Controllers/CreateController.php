@@ -31,7 +31,12 @@ class CreateController extends BaseController
     {
         $resourceClass = $this->getResource();
         $resource = new $resourceClass;
-        $resource::$model::create($request->all());
+
+        $fieldNames = array_map(function ($field) {
+            return $field->getName();
+        },$resource->fieldsForCreate());
+
+        $resource::$model::forceCreate($request->only($fieldNames));
 
         return redirect()->route('artist.resource.index', [
             $resourceClass::name(),

@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <h5 class="float-right">Title</h5>
                         <button type="button" class="btn btn-danger btn-delete float-left d-none"><i class="fas fa-trash"></i></button>
-                        <a class="btn btn-success float-left ml-1 text-white" href="{{ route('artist.resource.create',['resource'=> $resourceName]) }}"><i class="fas fa-plus"></i></a>
+                        <a class="btn btn-success float-left ml-1 text-white" href="{{ route('artist.resource.create',['resource'=> $resourceName,'section' => $section]) }}"><i class="fas fa-plus"></i></a>
                         <a class="btn btn-info float-left ml-1 text-white" data-toggle="collapse" href="#collapseSearch"><i class="fas fa-search"></i></a>
                     </div>
                 </div>
