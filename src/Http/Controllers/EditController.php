@@ -38,7 +38,7 @@ class EditController extends BaseController
 
         $fieldNames = array_map(function ($field) {
             return $field->getName();
-        },$resource->fieldsForUpdate());
+        }, $resource->fieldsForUpdate());
 
         $model->forceFill($request->only($fieldNames))->save();
 

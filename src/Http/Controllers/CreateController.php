@@ -34,7 +34,7 @@ class CreateController extends BaseController
 
         $fieldNames = array_map(function ($field) {
             return $field->getName();
-        },$resource->fieldsForCreate());
+        }, $resource->fieldsForCreate());
 
         $resource::$model::forceCreate($request->only($fieldNames));
 
