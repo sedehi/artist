@@ -12,6 +12,8 @@ class Field
     protected $model;
     protected $label;
     protected $name;
+    protected $value;
+    private $displayValue;
     public $htmlAttributes = [];
     protected $sortable = false;
     protected $defaultValue;
@@ -134,7 +136,14 @@ class Field
 
     public function value()
     {
-        return optional($this->model)->{$this->name};
+        $this->value = optional($this->model)->{$this->name};
+
+        return $this->value;
+    }
+
+    public function displayValue()
+    {
+        return $this->displayValue ?? $this->value;
     }
 
     public function appendClass($value)
@@ -147,6 +156,15 @@ class Field
     public function model($model)
     {
         $this->model = $model;
+
+        return $this;
+    }
+
+    public function displayUsing($callback)
+    {
+        if (!is_null($this->model)) {
+            $this->displayValue = call_user_func($callback,$this->model);
+        }
 
         return $this;
     }

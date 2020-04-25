@@ -17,7 +17,7 @@
                         @foreach($resource->fieldsForDetail() as $field)
                         <tr>
                             <td>{{$field->getLabel()}}</td>
-                            <td>{{ $item->{$field->getname()} }}</td>
+                            <td>{{ $field->displayValue() }}</td>
                         </tr>
                         @endforeach
                 </table>

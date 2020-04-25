@@ -14,6 +14,15 @@ class Resource
 
     public static $perPage = 15;
 
+    protected $resource;
+
+    public function resource($resource)
+    {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
     public function fields()
     {
         return [];
