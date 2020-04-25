@@ -18,9 +18,9 @@ class TestResource extends Resource
                 ->name('name')
                 ->label('Name :')
             ->htmlAttributes([
-                'disabled' => true
+                'disabled' => true,
             ]),
-            Text::make()->name('email')->label('Email :')
+            Text::make()->name('email')->label('Email :'),
         ];
     }
 }
