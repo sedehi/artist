@@ -20,6 +20,7 @@ class Field
     protected $readOnly = false;
     protected $searchRules = null;
     protected $defaultClass = 'form-control';
+    protected $displayUsing = null;
 
     public function __construct()
     {
@@ -143,7 +144,10 @@ class Field
 
     public function displayValue()
     {
-        return $this->displayValue ?? $this->value;
+        if ($this->model !== null && $this->displayUsing !== null) {
+            $this->displayValue = call_user_func($this->displayUsing, $this->model);
+        }
+        return $this->displayValue ?? $this->value();
     }
 
     public function appendClass($value)
@@ -162,9 +166,7 @@ class Field
 
     public function displayUsing($callback)
     {
-        if (! is_null($this->model)) {
-            $this->displayValue = call_user_func($callback, $this->model);
-        }
+        $this->displayUsing = $callback;
 
         return $this;
     }

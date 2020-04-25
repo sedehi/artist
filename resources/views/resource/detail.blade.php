@@ -8,7 +8,7 @@
                         <h4>header</h4>
                     </div>
                     <div class="col-md-1">
-                        <a href="{{action([\Sedehi\Artist\Http\Controllers\EditController::class,'edit'],['section' => $section,'resource' => $resourceName,$resourceId => $resourceId])}}" class="btn btn-md btn-info text-white">Edit</a>
+                        <a href="{{route('artist.resource.edit',['section' => $section,'resource' => $resourceName,$resourceId => $resourceId])}}" class="btn btn-md btn-info text-white">Edit</a>
                     </div>
                 </div>
             </div>

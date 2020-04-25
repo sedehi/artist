@@ -37,9 +37,11 @@ class Resource
 
     public function fieldsForDetail()
     {
-        return array_filter($this->fields(), function ($item) {
+        return array_map(function($value){
+             return $value->model($this->resource);
+        },array_filter($this->fields(), function ($item) {
             return $item->getShowOnDetail();
-        });
+        }));
     }
 
     public function fieldsForCreate()
