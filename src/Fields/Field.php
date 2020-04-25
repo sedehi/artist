@@ -38,7 +38,7 @@ class Field
 
     public function htmlAttribute($value)
     {
-        $this->htmlAttributes = array_merge($this->htmlAttributes,$value);
+        $this->htmlAttributes = array_merge($this->htmlAttributes, $value);
 
         return $this;
     }
@@ -48,13 +48,14 @@ class Field
         $this->name = $name;
         $this->htmlAttributes['id'] = $name;
         $this->htmlAttributes['name'] = $name;
+
         return $this;
     }
 
     public function render()
     {
         return view($this->viewPath, [
-            'field' => $this
+            'field' => $this,
         ])->render();
     }
 
@@ -124,8 +125,6 @@ class Field
         if (isset($this->htmlAttributes[$key])) {
             return $this->htmlAttributes[$key];
         }
-
-        return null;
     }
 
     public function getLabel()
