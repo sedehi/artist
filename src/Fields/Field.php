@@ -147,6 +147,7 @@ class Field
         if ($this->model !== null && $this->displayUsing !== null) {
             $this->displayValue = call_user_func($this->displayUsing, $this->model);
         }
+
         return $this->displayValue ?? $this->value();
     }
 
