@@ -7,7 +7,7 @@ trait Resource
     public function getResource($resource = null, $section = null)
     {
         if ($resource == null && $section == null) {
-            $section = request()->route()->parameter('section');
+            $section = request()->query('section');
             $resource = request()->route()->parameter('resource');
         }
 

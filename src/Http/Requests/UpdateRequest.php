@@ -4,7 +4,7 @@ namespace Sedehi\Artist\Http\Requests;
 
 use Sedehi\Artist\Traits\Resource;
 
-class CreateRequest extends ArtistRequest
+class UpdateRequest extends ArtistRequest
 {
     use Resource;
 
@@ -18,7 +18,7 @@ class CreateRequest extends ArtistRequest
         $resourceClass = $this->getResource();
 
         return $this->getRules(
-            (new $resourceClass)->fieldsForCreate()
+            (new $resourceClass)->fieldsForUpdate()
         );
     }
 }

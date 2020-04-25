@@ -34,9 +34,4 @@ class ArtistRequest extends FormRequest
 
         return $rules;
     }
-
-    public function failedValidation()
-    {
-
-    }
 }

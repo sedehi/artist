@@ -1,29 +1,26 @@
-<label class="col-md-3 col-form-label" for="{{$data->getName()}}">
-    @if (!is_null($data->getLabel()))
-        {{ $data->getLabel() }}
-    @else
-        @lang('validation.attributes.'.$data->getName())
-    @endif
+@error($field->getName())
+    @php $field->appendClass('is-invalid') @endphp
+@enderror
+<label class="col-md-3 col-form-label" for="{{ $field->getHtmlAttribute('id') }}">
+    {{ $field->getLabel() }}
 </label>
 <div class="col-md-9">
-    <input class="form-control"
-            type="text"
-            name="{{ $data->getName() }}"
-            @if (\Illuminate\Support\Arr::has($data->getHtmlAttributes(),'id'))
-                id="{{ $data->getHtmlAttributes()['id'] }}"
-                @php unset($data->htmlAttributes['id']) @endphp
+    <input
+        @foreach ($field->getHtmlAttributes() as $attrKey => $attrValue)
+            @if ($attrKey === 'disabled')
+                disabled
             @else
-                id="{{$data->getName()}}"
+                {{ $attrKey }}="{{ $attrValue }}"
             @endif
-            @foreach ($data->getHtmlAttributes() as $attrKey => $attrValue)
-                @if ($attrKey === 'disabled')
-                    disabled
-                @else
-                    "{{ $attrKey }}"="{{ $attrValue }}"
-                @endif
-            @endforeach
+        @endforeach
+        value="{{ old($field->getName(),$field->value()) }}"
     >
-    @if (isset($data->help))
-        <span class="help-block">{!! $data->getHelp() !!}</span>
+    @if (isset($field->help))
+        <span class="help-block">{!! $field->getHelp() !!}</span>
     @endif
+    @error($field->getName())
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+    @enderror
 </div>
