@@ -2,6 +2,8 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
+use Sedehi\Artist\Http\Requests\CreateRequest;
+
 class CreateController extends BaseController
 {
     public function create($resource = null)
@@ -25,7 +27,20 @@ class CreateController extends BaseController
         return view($resource::$createView, compact('section', 'resource', 'formAction', 'formMethod'));
     }
 
-    public function store()
+    public function store(CreateRequest $request)
     {
+        $resourceClass = $this->getResource();
+        $resource = new $resourceClass;
+
+        $fieldNames = array_map(function ($field) {
+            return $field->getName();
+        }, $resource->fieldsForCreate());
+
+        $resource::$model::forceCreate($request->only($fieldNames));
+
+        return redirect()->route('artist.resource.index', [
+            $resourceClass::name(),
+            'section' => $request->get('section'),
+        ]);
     }
 }

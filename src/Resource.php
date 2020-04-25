@@ -53,4 +53,9 @@ class Resource
             return $item->getSearchRules();
         });
     }
+
+    public static function name()
+    {
+        return class_basename(get_called_class());
+    }
 }

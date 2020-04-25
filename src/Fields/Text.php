@@ -5,6 +5,7 @@ namespace Sedehi\Artist\Fields;
 class Text extends Field
 {
     protected $viewPath = 'artist::fields.text';
+    public $type = 'text';
 
     public static function make()
     {
