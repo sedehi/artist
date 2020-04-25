@@ -84,8 +84,14 @@ class FieldTest extends ArtistTestCase
     /**
      * @test
      */
-    public function html_disabled_attribute()
+    /*public function html_disabled_attribute()
     {
+        $response = $this->get(route('artist.resource.create',[
+            'TestResource'
+        ]));
+
+        dd($response->assertSee('disabled'));
+
         $field = Text::make()
             ->name('name')
             ->readOnly();
@@ -101,5 +107,5 @@ class FieldTest extends ArtistTestCase
 
         $this->assertArrayHasKey('disabled', $field->getHtmlAttributes());
         $this->assertStringContainsString('disabled', $field->render());
-    }
+    }*/
 }
