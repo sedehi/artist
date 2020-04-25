@@ -162,8 +162,8 @@ class Field
 
     public function displayUsing($callback)
     {
-        if (!is_null($this->model)) {
-            $this->displayValue = call_user_func($callback,$this->model);
+        if (! is_null($this->model)) {
+            $this->displayValue = call_user_func($callback, $this->model);
         }
 
         return $this;
