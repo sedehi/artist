@@ -9,4 +9,5 @@ Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespa
     Route::get('edit/{resource?}/{resourceId}', 'EditController@edit')->name('artist.resource.edit');
     Route::match(['PUT', 'PATCH'], 'edit/{resource?}/{resourceId}', 'EditController@update')->name('artist.resource.update');
     Route::get('detail/{resource?}/{resourceId}', 'DetailController')->name('artist.resource.detail');
+    Route::delete('destroy/{resource?}', 'DestroyController')->name('artist.resource.destroy');
 });
