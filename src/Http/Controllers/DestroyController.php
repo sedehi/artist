@@ -6,7 +6,7 @@ use Sedehi\Artist\Http\Requests\DestroyRequest;
 
 class DestroyController extends BaseController
 {
-    public function __invoke(DestroyRequest $request,$resourceName)
+    public function __invoke(DestroyRequest $request, $resourceName)
     {
         $section = request()->query('section');
         if ($section == null && $resourceName == null) {
@@ -22,11 +22,11 @@ class DestroyController extends BaseController
 
         $resource = new $resourceFile;
 
-        $resource::$model::whereIn('id',$request->only('id'))->get()->each->delete();
+        $resource::$model::whereIn('id', $request->only('id'))->get()->each->delete();
 
-        return redirect()->route('artist.resource.index',[
+        return redirect()->route('artist.resource.index', [
             'resource'  => $resourceName,
-            'section'   => $section
+            'section'   => $section,
         ]);
     }
 }

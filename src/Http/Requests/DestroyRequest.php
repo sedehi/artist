@@ -12,7 +12,7 @@ class DestroyRequest extends ArtistRequest
     public function rules()
     {
         return [
-            'id'    =>  'required|array|min:1'
+            'id'    =>  'required|array|min:1',
         ];
     }
 }
