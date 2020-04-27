@@ -30,9 +30,11 @@ class Resource
 
     public function fieldsForIndex()
     {
-        return array_filter($this->fields(), function ($item) {
+        return array_map(function ($value) {
+            return $value->model($this->resource);
+        }, array_filter($this->fields(), function ($item) {
             return $item->getShowOnIndex();
-        });
+        }));
     }
 
     public function fieldsForDetail()
@@ -53,9 +55,11 @@ class Resource
 
     public function fieldsForUpdate()
     {
-        return array_filter($this->fields(), function ($item) {
+        return array_map(function ($value) {
+            return $value->model($this->resource);
+        }, array_filter($this->fields(), function ($item) {
             return $item->getShowOnUpdate();
-        });
+        }));
     }
 
     public function fieldsForSearch()

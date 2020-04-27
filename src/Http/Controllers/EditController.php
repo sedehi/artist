@@ -17,7 +17,7 @@ class EditController extends BaseController
             $resource = $section;
             $section = null;
         }
-        $formAction = action('artist.resource.update', ['section' => $section, 'resourceId' =>$resourceId, 'resource' => $resource]);
+        $formAction = route('artist.resource.update', ['section' => $section, 'resourceId' =>$resourceId, 'resource' => $resource]);
         $formMethod = 'PUT';
 
         $resourceFile = $this->getResource($resource, $section);
@@ -26,7 +26,9 @@ class EditController extends BaseController
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
 
-        return view($resource::$editView, compact('section', 'resource', 'formAction', 'formMethod', 'item'));
+        $fields = $resource->fieldsForUpdate();
+
+        return view($resource::$editView, compact('section', 'fields', 'formAction', 'formMethod', 'item'));
     }
 
     public function update($resource, $resourceId, UpdateRequest $request)
