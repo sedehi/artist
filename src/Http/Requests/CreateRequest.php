@@ -17,8 +17,15 @@ class CreateRequest extends ArtistRequest
     {
         $resourceClass = $this->getResource();
 
-        return $this->getRules(
-            (new $resourceClass)->fieldsForCreate()
-        );
+        $rules = [];
+
+        $fields = (new $resourceClass)->fieldsForCreate();
+
+        foreach ($fields as $field) {
+            $fieldRules = $field->getCreationRules();
+            $rules[$field->getName()] = $fieldRules;
+        }
+
+        return $rules;
     }
 }

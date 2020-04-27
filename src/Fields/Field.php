@@ -12,12 +12,15 @@ class Field
     protected $model;
     protected $label;
     protected $name;
+    protected $value;
+    private $displayValue;
     public $htmlAttributes = [];
     protected $sortable = false;
     protected $defaultValue;
     protected $readOnly = false;
     protected $searchRules = null;
     protected $defaultClass = 'form-control';
+    protected $displayUsing = null;
 
     public function __construct()
     {
@@ -134,7 +137,18 @@ class Field
 
     public function value()
     {
-        return optional($this->model)->{$this->name};
+        $this->value = optional($this->model)->{$this->name};
+
+        return $this->value;
+    }
+
+    public function displayValue()
+    {
+        if ($this->model !== null && $this->displayUsing !== null) {
+            $this->displayValue = call_user_func($this->displayUsing, $this->model);
+        }
+
+        return $this->displayValue ?? $this->value();
     }
 
     public function appendClass($value)
@@ -147,6 +161,13 @@ class Field
     public function model($model)
     {
         $this->model = $model;
+
+        return $this;
+    }
+
+    public function displayUsing($callback)
+    {
+        $this->displayUsing = $callback;
 
         return $this;
     }

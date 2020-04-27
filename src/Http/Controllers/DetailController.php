@@ -19,8 +19,11 @@ class DetailController extends BaseController
         $resourceFile = $this->getResource($resourceName, $section);
 
         $resource = new $resourceFile;
+
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
+
+        $resource->resource($item);
 
         return view($resource::$detailView, compact('section', 'resource', 'item', 'resourceName', 'resourceId'));
     }
