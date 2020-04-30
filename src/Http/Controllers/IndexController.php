@@ -10,7 +10,6 @@ class IndexController extends BaseController
         if ($section == null && $resource == null) {
             abort(404);
         }
-
         if ($resource == null) {
             $resource = $section;
             $section = null;

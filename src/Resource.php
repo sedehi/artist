@@ -2,6 +2,9 @@
 
 namespace Sedehi\Artist;
 
+use Sedehi\Artist\Fields\Field;
+use Sedehi\Artist\Fields\Panel;
+
 class Resource
 {
     public static $indexView = 'artist::resource.index';
@@ -48,9 +51,22 @@ class Resource
 
     public function fieldsForCreate()
     {
-        return array_filter($this->fields(), function ($item) {
-            return $item->getShowOnCreate();
-        });
+        $defFields = [];
+        $panels = [];
+        foreach ($this->fields() as $field) {
+            if ($field instanceof Field && $field->getShowOnCreate()) {
+                array_push($defFields, $field);
+            }
+            if ($field instanceof Panel) {
+                array_push($panels, $field);
+            }
+        }
+        $panels[] = new Panel('def', $defFields);
+
+        return $panels;
+//        return array_filter($this->fields(), function ($item) {
+//            return
+//        });
     }
 
     public function fieldsForUpdate()
