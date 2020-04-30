@@ -53,15 +53,16 @@ class Resource
     {
         $defFields = [];
         $panels = [];
-        foreach ($this->fields() as $field){
-            if($field instanceof Field && $field->getShowOnCreate()){
-                array_push($defFields,$field);
+        foreach ($this->fields() as $field) {
+            if ($field instanceof Field && $field->getShowOnCreate()) {
+                array_push($defFields, $field);
             }
-            if($field instanceof Panel){
-                array_push($panels,$field);
+            if ($field instanceof Panel) {
+                array_push($panels, $field);
             }
         }
-        $panels[] = new Panel('def',$defFields);
+        $panels[] = new Panel('def', $defFields);
+
         return $panels;
 //        return array_filter($this->fields(), function ($item) {
 //            return

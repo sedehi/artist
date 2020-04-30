@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sedehi\Artist\Fields;
-
 
 use Illuminate\Support\Str;
 
@@ -13,11 +11,11 @@ class Panel
     protected $name;
     public $type = 'panel';
 
-    public function __construct($label,array $fields,$name=null)
+    public function __construct($label, array $fields, $name = null)
     {
         $this->label = $label;
         $this->fields = $fields;
-        if($name === null){
+        if ($name === null) {
             $this->name = Str::slug($label);
         }
     }
@@ -39,7 +37,6 @@ class Panel
 
     public function model($model)
     {
-
     }
 
     public function getLabel()
