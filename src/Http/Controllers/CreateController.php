@@ -25,7 +25,7 @@ class CreateController extends BaseController
         $resource = new $resourceFile;
 
         $fields = $resource->fieldsForCreate();
-
+dd($fields);
         return view($resource::$createView, compact('section', 'fields', 'formAction', 'formMethod'));
     }
 

@@ -5,7 +5,7 @@ namespace Sedehi\Artist\Fields;
 use Sedehi\Artist\Traits\ValidationRule;
 use Sedehi\Artist\Traits\Visibility;
 
-class Field
+class Field extends Element
 {
     use Visibility, ValidationRule;
 
