@@ -2,6 +2,7 @@
 
 namespace Sedehi\Artist\Tests\Unit\Fields;
 
+use Sedehi\Artist\Fields\Hidden;
 use Sedehi\Artist\Fields\Text;
 use Sedehi\Artist\Tests\ArtistTestCase;
 
@@ -79,6 +80,20 @@ class FieldTest extends ArtistTestCase
 
         $this->assertFalse($field->getReadOnly());
         $this->assertArrayNotHasKey('disabled', $field->getHtmlAttributes());
+    }
+
+    /**
+     * @test
+     */
+    public function html_field_type()
+    {
+        $field = Text::make()->name('name');
+
+        $this->assertEquals('text', $field->type);
+
+        $field = Hidden::make()->name('name');
+
+        $this->assertEquals('hidden', $field->type);
     }
 
     /**
