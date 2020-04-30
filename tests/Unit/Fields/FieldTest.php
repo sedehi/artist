@@ -89,11 +89,11 @@ class FieldTest extends ArtistTestCase
     {
         $field = Text::make()->name('name');
 
-        $this->assertEquals('text',$field->type);
+        $this->assertEquals('text', $field->type);
 
         $field = Hidden::make()->name('name');
 
-        $this->assertEquals('hidden',$field->type);
+        $this->assertEquals('hidden', $field->type);
     }
 
     /**
