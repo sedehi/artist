@@ -15,16 +15,19 @@
         @foreach($panels as $panel)
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header"><strong>Basic Form</strong> Elements</div>
+                    <div class="card-header"><strong>{{$panel->getLabel()}}</strong></div>
                     @include('artist::resource.form',['fields' => $panel->getFields()])
                 </div>
+                @if($loop->iteration == 1)
+                    <div class="card-footer">
+                        <button class="btn btn-md btn-primary" type="submit">Create</button>
+                        <button class="btn btn-md btn-primary" type="submit">Create and Add Another</button>
+                        <button class="btn btn-md btn-danger" type="reset"> Reset</button>
+                    </div>
+                @endif
             </div>
         @endforeach
 
-        <div class="card-footer">
-            <button class="btn btn-md btn-primary" type="submit">Create</button>
-            <button class="btn btn-md btn-primary" type="submit">Create and Add Another</button>
-            <button class="btn btn-md btn-danger" type="reset"> Reset</button>
-        </div>
+
     </form>
 @endsection
