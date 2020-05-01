@@ -3,9 +3,12 @@
 namespace Sedehi\Artist\Fields;
 
 use Illuminate\Support\Str;
+use Sedehi\Artist\Traits\Visibility;
 
 class Panel
 {
+    use Visibility;
+
     protected $label;
     protected $fields;
     protected $name;
@@ -23,6 +26,13 @@ class Panel
     public function fields(array $fields)
     {
         $this->fields = $fields;
+    }
+
+    public function fieldsForIndex()
+    {
+        return array_filter($this->fields, function ($field) {
+            return $field->getShowOnIndex();
+        });
     }
 
     public function fieldsForCreate()

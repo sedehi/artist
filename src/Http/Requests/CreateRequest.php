@@ -2,11 +2,12 @@
 
 namespace Sedehi\Artist\Http\Requests;
 
+use Sedehi\Artist\Traits\FilterFields;
 use Sedehi\Artist\Traits\Resource;
 
 class CreateRequest extends ArtistRequest
 {
-    use Resource;
+    use Resource, FilterFields;
 
     /**
      * Get the validation rules that apply to the request.
@@ -19,7 +20,9 @@ class CreateRequest extends ArtistRequest
 
         $rules = [];
 
-        $fields = (new $resourceClass)->fieldsForCreate();
+        $fields = $this->getFieldsForCreate(
+            (new $resourceClass)->fieldsForCreate()
+        );
 
         foreach ($fields as $field) {
             $fieldRules = $field->getCreationRules();

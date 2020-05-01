@@ -3,7 +3,6 @@
 namespace Sedehi\Artist;
 
 use Sedehi\Artist\Fields\Field;
-use Sedehi\Artist\Fields\Panel;
 
 class Resource
 {
@@ -51,45 +50,9 @@ class Resource
 
     public function fieldsForCreate()
     {
-        $fields = array_filter($this->fields(), function ($field) {
-            return $field instanceof Field && $field->getShowOnCreate();
+        return array_filter($this->fields(), function ($item) {
+            return $item->getShowOnCreate();
         });
-
-        $panels = array_filter($this->fields(), function ($field) {
-            return $field instanceof Panel;
-        });
-
-        foreach ($panels as $panel) {
-            foreach ($panel->fieldsForCreate() as $field) {
-                $fields[] = $field;
-            }
-        }
-
-        return $fields;
-    }
-
-    public function panelsForCreate()
-    {
-        // make default panel
-        $defaultPanelFields = array_filter($this->fields(), function ($field) {
-            return $field instanceof Field && $field->getShowOnCreate();
-        });
-
-        $panels[] = new Panel('default', $defaultPanelFields);
-
-        // make other panels
-        $otherPanels = array_filter($this->fields(), function ($field) {
-            return $field instanceof Panel;
-        });
-
-        foreach ($otherPanels as $panel) {
-            $panels[] = new Panel(
-                $panel->getLabel(),
-                $panel->fieldsForCreate()
-            );
-        }
-
-        return $panels;
     }
 
     public function fieldsForUpdate()
@@ -104,7 +67,7 @@ class Resource
     public function fieldsForSearch()
     {
         return array_filter($this->fields(), function ($item) {
-            return $item->getSearchRules();
+            return $item instanceof Field && $item->getSearchRules();
         });
     }
 

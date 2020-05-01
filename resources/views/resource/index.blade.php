@@ -27,7 +27,7 @@
                                 <input class="form-check-input position-static" type="checkbox" id="check-all" value="1">
                             </div>
                         </th>
-                        @foreach($resource->fieldsForIndex() as $field)
+                        @foreach($fields as $field)
                             <th>{{$field->getLabel()}}
                                 @if($field->getSortable())
                                     @if($field->canSort())
