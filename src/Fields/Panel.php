@@ -25,6 +25,13 @@ class Panel
         $this->fields = $fields;
     }
 
+    public function fieldsForCreate()
+    {
+        return array_filter($this->fields, function ($field) {
+            return $field->getShowOnCreate();
+        });
+    }
+
     public function name($fields)
     {
         $this->fields = $fields;
@@ -42,5 +49,10 @@ class Panel
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }

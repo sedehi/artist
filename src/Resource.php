@@ -51,22 +51,45 @@ class Resource
 
     public function fieldsForCreate()
     {
-        $defFields = [];
-        $panels = [];
-        foreach ($this->fields() as $field) {
-            if ($field instanceof Field && $field->getShowOnCreate()) {
-                array_push($defFields, $field);
-            }
-            if ($field instanceof Panel) {
-                array_push($panels, $field);
+        $fields = array_filter($this->fields(), function ($field) {
+            return $field instanceof Field && $field->getShowOnCreate();
+        });
+
+        $panels = array_filter($this->fields(), function ($field) {
+            return $field instanceof Panel;
+        });
+
+        foreach ($panels as $panel) {
+            foreach ($panel->fieldsForCreate() as $field) {
+                $fields[] = $field;
             }
         }
-        $panels[] = new Panel('def', $defFields);
+
+        return $fields;
+    }
+
+    public function panelsForCreate()
+    {
+        // make default panel
+        $defaultPanelFields = array_filter($this->fields(), function ($field) {
+            return $field instanceof Field && $field->getShowOnCreate();
+        });
+
+        $panels[] = new Panel('default', $defaultPanelFields);
+
+        // make other panels
+        $otherPanels = array_filter($this->fields(), function ($field) {
+            return $field instanceof Panel;
+        });
+
+        foreach ($otherPanels as $panel) {
+            $panels[] = new Panel(
+                $panel->getLabel(),
+                $panel->fieldsForCreate()
+            );
+        }
 
         return $panels;
-//        return array_filter($this->fields(), function ($item) {
-//            return
-//        });
     }
 
     public function fieldsForUpdate()
