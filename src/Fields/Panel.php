@@ -42,6 +42,13 @@ class Panel
         });
     }
 
+    public function fieldsForUpdate()
+    {
+        return array_filter($this->fields, function ($field) {
+            return $field->getShowOnUpdate();
+        });
+    }
+
     public function name($fields)
     {
         $this->fields = $fields;

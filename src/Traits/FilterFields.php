@@ -9,41 +9,44 @@ trait FilterFields
 {
     public function getFieldsForIndex($elements)
     {
-        $fields = [];
-        $panels = [];
-
-        foreach ($elements as $element) {
-            if ($element instanceof Field && $element->getShowOnIndex()) {
-                $fields[] = $element;
-            } elseif ($element instanceof Panel && $element->getShowOnIndex()) {
-                $panels[] = $element;
-            }
-        }
-
-        foreach ($panels as $panel) {
-            foreach ($panel->fieldsForIndex() as $field) {
-                $fields[] = $field;
-            }
-        }
-
-        return $fields;
+        return $this->getFieldsFor($elements,'getShowOnIndex','fieldsForIndex');
     }
 
     public function getFieldsForCreate($elements)
     {
+        return $this->getFieldsFor($elements,'getShowOnCreate','fieldsForCreate');
+    }
+
+    public function getPanelsForCreate($elements)
+    {
+        return $this->getPanelsFor($elements,'getShowOnCreate','fieldsForCreate');
+    }
+
+    public function getFieldsForUpdate($elements)
+    {
+        return $this->getFieldsFor($elements,'getShowOnUpdate','fieldsForUpdate');
+    }
+
+    public function getPanelsForUpdate($elements, $model = null)
+    {
+        return $this->getPanelsFor($elements,'getShowOnUpdate','fieldsForUpdate',$model);
+    }
+
+    private function getFieldsFor($elements, $fieldVisibilityMethod, $panelVisibilityMethod)
+    {
         $fields = [];
         $panels = [];
 
         foreach ($elements as $element) {
-            if ($element instanceof Field && $element->getShowOnCreate()) {
+            if ($element instanceof Field && $element->{$fieldVisibilityMethod}()) {
                 $fields[] = $element;
-            } elseif ($element instanceof Panel && $element->getShowOnCreate()) {
+            } elseif ($element instanceof Panel && $element->{$fieldVisibilityMethod}()) {
                 $panels[] = $element;
             }
         }
 
         foreach ($panels as $panel) {
-            foreach ($panel->fieldsForCreate() as $field) {
+            foreach ($panel->{$panelVisibilityMethod}() as $field) {
                 $fields[] = $field;
             }
         }
@@ -51,11 +54,11 @@ trait FilterFields
         return $fields;
     }
 
-    public function getPanelsForCreate($elements)
+    private function getPanelsFor($elements, $fieldVisibilityMethod, $panelVisibilityMethod, $model = null)
     {
         // make default panel
-        $defaultPanelFields = array_filter($elements, function ($element) {
-            return $element instanceof Field && $element->getShowOnCreate();
+        $defaultPanelFields = array_filter($elements, function ($element) use ($fieldVisibilityMethod) {
+            return $element instanceof Field && $element->{$fieldVisibilityMethod}();
         });
 
         $panels[] = new Panel('default', $defaultPanelFields);
@@ -68,8 +71,17 @@ trait FilterFields
         foreach ($otherPanels as $panel) {
             $panels[] = new Panel(
                 $panel->getLabel(),
-                $panel->fieldsForCreate()
+                $panel->{$panelVisibilityMethod}()
             );
+        }
+
+        // set model on fields
+        if ($model !== null) {
+            foreach ($panels as $panel) {
+                foreach ($panel->getFields() as $field) {
+                    $field->model($model);
+                }
+            }
         }
 
         return $panels;

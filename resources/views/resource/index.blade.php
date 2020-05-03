@@ -52,8 +52,8 @@
                                     <input class="form-check-input position-static delete-item" type="checkbox" value="1">
                                 </div>
                             </td>
-                            @foreach($resource->fieldsForIndex() as $field)
-                                <td>{{ $item->{$field->getname()} }}</td>
+                            @foreach($fields as $field)
+                                <td>{{ $field->model($item)->displayValue() }}</td>
                             @endforeach
                         </tr>
                     @endforeach

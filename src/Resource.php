@@ -32,20 +32,16 @@ class Resource
 
     public function fieldsForIndex()
     {
-        return array_map(function ($value) {
-            return $value->model($this->resource);
-        }, array_filter($this->fields(), function ($item) {
+        return array_filter($this->fields(), function ($item) {
             return $item->getShowOnIndex();
-        }));
+        });
     }
 
     public function fieldsForDetail()
     {
-        return array_map(function ($value) {
-            return $value->model($this->resource);
-        }, array_filter($this->fields(), function ($item) {
+        return array_filter($this->fields(), function ($item) {
             return $item->getShowOnDetail();
-        }));
+        });
     }
 
     public function fieldsForCreate()
@@ -57,11 +53,9 @@ class Resource
 
     public function fieldsForUpdate()
     {
-        return array_map(function ($value) {
-            return $value->model($this->resource);
-        }, array_filter($this->fields(), function ($item) {
+        return array_filter($this->fields(), function ($item) {
             return $item->getShowOnUpdate();
-        }));
+        });
     }
 
     public function fieldsForSearch()
