@@ -9,27 +9,27 @@ trait FilterFields
 {
     public function getFieldsForIndex($elements)
     {
-        return $this->getFieldsFor($elements,'getShowOnIndex','fieldsForIndex');
+        return $this->getFieldsFor($elements, 'getShowOnIndex', 'fieldsForIndex');
     }
 
     public function getFieldsForCreate($elements)
     {
-        return $this->getFieldsFor($elements,'getShowOnCreate','fieldsForCreate');
+        return $this->getFieldsFor($elements, 'getShowOnCreate', 'fieldsForCreate');
     }
 
     public function getPanelsForCreate($elements)
     {
-        return $this->getPanelsFor($elements,'getShowOnCreate','fieldsForCreate');
+        return $this->getPanelsFor($elements, 'getShowOnCreate', 'fieldsForCreate');
     }
 
     public function getFieldsForUpdate($elements)
     {
-        return $this->getFieldsFor($elements,'getShowOnUpdate','fieldsForUpdate');
+        return $this->getFieldsFor($elements, 'getShowOnUpdate', 'fieldsForUpdate');
     }
 
     public function getPanelsForUpdate($elements, $model = null)
     {
-        return $this->getPanelsFor($elements,'getShowOnUpdate','fieldsForUpdate',$model);
+        return $this->getPanelsFor($elements, 'getShowOnUpdate', 'fieldsForUpdate', $model);
     }
 
     private function getFieldsFor($elements, $fieldVisibilityMethod, $panelVisibilityMethod)

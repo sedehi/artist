@@ -26,7 +26,7 @@ class EditController extends BaseController
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
 
-        $panels = $this->getPanelsForUpdate($resource->fieldsForUpdate(),$item);
+        $panels = $this->getPanelsForUpdate($resource->fieldsForUpdate(), $item);
 
         return view($resource::$editView, compact('section', 'panels', 'formAction', 'formMethod', 'item'));
     }
