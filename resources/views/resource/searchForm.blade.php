@@ -3,7 +3,7 @@
         <div class="row">
             @foreach($resource->fieldsForSearch() as $field)
                 <div class="form-group col-md-4">
-                    {!! $field !!}
+{{--                    {!! $field !!}--}}
                 </div>
             @endforeach
         </div>
