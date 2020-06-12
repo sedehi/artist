@@ -17,6 +17,11 @@ trait FilterFields
         return $this->getFieldsFor($elements, 'getShowOnCreate', 'fieldsForCreate');
     }
 
+    public function getFieldsForDetail($elements)
+    {
+        return $this->getFieldsFor($elements, 'getShowOnDetail', 'fieldsForDetail');
+    }
+
     public function getPanelsForCreate($elements)
     {
         return $this->getPanelsFor($elements, 'getShowOnCreate', 'fieldsForCreate');
