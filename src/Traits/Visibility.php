@@ -9,6 +9,26 @@ trait Visibility
     protected $showOnCreate = true;
     protected $showOnUpdate = true;
 
+    public function getShowOnIndex()
+    {
+        return $this->showOnIndex;
+    }
+
+    public function getShowOnDetail()
+    {
+        return $this->showOnDetail;
+    }
+
+    public function getShowOnCreate()
+    {
+        return $this->showOnCreate;
+    }
+
+    public function getShowOnUpdate()
+    {
+        return $this->showOnUpdate;
+    }
+
     public function onlyOnIndex()
     {
         $this->showOnIndex = true;

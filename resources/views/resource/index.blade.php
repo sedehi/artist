@@ -27,7 +27,7 @@
                                 <input class="form-check-input position-static" type="checkbox" id="check-all" value="1">
                             </div>
                         </th>
-                        @foreach($resource->fieldsForIndex() as $field)
+                        @foreach($fields as $field)
                             <th>{{$field->getLabel()}}
                                 @if($field->getSortable())
                                     @if($field->canSort())
@@ -52,8 +52,8 @@
                                     <input class="form-check-input position-static delete-item" type="checkbox" value="1">
                                 </div>
                             </td>
-                            @foreach($resource->fieldsForIndex() as $field)
-                                <td>{{ $item->{$field->getname()} }}</td>
+                            @foreach($fields as $field)
+                                <td>{{ $field->model($item)->displayValue() }}</td>
                             @endforeach
                         </tr>
                     @endforeach

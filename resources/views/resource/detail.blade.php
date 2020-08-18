@@ -20,12 +20,9 @@
             </div>
             <div class="card-body">
                 <table class="table table-responsive-sm table-bordered">
-                        @foreach($resource->fieldsForDetail() as $field)
-                        <tr>
-                            <td>{{$field->getLabel()}}</td>
-                            <td>{{ $field->displayValue() }}</td>
-                        </tr>
-                        @endforeach
+                    @foreach($fields as $field)
+                        <td>{{ $field->model($item)->displayValue() }}</td>
+                    @endforeach
                 </table>
             </div>
         </div>

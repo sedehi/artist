@@ -10,7 +10,6 @@ class IndexController extends BaseController
         if ($section == null && $resource == null) {
             abort(404);
         }
-
         if ($resource == null) {
             $resource = $section;
             $section = null;
@@ -22,6 +21,8 @@ class IndexController extends BaseController
         $query = $resource::$model::query();
         $items = $query->paginate($resource::$perPage);
 
-        return view($resource::$indexView, compact('section', 'resource', 'items', 'resourceName'));
+        $fields = $this->getFieldsForIndex($resource->fieldsForIndex());
+
+        return view($resource::$indexView, compact('section', 'resource', 'fields', 'items', 'resourceName'));
     }
 }

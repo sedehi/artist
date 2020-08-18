@@ -24,9 +24,9 @@ class CreateController extends BaseController
 
         $resource = new $resourceFile;
 
-        $fields = $resource->fieldsForCreate();
+        $panels = $this->getPanelsForCreate($resource->fieldsForCreate());
 
-        return view($resource::$createView, compact('section', 'fields', 'formAction', 'formMethod'));
+        return view($resource::$createView, compact('section', 'panels', 'formAction', 'formMethod'));
     }
 
     public function store(CreateRequest $request)
@@ -34,9 +34,11 @@ class CreateController extends BaseController
         $resourceClass = $this->getResource();
         $resource = new $resourceClass;
 
+        $fields = $this->getFieldsForCreate($resource->fieldsForCreate());
+
         $fieldNames = array_map(function ($field) {
             return $field->getName();
-        }, $resource->fieldsForCreate());
+        }, $fields);
 
         $resource::$model::forceCreate($request->only($fieldNames));
 

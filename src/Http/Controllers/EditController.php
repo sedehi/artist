@@ -26,9 +26,9 @@ class EditController extends BaseController
         $query = $resource::$model::query();
         $item = $query->findOrFail($resourceId);
 
-        $fields = $resource->fieldsForUpdate();
+        $panels = $this->getPanelsForUpdate($resource->fieldsForUpdate(), $item);
 
-        return view($resource::$editView, compact('section', 'fields', 'formAction', 'formMethod', 'item'));
+        return view($resource::$editView, compact('section', 'panels', 'formAction', 'formMethod', 'item'));
     }
 
     public function update($resource, $resourceId, UpdateRequest $request)
@@ -38,9 +38,11 @@ class EditController extends BaseController
         $resource = new $resourceClass;
         $model = $resource::$model::findOrFail($resourceId);
 
+        $fields = $this->getFieldsForUpdate($resource->fieldsForUpdate());
+
         $fieldNames = array_map(function ($field) {
             return $field->getName();
-        }, $resource->fieldsForUpdate());
+        }, $fields);
 
         $model->forceFill($request->only($fieldNames))->save();
 

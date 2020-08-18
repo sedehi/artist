@@ -3,11 +3,12 @@
 namespace Sedehi\Artist\Http\Requests;
 
 use Illuminate\Support\Str;
+use Sedehi\Artist\Traits\FilterFields;
 use Sedehi\Artist\Traits\Resource;
 
 class UpdateRequest extends ArtistRequest
 {
-    use Resource;
+    use Resource, FilterFields;
 
     /**
      * Get the validation rules that apply to the request.
@@ -20,7 +21,9 @@ class UpdateRequest extends ArtistRequest
 
         $rules = [];
 
-        $fields = (new $resourceClass)->fieldsForUpdate();
+        $fields = $this->getFieldsForUpdate(
+            (new $resourceClass)->fieldsForUpdate()
+        );
 
         foreach ($fields as $field) {
             $fieldRules = $field->getUpdateRules();
