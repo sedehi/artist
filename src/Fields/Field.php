@@ -25,7 +25,6 @@ class Field
     public function __construct()
     {
         $this->htmlAttributes['class'] = $this->defaultClass;
-        $this->htmlAttributes['type'] = $this->type;
     }
 
     public function __call($method, $args)
