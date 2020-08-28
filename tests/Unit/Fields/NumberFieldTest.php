@@ -15,6 +15,5 @@ class NumberFieldTest extends ArtistTestCase
         $field = Number::make()->name('age');
 
         $this->assertEquals('number', $field->type);
-        $this->assertArrayHasKey('type', $field->getHtmlAttributes());
     }
 }
