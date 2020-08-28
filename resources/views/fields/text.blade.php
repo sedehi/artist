@@ -13,6 +13,7 @@
                 {{ $attrKey }}="{{ $attrValue }}"
             @endif
         @endforeach
+        type="{{ $field->type }}"
         value="{{ old($field->getName(),$field->value()) }}"
     >
     @if (isset($field->help))
