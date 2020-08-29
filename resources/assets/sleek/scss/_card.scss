@@ -26,8 +26,8 @@
     background-color: $white;
     border-bottom: none;
     @include media-breakpoint-up(xxl) {
-      padding-left: 3.125rem;
-      padding-right: 3.125rem;
+      padding-left: 1.125rem;
+      padding-right: 1.125rem;
     }
     h2 {
       color: $dark;
@@ -47,7 +47,7 @@
   .card-body {
     padding: 1.88rem 1.88rem;
     @include media-breakpoint-up(xxl) {
-      padding: 3.125rem;
+      padding: 2.125rem;
     }
     p {
       line-height: 1.5;

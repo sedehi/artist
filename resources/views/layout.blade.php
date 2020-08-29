@@ -41,7 +41,6 @@
     <div class="page-wrapper">
         <!-- Header -->
         @include('artist::header')
-
         <div class="content-wrapper">
             <div class="content">
                 @yield('content')

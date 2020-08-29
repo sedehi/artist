@@ -13463,8 +13463,8 @@ label {
     border-bottom: none; }
     @media (min-width: 1500px) {
       .card-default .card-header {
-        padding-left: 3.125rem;
-        padding-right: 3.125rem; } }
+        padding-left: 1.125rem;
+        padding-right: 1.125rem; } }
     .card-default .card-header h2 {
       color: #1b223c;
       margin-bottom: 0;
@@ -13480,7 +13480,7 @@ label {
     padding: 1.88rem 1.88rem; }
     @media (min-width: 1500px) {
       .card-default .card-body {
-        padding: 3.125rem; } }
+        padding: 2.125rem; } }
     .card-default .card-body p {
       line-height: 1.5; }
   .card-default .card-footer {

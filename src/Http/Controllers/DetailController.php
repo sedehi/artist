@@ -26,7 +26,6 @@ class DetailController extends BaseController
         $resource->resource($item);
 
         $fields = $this->getFieldsForDetail($resource->fieldsForDetail());
-
         return view($resource::$detailView, compact('section', 'resource', 'item', 'resourceName', 'resourceId', 'fields'));
     }
 }
