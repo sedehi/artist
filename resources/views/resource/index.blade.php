@@ -19,10 +19,10 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-responsive-sm table-striped table-bordered table-responsive-stack">
+                <table class="table table-striped table-bordered table-responsive-stack">
                     <thead>
                     <tr>
-                        <th class="w-45">
+                        <th class="w-45 not-dot">
                             <div class="form-check">
                                 <input class="form-check-input position-static check-all" type="checkbox" value="1">
                             </div>
@@ -42,12 +42,13 @@
                                 @endif
                             </th>
                         @endforeach
+                        <th class="w-260 not-dot text-center">...</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($items as $item)
                         <tr>
-                            <td class="w-45">
+                            <td class="w-45 not-dot">
                                 <div class="form-check">
                                     <input class="form-check-input position-static delete-item" type="checkbox" value="{{$item->id}}">
                                 </div>
@@ -55,6 +56,17 @@
                             @foreach($fields as $field)
                                 <td class="col">{{ $field->model($item)->displayValue() }}</td>
                             @endforeach
+                            <td class="w-260 not-dot">
+                                <div class="dropdown d-inline-block mb-1">
+                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdown-{{$section.'-'.$resourceName}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                        عملیات
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-{{$section.'-'.$resourceName}}">
+                                        <a class="dropdown-item" href="{{route('artist.resource.edit',['resource'=> $resourceName,'section' => $section,'resourceId'=>$item->getKey()])}}">ویرایش</a>
+                                        <a class="dropdown-item" href="{{route('artist.resource.detail',['resource'=> $resourceName,'section' => $section,'resourceId'=>$item->getKey()])}}">جزئیات</a>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -72,45 +84,3 @@
         {{$items->appends(request()->except('page'))->render('artist::pagination.default')}}
     </div>
 @endsection
-@push('js')
-    <script>
-
-        $('.table-responsive-stack').find("th").each(function (i) {
-            $('.table-responsive-stack td:nth-child(' + (i + 1) + ')').prepend('<span class="table-responsive-stack-thead">' + $(this).text() + ':</span> ');
-            $('.table-responsive-stack-thead').hide();
-        });
-
-
-        $('.table-responsive-stack').each(function () {
-            var thCount = $(this).find("th").length;
-            var rowGrow = 100 / thCount + '%';
-            $(this).find('.form-check').css('display', 'inline-flex');
-            $(this).find("th, td").css('min-width', rowGrow);
-        });
-
-
-        function flexTable() {
-            if ($(window).width() < 768) {
-                $(".table-responsive-stack").each(function (i) {
-                    $(this).find(".table-responsive-stack-thead").show();
-                    $(this).find('thead').hide();
-                });
-            } else {
-                $(".table-responsive-stack").each(function (i) {
-                    $(this).find(".table-responsive-stack-thead").hide();
-                    $(this).find('thead').show();
-                });
-            }
-        }
-        flexTable();
-
-        window.onresize = function (event) {
-            flexTable();
-        };
-
-
-
-
-    </script>
-
-@endpush

@@ -13099,9 +13099,11 @@ button {
 /* Width */
 .w-45 {
   width: 45px;
-  height: auto;
-  min-width: 45px !important;
-  max-width: 45px !important; }
+  height: auto; }
+
+.w-260 {
+  width: 260px;
+  height: auto; }
 
 /* Icon box width */
 .iconbox-18 {
