@@ -1,30 +1,30 @@
 @extends('artist::layout')
 @section('content')
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-3 offset-md-8">
-                        <h4>header</h4>
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                    <div class="col-md-9">
+                        <h4 class="w-100 p-3">header</h4>
                     </div>
-                    <div class="col-md-1">
-                        <a href="{{route('artist.resource.edit',['section' => $section,'resource' => $resourceName,$resourceId => $resourceId])}}" class="btn btn-md btn-info text-white">Edit</a>
-                        <form method="post" action="{{route('artist.resource.destroy',['section' => $section,'resource' => $resourceName])}}">
+                    <div class="col-md-3">
+                        <a href="{{route('artist.resource.edit',['section' => $section,'resource' => $resourceName,'resourceId' => $resourceId])}}" class="btn btn-md btn-info text-white float-right ml-2">Edit</a>
+                        <form class="float-right" method="post" action="{{route('artist.resource.destroy',['section' => $section,'resource' => $resourceName])}}">
                             @method('delete')
                             @csrf
                             <input type="hidden" name="id[]" value="{{ $resourceId }}">
                             <button class="btn btn-md btn-danger text-white">Delete</button>
                         </form>
+                        <a href="{{route('artist.resource.index',['section' => $section,'resource' => $resourceName])}}" class="btn btn-md btn-primary text-white float-right mr-2">List</a>
                     </div>
-                </div>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive-sm table-bordered">
+            <div class="card-body p-4">
+                <table class="table table-striped">
                     @foreach($fields as $field)
-                        <td>{{ $field->model($item)->displayValue() }}</td>
+                        <tr>
+                            <td>{{$field->getLabel()}}</td>
+                            <td>{{ $field->model($item)->displayValue() }}</td>
+                        </tr>
                     @endforeach
                 </table>
             </div>
         </div>
-    </div>
 @endsection

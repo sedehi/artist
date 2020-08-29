@@ -13,16 +13,15 @@
         @csrf
 
         @foreach($panels as $panel)
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header"><strong>{{$panel->getLabel()}}</strong></div>
+                <div class="card card-default mb-0">
+                    <div class="card-header card-header-border-bottom">
+                        <h2>{{$panel->getLabel()}}</h2>
+                    </div>
                     @include('artist::resource.form',['fields' => $panel->getFields()])
                 </div>
-
-            </div>
         @endforeach
 
-        <div class="card-footer">
+        <div class="card-footer bg-white border-top-0 border-bottom">
             <button class="btn btn-md btn-primary" type="submit">Create</button>
             <button class="btn btn-md btn-primary" type="submit">Create and Add Another</button>
             <button class="btn btn-md btn-danger" type="reset"> Reset</button>

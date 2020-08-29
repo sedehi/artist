@@ -63,7 +63,7 @@ class ArtistServiceProvider extends ServiceProvider
 
         // Publishing assets.
         $this->publishes([
-            __DIR__.'/../resources/assets/dist' => public_path('admin'),
+            __DIR__.'/../resources/assets/sleek/dist/assets' => public_path('admin'),
         ], 'artist.assets');
 
         // Publishing the translation files.
