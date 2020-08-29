@@ -2,6 +2,7 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
+use App\User;
 use Sedehi\Artist\Http\Requests\DestroyRequest;
 
 class DestroyController extends BaseController
@@ -12,7 +13,6 @@ class DestroyController extends BaseController
         if ($section == null && $resourceName == null) {
             abort(404);
         }
-
         if ($resourceName == null) {
             $resourceName = $section;
             $section = null;
@@ -21,8 +21,7 @@ class DestroyController extends BaseController
         $resourceFile = $this->getResource($resourceName, $section);
 
         $resource = new $resourceFile;
-
-        $resource::$model::whereIn('id', $request->only('id'))->get()->each->delete();
+        $resource::$model::whereIn(app()->make($resource::$model)->getKeyName(), $request->get('id'))->get()->each->delete();
 
         return redirect()->route('artist.resource.index', [
             'resource'  => $resourceName,

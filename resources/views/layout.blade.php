@@ -27,10 +27,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     @stack('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 
-<body class="header-static sidebar-fixed sidebar-dark header-dark" id="body">
+<body class="header-static sidebar-fixed sidebar-dark header-light" id="body">
 
 
 
