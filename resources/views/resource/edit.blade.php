@@ -15,7 +15,7 @@
         @foreach($panels as $panel)
                 <div class="card card-default mb-0">
                     <div class="card-header card-header-border-bottom">
-                        <h2>{{$panel->getLabel()}}</h2>
+                        <h5>{{$panel->getLabel()}}</h5>
                     </div>
                     @include('artist::resource.form',['fields' => $panel->getFields()])
                 </div>

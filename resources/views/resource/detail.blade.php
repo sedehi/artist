@@ -3,7 +3,7 @@
         <div class="card card-default">
             <div class="card-header card-header-border-bottom">
                     <div class="col-md-9">
-                        <h4 class="w-100 p-3">header</h4>
+                        <h5 class="w-100 p-3">header</h5>
                     </div>
                     <div class="col-md-3">
                         <a href="{{route('artist.resource.edit',['section' => $section,'resource' => $resourceName,'resourceId' => $resourceId])}}" class="btn btn-md btn-info text-white float-right ml-2">Edit</a>

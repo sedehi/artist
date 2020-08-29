@@ -2,7 +2,9 @@
 @section('content')
     <div class="col-lg-12 collapse" id="collapseSearch">
         <div class="card card-default mb-2">
-            <div class="card-header"><strong>Search Form</strong></div>
+            <div class="card-header card-header-border-bottom">
+                <h5>Search Form</h5>
+            </div>
             @include('artist::resource.searchForm')
         </div>
     </div>
@@ -10,12 +12,14 @@
         <div class="card card-default mb-2">
             <div class="card-header card-header-border-bottom">
                 <div class="col-md-10">
-                    <h4 class="w-100 p-3">Title</h4>
+                    <h5 class="w-100 p-3">Title</h5>
                 </div>
                 <div class="col-md-2">
                     <button type="button" class="btn btn-danger btn-delete float-right d-none ml-1"><i class="fas fa-trash"></i></button>
                     <a class="btn btn-success float-right ml-1 text-white" href="{{ route('artist.resource.create',['resource'=> $resourceName,'section' => $section]) }}"><i class="fas fa-plus"></i></a>
-                    <a class="btn btn-info float-right ml-1 text-white" data-toggle="collapse" href="#collapseSearch"><i class="fas fa-search"></i></a>
+                    @if(count($resource->fieldsForSearch()))
+                        <a class="btn btn-info float-right ml-1 text-white" data-toggle="collapse" href="#collapseSearch"><i class="fas fa-search"></i></a>
+                    @endif
                 </div>
             </div>
             <div class="card-body">
