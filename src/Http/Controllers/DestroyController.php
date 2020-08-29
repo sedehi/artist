@@ -2,7 +2,6 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
-use App\User;
 use Sedehi\Artist\Http\Requests\DestroyRequest;
 
 class DestroyController extends BaseController
