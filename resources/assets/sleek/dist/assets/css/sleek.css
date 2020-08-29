@@ -14623,7 +14623,7 @@ div.copied {
 .navbar {
   margin-bottom: 0;
   border: none;
-  min-height: 75px;
+  min-height: 60px;
   border-radius: 0;
   padding: 0;
   border-bottom: 1px solid #e5e9f2;
@@ -14647,7 +14647,7 @@ div.copied {
     font-size: 2rem;
     padding: 0 1.44rem;
     border: 0px;
-    height: 75px;
+    height: 60px;
     cursor: pointer;
     border-right: 1px solid #e5e9f2; }
     .navbar .sidebar-offcanvas-toggle:before,
@@ -14752,7 +14752,7 @@ div.copied {
       font-size: 0.98rem;
       padding: 0 1rem;
       display: inline-block;
-      line-height: 75px; }
+      line-height: 60px; }
       .navbar .navbar-right .navbar-nav .user-menu .dropdown-toggle > span {
         color: #1b223c;
         padding: 0 .5rem;
@@ -14787,7 +14787,7 @@ div.copied {
       font-size: 1.625rem;
       color: rgba(138, 144, 157, 0.7);
       display: inline-block;
-      line-height: 75px; }
+      line-height: 60px; }
       @media (min-width: 1200px) {
         .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle {
           padding-right: 0.625rem; } }
@@ -15203,8 +15203,8 @@ div.copied {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 75px;
-    line-height: 75px;
+    height: 60px;
+    line-height: 60px;
     width: 250px;
     transition: width 0.3s ease-in-out;
     padding-left: 1.56rem; }
