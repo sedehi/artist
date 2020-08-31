@@ -3,13 +3,9 @@
 namespace Sedehi\Artist\Http\Requests;
 
 use Illuminate\Support\Str;
-use Sedehi\Artist\Traits\FilterFields;
-use Sedehi\Artist\Traits\Resource;
 
 class UpdateRequest extends ArtistRequest
 {
-    use Resource, FilterFields;
-
     /**
      * Get the validation rules that apply to the request.
      *
