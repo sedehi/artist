@@ -7,6 +7,8 @@ class Password extends Field
     protected $viewPath = 'artist::fields.password';
     public $type = 'password';
 
+    protected $updateWhenEmpty = false;
+
     protected $showOnIndex = false;
     protected $showOnDetail = false;
     protected $showOnCreate = true;

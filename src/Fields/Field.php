@@ -9,18 +9,23 @@ class Field
 {
     use Visibility, ValidationRule;
 
+    public $htmlAttributes = [];
+
+    private $displayValue;
+
     protected $model;
     protected $label;
     protected $name;
+    protected $columnName = null;
     protected $value;
-    private $displayValue;
-    public $htmlAttributes = [];
     protected $sortable = false;
     protected $defaultValue;
     protected $readOnly = false;
     protected $searchRules = null;
     protected $defaultClass = 'form-control';
     protected $displayUsing = null;
+    protected $storeAs = null;
+    protected $updateWhenEmpty = true;
 
     public function __construct()
     {
@@ -48,6 +53,7 @@ class Field
     public function name($name)
     {
         $this->name = $name;
+        $this->columnName = $this->columnName ?? $name;
         $this->htmlAttributes['id'] = $name;
         $this->htmlAttributes['name'] = $name;
 
@@ -169,5 +175,23 @@ class Field
         $this->displayUsing = $callback;
 
         return $this;
+    }
+
+    public function storeAs($callback)
+    {
+        $this->storeAs = $callback;
+
+        return $this;
+    }
+
+    public function storeValue($request)
+    {
+        $value = $request->get($this->getName());
+
+        if (is_callable($this->storeAs)) {
+            return call_user_func($this->storeAs, $value);
+        }
+
+        return $value;
     }
 }
