@@ -10,7 +10,7 @@ class NumberFieldTest extends ArtistTestCase
     /**
      * @test
      */
-    public function set_placeholder()
+    public function set_type()
     {
         $field = Number::make()->name('age');
 

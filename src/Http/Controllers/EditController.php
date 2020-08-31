@@ -36,15 +36,10 @@ class EditController extends BaseController
         $section = $request->get('section');
         $resourceClass = $this->getResource($resource, $section);
         $resource = new $resourceClass;
+
         $model = $resource::$model::findOrFail($resourceId);
 
-        $fields = $this->getFieldsForUpdate($resource->fieldsForUpdate());
-
-        $fieldNames = array_map(function ($field) {
-            return $field->getName();
-        }, $fields);
-
-        $model->forceFill($request->only($fieldNames))->save();
+        $model->forceFill($request->prepareForUpdate())->save();
 
         return redirect()->route('artist.resource.index', [
             $resourceClass::name(),
