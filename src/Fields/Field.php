@@ -24,7 +24,7 @@ class Field
     protected $searchRules = null;
     protected $defaultClass = 'form-control';
     protected $displayUsing = null;
-    protected $storeAs = null;
+    protected $storeUsing = null;
     protected $updateWhenEmpty = true;
 
     public function __construct()
@@ -177,9 +177,9 @@ class Field
         return $this;
     }
 
-    public function storeAs($callback)
+    public function storeUsing($callback)
     {
-        $this->storeAs = $callback;
+        $this->storeUsing = $callback;
 
         return $this;
     }
@@ -188,8 +188,8 @@ class Field
     {
         $value = $request->get($this->getName());
 
-        if (is_callable($this->storeAs)) {
-            return call_user_func($this->storeAs, $value);
+        if (is_callable($this->storeUsing)) {
+            return call_user_func($this->storeUsing, $value);
         }
 
         return $value;
