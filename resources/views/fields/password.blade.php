@@ -14,7 +14,6 @@
             @endif
         @endforeach
         type="{{ $field->type }}"
-{{--        value="{{ old($field->getName(),$field->value()) }}"--}}
     >
     @if (isset($field->help))
         <span class="help-block">{!! $field->getHelp() !!}</span>
