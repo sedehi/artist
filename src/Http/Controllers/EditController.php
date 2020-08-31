@@ -39,11 +39,7 @@ class EditController extends BaseController
 
         $model = $resource::$model::findOrFail($resourceId);
 
-        foreach ($request->prepareForUpdate() as $key => $value) {
-            $model->{$key} = $value;
-        }
-
-        $model->save();
+        $model->forceFill($request->prepareForUpdate())->save();
 
         return redirect()->route('artist.resource.index', [
             $resourceClass::name(),

@@ -32,16 +32,10 @@ class CreateController extends BaseController
     public function store(CreateRequest $request)
     {
         $resourceClass = $this->getResource();
+
         $resource = new $resourceClass;
 
-        $modelClass = $resource::$model;
-        $model = new $modelClass;
-
-        foreach ($request->prepareForStore() as $key => $value) {
-            $model->{$key} = $value;
-        }
-
-        $model->save();
+        $resource::$model::forceCreate($request->prepareForStore());
 
         return redirect()->route('artist.resource.index', [
             $resourceClass::name(),
