@@ -8,8 +8,6 @@ use Sedehi\Artist\Traits\Resource;
 
 class UpdateRequest extends ArtistRequest
 {
-    use Resource, FilterFields;
-
     /**
      * Get the validation rules that apply to the request.
      *
