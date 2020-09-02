@@ -142,7 +142,7 @@ class Field
 
     public function value()
     {
-        $this->value = optional($this->model)->{$this->name};
+        $this->value = optional($this->model)->{$this->columnName ?? $this->name};
 
         return $this->value;
     }
@@ -193,5 +193,10 @@ class Field
         }
 
         return $value;
+    }
+
+    public function databaseValue()
+    {
+        return optional($this->model)->{$this->columnName ?? $this->name};
     }
 }
