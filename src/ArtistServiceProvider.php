@@ -13,7 +13,7 @@ class ArtistServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sedehi');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'artist');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'artist');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
