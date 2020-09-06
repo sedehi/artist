@@ -14,7 +14,7 @@
             @endif
         @endforeach
     >
-        <option>{{ __('artist::artist.select_an_option') }}</option>
+        <option>@lang('artist::artist.select_an_option')</option>
         @foreach($field->getOptions() as $key => $value)
             <option value="{{ $key }}"
                     @if (old($field->getName(),$field->databaseValue()) == $key) selected @endif
