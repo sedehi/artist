@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function (jquery) { 'use strict';
 
-	jquery = jquery && jquery.hasOwnProperty('default') ? jquery['default'] : jquery;
+	jquery = jquery && Object.prototype.hasOwnProperty.call(jquery, 'default') ? jquery['default'] : jquery;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -18,7 +18,7 @@
 
 	/**!
 	 * @fileOverview Kickass library to create and place poppers near their reference elements.
-	 * @version 1.16.0
+	 * @version 1.16.1
 	 * @license
 	 * Copyright (c) 2016 Federico Zivolo and contributors
 	 *
@@ -364,7 +364,7 @@
 	  var sideA = axis === 'x' ? 'Left' : 'Top';
 	  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-	  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+	  return parseFloat(styles['border' + sideA + 'Width']) + parseFloat(styles['border' + sideB + 'Width']);
 	}
 
 	function getSize(axis, body, html, computedStyle) {
@@ -519,8 +519,8 @@
 	  var scrollParent = getScrollParent(children);
 
 	  var styles = getStyleComputedProperty(parent);
-	  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
-	  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
+	  var borderTopWidth = parseFloat(styles.borderTopWidth);
+	  var borderLeftWidth = parseFloat(styles.borderLeftWidth);
 
 	  // In cases where the parent is fixed, we must ignore negative scroll in offset calc
 	  if (fixedPosition && isHTML) {
@@ -541,8 +541,8 @@
 	  // differently when margins are applied to it. The margins are included in
 	  // the box of the documentElement, in the other cases not.
 	  if (!isIE10 && isHTML) {
-	    var marginTop = parseFloat(styles.marginTop, 10);
-	    var marginLeft = parseFloat(styles.marginLeft, 10);
+	    var marginTop = parseFloat(styles.marginTop);
+	    var marginLeft = parseFloat(styles.marginLeft);
 
 	    offsets.top -= borderTopWidth - marginTop;
 	    offsets.bottom -= borderTopWidth - marginTop;
@@ -1481,8 +1481,8 @@
 	  // Compute the sideValue using the updated popper offsets
 	  // take popper margin in account because we don't have this info available
 	  var css = getStyleComputedProperty(data.instance.popper);
-	  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
-	  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+	  var popperMarginSide = parseFloat(css['margin' + sideCapitalized]);
+	  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width']);
 	  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
 	  // prevent arrowElement from being placed not contiguously to its popper
@@ -2632,15 +2632,15 @@
 
 	var bootstrap = createCommonjsModule(function (module, exports) {
 	/*!
-	  * Bootstrap v4.4.1 (https://getbootstrap.com/)
-	  * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-	  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	  * Bootstrap v4.5.2 (https://getbootstrap.com/)
+	  * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+	  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
 	  */
 	(function (global, factory) {
 	   factory(exports, jquery, Popper) ;
 	}(commonjsGlobal, (function (exports, $, Popper) {
-	  $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
-	  Popper = Popper && Popper.hasOwnProperty('default') ? Popper['default'] : Popper;
+	  $ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
+	  Popper = Popper && Object.prototype.hasOwnProperty.call(Popper, 'default') ? Popper['default'] : Popper;
 
 	  function _defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
@@ -2658,53 +2658,22 @@
 	    return Constructor;
 	  }
 
-	  function _defineProperty(obj, key, value) {
-	    if (key in obj) {
-	      Object.defineProperty(obj, key, {
-	        value: value,
-	        enumerable: true,
-	        configurable: true,
-	        writable: true
-	      });
-	    } else {
-	      obj[key] = value;
-	    }
+	  function _extends() {
+	    _extends = Object.assign || function (target) {
+	      for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
 
-	    return obj;
-	  }
-
-	  function ownKeys(object, enumerableOnly) {
-	    var keys = Object.keys(object);
-
-	    if (Object.getOwnPropertySymbols) {
-	      var symbols = Object.getOwnPropertySymbols(object);
-	      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-	        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-	      });
-	      keys.push.apply(keys, symbols);
-	    }
-
-	    return keys;
-	  }
-
-	  function _objectSpread2(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	      var source = arguments[i] != null ? arguments[i] : {};
-
-	      if (i % 2) {
-	        ownKeys(Object(source), true).forEach(function (key) {
-	          _defineProperty(target, key, source[key]);
-	        });
-	      } else if (Object.getOwnPropertyDescriptors) {
-	        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-	      } else {
-	        ownKeys(Object(source)).forEach(function (key) {
-	          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-	        });
+	        for (var key in source) {
+	          if (Object.prototype.hasOwnProperty.call(source, key)) {
+	            target[key] = source[key];
+	          }
+	        }
 	      }
-	    }
 
-	    return target;
+	      return target;
+	    };
+
+	    return _extends.apply(this, arguments);
 	  }
 
 	  function _inheritsLoose(subClass, superClass) {
@@ -2715,8 +2684,8 @@
 
 	  /**
 	   * --------------------------------------------------------------------------
-	   * Bootstrap (v4.4.1): util.js
-	   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	   * Bootstrap (v4.5.2): util.js
+	   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
 	   * --------------------------------------------------------------------------
 	   */
 	  /**
@@ -2730,6 +2699,10 @@
 	  var MILLISECONDS_MULTIPLIER = 1000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
 
 	  function toType(obj) {
+	    if (obj === null || typeof obj === 'undefined') {
+	      return "" + obj;
+	    }
+
 	    return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
 	  }
 
@@ -2742,7 +2715,7 @@
 	          return event.handleObj.handler.apply(this, arguments); // eslint-disable-line prefer-rest-params
 	        }
 
-	        return undefined; // eslint-disable-line no-undefined
+	        return undefined;
 	      }
 	    };
 	  }
@@ -2892,33 +2865,25 @@
 	   */
 
 	  var NAME = 'alert';
-	  var VERSION = '4.4.1';
+	  var VERSION = '4.5.2';
 	  var DATA_KEY = 'bs.alert';
 	  var EVENT_KEY = "." + DATA_KEY;
 	  var DATA_API_KEY = '.data-api';
 	  var JQUERY_NO_CONFLICT = $.fn[NAME];
-	  var Selector = {
-	    DISMISS: '[data-dismiss="alert"]'
-	  };
-	  var Event = {
-	    CLOSE: "close" + EVENT_KEY,
-	    CLOSED: "closed" + EVENT_KEY,
-	    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
-	  };
-	  var ClassName = {
-	    ALERT: 'alert',
-	    FADE: 'fade',
-	    SHOW: 'show'
-	  };
+	  var SELECTOR_DISMISS = '[data-dismiss="alert"]';
+	  var EVENT_CLOSE = "close" + EVENT_KEY;
+	  var EVENT_CLOSED = "closed" + EVENT_KEY;
+	  var EVENT_CLICK_DATA_API = "click" + EVENT_KEY + DATA_API_KEY;
+	  var CLASS_NAME_ALERT = 'alert';
+	  var CLASS_NAME_FADE = 'fade';
+	  var CLASS_NAME_SHOW = 'show';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Alert =
-	  /*#__PURE__*/
-	  function () {
+	  var Alert = /*#__PURE__*/function () {
 	    function Alert(element) {
 	      this._element = element;
 	    } // Getters
@@ -2958,14 +2923,14 @@
 	      }
 
 	      if (!parent) {
-	        parent = $(element).closest("." + ClassName.ALERT)[0];
+	        parent = $(element).closest("." + CLASS_NAME_ALERT)[0];
 	      }
 
 	      return parent;
 	    };
 
 	    _proto._triggerCloseEvent = function _triggerCloseEvent(element) {
-	      var closeEvent = $.Event(Event.CLOSE);
+	      var closeEvent = $.Event(EVENT_CLOSE);
 	      $(element).trigger(closeEvent);
 	      return closeEvent;
 	    };
@@ -2973,9 +2938,9 @@
 	    _proto._removeElement = function _removeElement(element) {
 	      var _this = this;
 
-	      $(element).removeClass(ClassName.SHOW);
+	      $(element).removeClass(CLASS_NAME_SHOW);
 
-	      if (!$(element).hasClass(ClassName.FADE)) {
+	      if (!$(element).hasClass(CLASS_NAME_FADE)) {
 	        this._destroyElement(element);
 
 	        return;
@@ -2988,7 +2953,7 @@
 	    };
 
 	    _proto._destroyElement = function _destroyElement(element) {
-	      $(element).detach().trigger(Event.CLOSED).remove();
+	      $(element).detach().trigger(EVENT_CLOSED).remove();
 	    } // Static
 	    ;
 
@@ -3034,7 +2999,7 @@
 	   */
 
 
-	  $(document).on(Event.CLICK_DATA_API, Selector.DISMISS, Alert._handleDismiss(new Alert()));
+	  $(document).on(EVENT_CLICK_DATA_API, SELECTOR_DISMISS, Alert._handleDismiss(new Alert()));
 	  /**
 	   * ------------------------------------------------------------------------
 	   * jQuery
@@ -3056,39 +3021,31 @@
 	   */
 
 	  var NAME$1 = 'button';
-	  var VERSION$1 = '4.4.1';
+	  var VERSION$1 = '4.5.2';
 	  var DATA_KEY$1 = 'bs.button';
 	  var EVENT_KEY$1 = "." + DATA_KEY$1;
 	  var DATA_API_KEY$1 = '.data-api';
 	  var JQUERY_NO_CONFLICT$1 = $.fn[NAME$1];
-	  var ClassName$1 = {
-	    ACTIVE: 'active',
-	    BUTTON: 'btn',
-	    FOCUS: 'focus'
-	  };
-	  var Selector$1 = {
-	    DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
-	    DATA_TOGGLES: '[data-toggle="buttons"]',
-	    DATA_TOGGLE: '[data-toggle="button"]',
-	    DATA_TOGGLES_BUTTONS: '[data-toggle="buttons"] .btn',
-	    INPUT: 'input:not([type="hidden"])',
-	    ACTIVE: '.active',
-	    BUTTON: '.btn'
-	  };
-	  var Event$1 = {
-	    CLICK_DATA_API: "click" + EVENT_KEY$1 + DATA_API_KEY$1,
-	    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1),
-	    LOAD_DATA_API: "load" + EVENT_KEY$1 + DATA_API_KEY$1
-	  };
+	  var CLASS_NAME_ACTIVE = 'active';
+	  var CLASS_NAME_BUTTON = 'btn';
+	  var CLASS_NAME_FOCUS = 'focus';
+	  var SELECTOR_DATA_TOGGLE_CARROT = '[data-toggle^="button"]';
+	  var SELECTOR_DATA_TOGGLES = '[data-toggle="buttons"]';
+	  var SELECTOR_DATA_TOGGLE = '[data-toggle="button"]';
+	  var SELECTOR_DATA_TOGGLES_BUTTONS = '[data-toggle="buttons"] .btn';
+	  var SELECTOR_INPUT = 'input:not([type="hidden"])';
+	  var SELECTOR_ACTIVE = '.active';
+	  var SELECTOR_BUTTON = '.btn';
+	  var EVENT_CLICK_DATA_API$1 = "click" + EVENT_KEY$1 + DATA_API_KEY$1;
+	  var EVENT_FOCUS_BLUR_DATA_API = "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1);
+	  var EVENT_LOAD_DATA_API = "load" + EVENT_KEY$1 + DATA_API_KEY$1;
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Button =
-	  /*#__PURE__*/
-	  function () {
+	  var Button = /*#__PURE__*/function () {
 	    function Button(element) {
 	      this._element = element;
 	    } // Getters
@@ -3100,33 +3057,30 @@
 	    _proto.toggle = function toggle() {
 	      var triggerChangeEvent = true;
 	      var addAriaPressed = true;
-	      var rootElement = $(this._element).closest(Selector$1.DATA_TOGGLES)[0];
+	      var rootElement = $(this._element).closest(SELECTOR_DATA_TOGGLES)[0];
 
 	      if (rootElement) {
-	        var input = this._element.querySelector(Selector$1.INPUT);
+	        var input = this._element.querySelector(SELECTOR_INPUT);
 
 	        if (input) {
 	          if (input.type === 'radio') {
-	            if (input.checked && this._element.classList.contains(ClassName$1.ACTIVE)) {
+	            if (input.checked && this._element.classList.contains(CLASS_NAME_ACTIVE)) {
 	              triggerChangeEvent = false;
 	            } else {
-	              var activeElement = rootElement.querySelector(Selector$1.ACTIVE);
+	              var activeElement = rootElement.querySelector(SELECTOR_ACTIVE);
 
 	              if (activeElement) {
-	                $(activeElement).removeClass(ClassName$1.ACTIVE);
+	                $(activeElement).removeClass(CLASS_NAME_ACTIVE);
 	              }
 	            }
-	          } else if (input.type === 'checkbox') {
-	            if (this._element.tagName === 'LABEL' && input.checked === this._element.classList.contains(ClassName$1.ACTIVE)) {
-	              triggerChangeEvent = false;
-	            }
-	          } else {
-	            // if it's not a radio button or checkbox don't add a pointless/invalid checked property to the input
-	            triggerChangeEvent = false;
 	          }
 
 	          if (triggerChangeEvent) {
-	            input.checked = !this._element.classList.contains(ClassName$1.ACTIVE);
+	            // if it's not a radio button or checkbox don't add a pointless/invalid checked property to the input
+	            if (input.type === 'checkbox' || input.type === 'radio') {
+	              input.checked = !this._element.classList.contains(CLASS_NAME_ACTIVE);
+	            }
+
 	            $(input).trigger('change');
 	          }
 
@@ -3137,11 +3091,11 @@
 
 	      if (!(this._element.hasAttribute('disabled') || this._element.classList.contains('disabled'))) {
 	        if (addAriaPressed) {
-	          this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName$1.ACTIVE));
+	          this._element.setAttribute('aria-pressed', !this._element.classList.contains(CLASS_NAME_ACTIVE));
 	        }
 
 	        if (triggerChangeEvent) {
-	          $(this._element).toggleClass(ClassName$1.ACTIVE);
+	          $(this._element).toggleClass(CLASS_NAME_ACTIVE);
 	        }
 	      }
 	    };
@@ -3183,17 +3137,18 @@
 	   */
 
 
-	  $(document).on(Event$1.CLICK_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
+	  $(document).on(EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE_CARROT, function (event) {
 	    var button = event.target;
+	    var initialButton = button;
 
-	    if (!$(button).hasClass(ClassName$1.BUTTON)) {
-	      button = $(button).closest(Selector$1.BUTTON)[0];
+	    if (!$(button).hasClass(CLASS_NAME_BUTTON)) {
+	      button = $(button).closest(SELECTOR_BUTTON)[0];
 	    }
 
 	    if (!button || button.hasAttribute('disabled') || button.classList.contains('disabled')) {
 	      event.preventDefault(); // work around Firefox bug #1540995
 	    } else {
-	      var inputBtn = button.querySelector(Selector$1.INPUT);
+	      var inputBtn = button.querySelector(SELECTOR_INPUT);
 
 	      if (inputBtn && (inputBtn.hasAttribute('disabled') || inputBtn.classList.contains('disabled'))) {
 	        event.preventDefault(); // work around Firefox bug #1540995
@@ -3201,38 +3156,40 @@
 	        return;
 	      }
 
-	      Button._jQueryInterface.call($(button), 'toggle');
+	      if (initialButton.tagName !== 'LABEL' || inputBtn && inputBtn.type !== 'checkbox') {
+	        Button._jQueryInterface.call($(button), 'toggle');
+	      }
 	    }
-	  }).on(Event$1.FOCUS_BLUR_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
-	    var button = $(event.target).closest(Selector$1.BUTTON)[0];
-	    $(button).toggleClass(ClassName$1.FOCUS, /^focus(in)?$/.test(event.type));
+	  }).on(EVENT_FOCUS_BLUR_DATA_API, SELECTOR_DATA_TOGGLE_CARROT, function (event) {
+	    var button = $(event.target).closest(SELECTOR_BUTTON)[0];
+	    $(button).toggleClass(CLASS_NAME_FOCUS, /^focus(in)?$/.test(event.type));
 	  });
-	  $(window).on(Event$1.LOAD_DATA_API, function () {
+	  $(window).on(EVENT_LOAD_DATA_API, function () {
 	    // ensure correct active class is set to match the controls' actual values/states
 	    // find all checkboxes/readio buttons inside data-toggle groups
-	    var buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLES_BUTTONS));
+	    var buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLES_BUTTONS));
 
 	    for (var i = 0, len = buttons.length; i < len; i++) {
 	      var button = buttons[i];
-	      var input = button.querySelector(Selector$1.INPUT);
+	      var input = button.querySelector(SELECTOR_INPUT);
 
 	      if (input.checked || input.hasAttribute('checked')) {
-	        button.classList.add(ClassName$1.ACTIVE);
+	        button.classList.add(CLASS_NAME_ACTIVE);
 	      } else {
-	        button.classList.remove(ClassName$1.ACTIVE);
+	        button.classList.remove(CLASS_NAME_ACTIVE);
 	      }
 	    } // find all button toggles
 
 
-	    buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLE));
+	    buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE));
 
 	    for (var _i = 0, _len = buttons.length; _i < _len; _i++) {
 	      var _button = buttons[_i];
 
 	      if (_button.getAttribute('aria-pressed') === 'true') {
-	        _button.classList.add(ClassName$1.ACTIVE);
+	        _button.classList.add(CLASS_NAME_ACTIVE);
 	      } else {
-	        _button.classList.remove(ClassName$1.ACTIVE);
+	        _button.classList.remove(CLASS_NAME_ACTIVE);
 	      }
 	    }
 	  });
@@ -3257,7 +3214,7 @@
 	   */
 
 	  var NAME$2 = 'carousel';
-	  var VERSION$2 = '4.4.1';
+	  var VERSION$2 = '4.5.2';
 	  var DATA_KEY$2 = 'bs.carousel';
 	  var EVENT_KEY$2 = "." + DATA_KEY$2;
 	  var DATA_API_KEY$2 = '.data-api';
@@ -3285,48 +3242,39 @@
 	    wrap: 'boolean',
 	    touch: 'boolean'
 	  };
-	  var Direction = {
-	    NEXT: 'next',
-	    PREV: 'prev',
-	    LEFT: 'left',
-	    RIGHT: 'right'
-	  };
-	  var Event$2 = {
-	    SLIDE: "slide" + EVENT_KEY$2,
-	    SLID: "slid" + EVENT_KEY$2,
-	    KEYDOWN: "keydown" + EVENT_KEY$2,
-	    MOUSEENTER: "mouseenter" + EVENT_KEY$2,
-	    MOUSELEAVE: "mouseleave" + EVENT_KEY$2,
-	    TOUCHSTART: "touchstart" + EVENT_KEY$2,
-	    TOUCHMOVE: "touchmove" + EVENT_KEY$2,
-	    TOUCHEND: "touchend" + EVENT_KEY$2,
-	    POINTERDOWN: "pointerdown" + EVENT_KEY$2,
-	    POINTERUP: "pointerup" + EVENT_KEY$2,
-	    DRAG_START: "dragstart" + EVENT_KEY$2,
-	    LOAD_DATA_API: "load" + EVENT_KEY$2 + DATA_API_KEY$2,
-	    CLICK_DATA_API: "click" + EVENT_KEY$2 + DATA_API_KEY$2
-	  };
-	  var ClassName$2 = {
-	    CAROUSEL: 'carousel',
-	    ACTIVE: 'active',
-	    SLIDE: 'slide',
-	    RIGHT: 'carousel-item-right',
-	    LEFT: 'carousel-item-left',
-	    NEXT: 'carousel-item-next',
-	    PREV: 'carousel-item-prev',
-	    ITEM: 'carousel-item',
-	    POINTER_EVENT: 'pointer-event'
-	  };
-	  var Selector$2 = {
-	    ACTIVE: '.active',
-	    ACTIVE_ITEM: '.active.carousel-item',
-	    ITEM: '.carousel-item',
-	    ITEM_IMG: '.carousel-item img',
-	    NEXT_PREV: '.carousel-item-next, .carousel-item-prev',
-	    INDICATORS: '.carousel-indicators',
-	    DATA_SLIDE: '[data-slide], [data-slide-to]',
-	    DATA_RIDE: '[data-ride="carousel"]'
-	  };
+	  var DIRECTION_NEXT = 'next';
+	  var DIRECTION_PREV = 'prev';
+	  var DIRECTION_LEFT = 'left';
+	  var DIRECTION_RIGHT = 'right';
+	  var EVENT_SLIDE = "slide" + EVENT_KEY$2;
+	  var EVENT_SLID = "slid" + EVENT_KEY$2;
+	  var EVENT_KEYDOWN = "keydown" + EVENT_KEY$2;
+	  var EVENT_MOUSEENTER = "mouseenter" + EVENT_KEY$2;
+	  var EVENT_MOUSELEAVE = "mouseleave" + EVENT_KEY$2;
+	  var EVENT_TOUCHSTART = "touchstart" + EVENT_KEY$2;
+	  var EVENT_TOUCHMOVE = "touchmove" + EVENT_KEY$2;
+	  var EVENT_TOUCHEND = "touchend" + EVENT_KEY$2;
+	  var EVENT_POINTERDOWN = "pointerdown" + EVENT_KEY$2;
+	  var EVENT_POINTERUP = "pointerup" + EVENT_KEY$2;
+	  var EVENT_DRAG_START = "dragstart" + EVENT_KEY$2;
+	  var EVENT_LOAD_DATA_API$1 = "load" + EVENT_KEY$2 + DATA_API_KEY$2;
+	  var EVENT_CLICK_DATA_API$2 = "click" + EVENT_KEY$2 + DATA_API_KEY$2;
+	  var CLASS_NAME_CAROUSEL = 'carousel';
+	  var CLASS_NAME_ACTIVE$1 = 'active';
+	  var CLASS_NAME_SLIDE = 'slide';
+	  var CLASS_NAME_RIGHT = 'carousel-item-right';
+	  var CLASS_NAME_LEFT = 'carousel-item-left';
+	  var CLASS_NAME_NEXT = 'carousel-item-next';
+	  var CLASS_NAME_PREV = 'carousel-item-prev';
+	  var CLASS_NAME_POINTER_EVENT = 'pointer-event';
+	  var SELECTOR_ACTIVE$1 = '.active';
+	  var SELECTOR_ACTIVE_ITEM = '.active.carousel-item';
+	  var SELECTOR_ITEM = '.carousel-item';
+	  var SELECTOR_ITEM_IMG = '.carousel-item img';
+	  var SELECTOR_NEXT_PREV = '.carousel-item-next, .carousel-item-prev';
+	  var SELECTOR_INDICATORS = '.carousel-indicators';
+	  var SELECTOR_DATA_SLIDE = '[data-slide], [data-slide-to]';
+	  var SELECTOR_DATA_RIDE = '[data-ride="carousel"]';
 	  var PointerType = {
 	    TOUCH: 'touch',
 	    PEN: 'pen'
@@ -3337,9 +3285,7 @@
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Carousel =
-	  /*#__PURE__*/
-	  function () {
+	  var Carousel = /*#__PURE__*/function () {
 	    function Carousel(element, config) {
 	      this._items = null;
 	      this._interval = null;
@@ -3351,7 +3297,7 @@
 	      this.touchDeltaX = 0;
 	      this._config = this._getConfig(config);
 	      this._element = element;
-	      this._indicatorsElement = this._element.querySelector(Selector$2.INDICATORS);
+	      this._indicatorsElement = this._element.querySelector(SELECTOR_INDICATORS);
 	      this._touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0;
 	      this._pointerEvent = Boolean(window.PointerEvent || window.MSPointerEvent);
 
@@ -3364,7 +3310,7 @@
 	    // Public
 	    _proto.next = function next() {
 	      if (!this._isSliding) {
-	        this._slide(Direction.NEXT);
+	        this._slide(DIRECTION_NEXT);
 	      }
 	    };
 
@@ -3378,7 +3324,7 @@
 
 	    _proto.prev = function prev() {
 	      if (!this._isSliding) {
-	        this._slide(Direction.PREV);
+	        this._slide(DIRECTION_PREV);
 	      }
 	    };
 
@@ -3387,7 +3333,7 @@
 	        this._isPaused = true;
 	      }
 
-	      if (this._element.querySelector(Selector$2.NEXT_PREV)) {
+	      if (this._element.querySelector(SELECTOR_NEXT_PREV)) {
 	        Util.triggerTransitionEnd(this._element);
 	        this.cycle(true);
 	      }
@@ -3414,7 +3360,7 @@
 	    _proto.to = function to(index) {
 	      var _this = this;
 
-	      this._activeElement = this._element.querySelector(Selector$2.ACTIVE_ITEM);
+	      this._activeElement = this._element.querySelector(SELECTOR_ACTIVE_ITEM);
 
 	      var activeIndex = this._getItemIndex(this._activeElement);
 
@@ -3423,7 +3369,7 @@
 	      }
 
 	      if (this._isSliding) {
-	        $(this._element).one(Event$2.SLID, function () {
+	        $(this._element).one(EVENT_SLID, function () {
 	          return _this.to(index);
 	        });
 	        return;
@@ -3435,7 +3381,7 @@
 	        return;
 	      }
 
-	      var direction = index > activeIndex ? Direction.NEXT : Direction.PREV;
+	      var direction = index > activeIndex ? DIRECTION_NEXT : DIRECTION_PREV;
 
 	      this._slide(direction, this._items[index]);
 	    };
@@ -3455,7 +3401,7 @@
 	    ;
 
 	    _proto._getConfig = function _getConfig(config) {
-	      config = _objectSpread2({}, Default, {}, config);
+	      config = _extends({}, Default, config);
 	      Util.typeCheckConfig(NAME$2, config, DefaultType);
 	      return config;
 	    };
@@ -3484,15 +3430,15 @@
 	      var _this2 = this;
 
 	      if (this._config.keyboard) {
-	        $(this._element).on(Event$2.KEYDOWN, function (event) {
+	        $(this._element).on(EVENT_KEYDOWN, function (event) {
 	          return _this2._keydown(event);
 	        });
 	      }
 
 	      if (this._config.pause === 'hover') {
-	        $(this._element).on(Event$2.MOUSEENTER, function (event) {
+	        $(this._element).on(EVENT_MOUSEENTER, function (event) {
 	          return _this2.pause(event);
-	        }).on(Event$2.MOUSELEAVE, function (event) {
+	        }).on(EVENT_MOUSELEAVE, function (event) {
 	          return _this2.cycle(event);
 	        });
 	      }
@@ -3553,27 +3499,27 @@
 	        }
 	      };
 
-	      $(this._element.querySelectorAll(Selector$2.ITEM_IMG)).on(Event$2.DRAG_START, function (e) {
+	      $(this._element.querySelectorAll(SELECTOR_ITEM_IMG)).on(EVENT_DRAG_START, function (e) {
 	        return e.preventDefault();
 	      });
 
 	      if (this._pointerEvent) {
-	        $(this._element).on(Event$2.POINTERDOWN, function (event) {
+	        $(this._element).on(EVENT_POINTERDOWN, function (event) {
 	          return start(event);
 	        });
-	        $(this._element).on(Event$2.POINTERUP, function (event) {
+	        $(this._element).on(EVENT_POINTERUP, function (event) {
 	          return end(event);
 	        });
 
-	        this._element.classList.add(ClassName$2.POINTER_EVENT);
+	        this._element.classList.add(CLASS_NAME_POINTER_EVENT);
 	      } else {
-	        $(this._element).on(Event$2.TOUCHSTART, function (event) {
+	        $(this._element).on(EVENT_TOUCHSTART, function (event) {
 	          return start(event);
 	        });
-	        $(this._element).on(Event$2.TOUCHMOVE, function (event) {
+	        $(this._element).on(EVENT_TOUCHMOVE, function (event) {
 	          return move(event);
 	        });
-	        $(this._element).on(Event$2.TOUCHEND, function (event) {
+	        $(this._element).on(EVENT_TOUCHEND, function (event) {
 	          return end(event);
 	        });
 	      }
@@ -3598,13 +3544,13 @@
 	    };
 
 	    _proto._getItemIndex = function _getItemIndex(element) {
-	      this._items = element && element.parentNode ? [].slice.call(element.parentNode.querySelectorAll(Selector$2.ITEM)) : [];
+	      this._items = element && element.parentNode ? [].slice.call(element.parentNode.querySelectorAll(SELECTOR_ITEM)) : [];
 	      return this._items.indexOf(element);
 	    };
 
 	    _proto._getItemByDirection = function _getItemByDirection(direction, activeElement) {
-	      var isNextDirection = direction === Direction.NEXT;
-	      var isPrevDirection = direction === Direction.PREV;
+	      var isNextDirection = direction === DIRECTION_NEXT;
+	      var isPrevDirection = direction === DIRECTION_PREV;
 
 	      var activeIndex = this._getItemIndex(activeElement);
 
@@ -3615,7 +3561,7 @@
 	        return activeElement;
 	      }
 
-	      var delta = direction === Direction.PREV ? -1 : 1;
+	      var delta = direction === DIRECTION_PREV ? -1 : 1;
 	      var itemIndex = (activeIndex + delta) % this._items.length;
 	      return itemIndex === -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
 	    };
@@ -3623,9 +3569,9 @@
 	    _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
 	      var targetIndex = this._getItemIndex(relatedTarget);
 
-	      var fromIndex = this._getItemIndex(this._element.querySelector(Selector$2.ACTIVE_ITEM));
+	      var fromIndex = this._getItemIndex(this._element.querySelector(SELECTOR_ACTIVE_ITEM));
 
-	      var slideEvent = $.Event(Event$2.SLIDE, {
+	      var slideEvent = $.Event(EVENT_SLIDE, {
 	        relatedTarget: relatedTarget,
 	        direction: eventDirectionName,
 	        from: fromIndex,
@@ -3637,13 +3583,13 @@
 
 	    _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
 	      if (this._indicatorsElement) {
-	        var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(Selector$2.ACTIVE));
-	        $(indicators).removeClass(ClassName$2.ACTIVE);
+	        var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(SELECTOR_ACTIVE$1));
+	        $(indicators).removeClass(CLASS_NAME_ACTIVE$1);
 
 	        var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
 
 	        if (nextIndicator) {
-	          $(nextIndicator).addClass(ClassName$2.ACTIVE);
+	          $(nextIndicator).addClass(CLASS_NAME_ACTIVE$1);
 	        }
 	      }
 	    };
@@ -3651,7 +3597,7 @@
 	    _proto._slide = function _slide(direction, element) {
 	      var _this4 = this;
 
-	      var activeElement = this._element.querySelector(Selector$2.ACTIVE_ITEM);
+	      var activeElement = this._element.querySelector(SELECTOR_ACTIVE_ITEM);
 
 	      var activeElementIndex = this._getItemIndex(activeElement);
 
@@ -3664,17 +3610,17 @@
 	      var orderClassName;
 	      var eventDirectionName;
 
-	      if (direction === Direction.NEXT) {
-	        directionalClassName = ClassName$2.LEFT;
-	        orderClassName = ClassName$2.NEXT;
-	        eventDirectionName = Direction.LEFT;
+	      if (direction === DIRECTION_NEXT) {
+	        directionalClassName = CLASS_NAME_LEFT;
+	        orderClassName = CLASS_NAME_NEXT;
+	        eventDirectionName = DIRECTION_LEFT;
 	      } else {
-	        directionalClassName = ClassName$2.RIGHT;
-	        orderClassName = ClassName$2.PREV;
-	        eventDirectionName = Direction.RIGHT;
+	        directionalClassName = CLASS_NAME_RIGHT;
+	        orderClassName = CLASS_NAME_PREV;
+	        eventDirectionName = DIRECTION_RIGHT;
 	      }
 
-	      if (nextElement && $(nextElement).hasClass(ClassName$2.ACTIVE)) {
+	      if (nextElement && $(nextElement).hasClass(CLASS_NAME_ACTIVE$1)) {
 	        this._isSliding = false;
 	        return;
 	      }
@@ -3698,14 +3644,14 @@
 
 	      this._setActiveIndicatorElement(nextElement);
 
-	      var slidEvent = $.Event(Event$2.SLID, {
+	      var slidEvent = $.Event(EVENT_SLID, {
 	        relatedTarget: nextElement,
 	        direction: eventDirectionName,
 	        from: activeElementIndex,
 	        to: nextElementIndex
 	      });
 
-	      if ($(this._element).hasClass(ClassName$2.SLIDE)) {
+	      if ($(this._element).hasClass(CLASS_NAME_SLIDE)) {
 	        $(nextElement).addClass(orderClassName);
 	        Util.reflow(nextElement);
 	        $(activeElement).addClass(directionalClassName);
@@ -3721,16 +3667,16 @@
 
 	        var transitionDuration = Util.getTransitionDurationFromElement(activeElement);
 	        $(activeElement).one(Util.TRANSITION_END, function () {
-	          $(nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(ClassName$2.ACTIVE);
-	          $(activeElement).removeClass(ClassName$2.ACTIVE + " " + orderClassName + " " + directionalClassName);
+	          $(nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(CLASS_NAME_ACTIVE$1);
+	          $(activeElement).removeClass(CLASS_NAME_ACTIVE$1 + " " + orderClassName + " " + directionalClassName);
 	          _this4._isSliding = false;
 	          setTimeout(function () {
 	            return $(_this4._element).trigger(slidEvent);
 	          }, 0);
 	        }).emulateTransitionEnd(transitionDuration);
 	      } else {
-	        $(activeElement).removeClass(ClassName$2.ACTIVE);
-	        $(nextElement).addClass(ClassName$2.ACTIVE);
+	        $(activeElement).removeClass(CLASS_NAME_ACTIVE$1);
+	        $(nextElement).addClass(CLASS_NAME_ACTIVE$1);
 	        this._isSliding = false;
 	        $(this._element).trigger(slidEvent);
 	      }
@@ -3745,10 +3691,10 @@
 	      return this.each(function () {
 	        var data = $(this).data(DATA_KEY$2);
 
-	        var _config = _objectSpread2({}, Default, {}, $(this).data());
+	        var _config = _extends({}, Default, $(this).data());
 
 	        if (typeof config === 'object') {
-	          _config = _objectSpread2({}, _config, {}, config);
+	          _config = _extends({}, _config, config);
 	        }
 
 	        var action = typeof config === 'string' ? config : _config.slide;
@@ -3782,11 +3728,11 @@
 
 	      var target = $(selector)[0];
 
-	      if (!target || !$(target).hasClass(ClassName$2.CAROUSEL)) {
+	      if (!target || !$(target).hasClass(CLASS_NAME_CAROUSEL)) {
 	        return;
 	      }
 
-	      var config = _objectSpread2({}, $(target).data(), {}, $(this).data());
+	      var config = _extends({}, $(target).data(), $(this).data());
 
 	      var slideIndex = this.getAttribute('data-slide-to');
 
@@ -3824,9 +3770,9 @@
 	   */
 
 
-	  $(document).on(Event$2.CLICK_DATA_API, Selector$2.DATA_SLIDE, Carousel._dataApiClickHandler);
-	  $(window).on(Event$2.LOAD_DATA_API, function () {
-	    var carousels = [].slice.call(document.querySelectorAll(Selector$2.DATA_RIDE));
+	  $(document).on(EVENT_CLICK_DATA_API$2, SELECTOR_DATA_SLIDE, Carousel._dataApiClickHandler);
+	  $(window).on(EVENT_LOAD_DATA_API$1, function () {
+	    var carousels = [].slice.call(document.querySelectorAll(SELECTOR_DATA_RIDE));
 
 	    for (var i = 0, len = carousels.length; i < len; i++) {
 	      var $carousel = $(carousels[i]);
@@ -3855,7 +3801,7 @@
 	   */
 
 	  var NAME$3 = 'collapse';
-	  var VERSION$3 = '4.4.1';
+	  var VERSION$3 = '4.5.2';
 	  var DATA_KEY$3 = 'bs.collapse';
 	  var EVENT_KEY$3 = "." + DATA_KEY$3;
 	  var DATA_API_KEY$3 = '.data-api';
@@ -3868,42 +3814,32 @@
 	    toggle: 'boolean',
 	    parent: '(string|element)'
 	  };
-	  var Event$3 = {
-	    SHOW: "show" + EVENT_KEY$3,
-	    SHOWN: "shown" + EVENT_KEY$3,
-	    HIDE: "hide" + EVENT_KEY$3,
-	    HIDDEN: "hidden" + EVENT_KEY$3,
-	    CLICK_DATA_API: "click" + EVENT_KEY$3 + DATA_API_KEY$3
-	  };
-	  var ClassName$3 = {
-	    SHOW: 'show',
-	    COLLAPSE: 'collapse',
-	    COLLAPSING: 'collapsing',
-	    COLLAPSED: 'collapsed'
-	  };
-	  var Dimension = {
-	    WIDTH: 'width',
-	    HEIGHT: 'height'
-	  };
-	  var Selector$3 = {
-	    ACTIVES: '.show, .collapsing',
-	    DATA_TOGGLE: '[data-toggle="collapse"]'
-	  };
+	  var EVENT_SHOW = "show" + EVENT_KEY$3;
+	  var EVENT_SHOWN = "shown" + EVENT_KEY$3;
+	  var EVENT_HIDE = "hide" + EVENT_KEY$3;
+	  var EVENT_HIDDEN = "hidden" + EVENT_KEY$3;
+	  var EVENT_CLICK_DATA_API$3 = "click" + EVENT_KEY$3 + DATA_API_KEY$3;
+	  var CLASS_NAME_SHOW$1 = 'show';
+	  var CLASS_NAME_COLLAPSE = 'collapse';
+	  var CLASS_NAME_COLLAPSING = 'collapsing';
+	  var CLASS_NAME_COLLAPSED = 'collapsed';
+	  var DIMENSION_WIDTH = 'width';
+	  var DIMENSION_HEIGHT = 'height';
+	  var SELECTOR_ACTIVES = '.show, .collapsing';
+	  var SELECTOR_DATA_TOGGLE$1 = '[data-toggle="collapse"]';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Collapse =
-	  /*#__PURE__*/
-	  function () {
+	  var Collapse = /*#__PURE__*/function () {
 	    function Collapse(element, config) {
 	      this._isTransitioning = false;
 	      this._element = element;
 	      this._config = this._getConfig(config);
 	      this._triggerArray = [].slice.call(document.querySelectorAll("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
-	      var toggleList = [].slice.call(document.querySelectorAll(Selector$3.DATA_TOGGLE));
+	      var toggleList = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$1));
 
 	      for (var i = 0, len = toggleList.length; i < len; i++) {
 	        var elem = toggleList[i];
@@ -3935,7 +3871,7 @@
 
 	    // Public
 	    _proto.toggle = function toggle() {
-	      if ($(this._element).hasClass(ClassName$3.SHOW)) {
+	      if ($(this._element).hasClass(CLASS_NAME_SHOW$1)) {
 	        this.hide();
 	      } else {
 	        this.show();
@@ -3945,7 +3881,7 @@
 	    _proto.show = function show() {
 	      var _this = this;
 
-	      if (this._isTransitioning || $(this._element).hasClass(ClassName$3.SHOW)) {
+	      if (this._isTransitioning || $(this._element).hasClass(CLASS_NAME_SHOW$1)) {
 	        return;
 	      }
 
@@ -3953,12 +3889,12 @@
 	      var activesData;
 
 	      if (this._parent) {
-	        actives = [].slice.call(this._parent.querySelectorAll(Selector$3.ACTIVES)).filter(function (elem) {
+	        actives = [].slice.call(this._parent.querySelectorAll(SELECTOR_ACTIVES)).filter(function (elem) {
 	          if (typeof _this._config.parent === 'string') {
 	            return elem.getAttribute('data-parent') === _this._config.parent;
 	          }
 
-	          return elem.classList.contains(ClassName$3.COLLAPSE);
+	          return elem.classList.contains(CLASS_NAME_COLLAPSE);
 	        });
 
 	        if (actives.length === 0) {
@@ -3974,7 +3910,7 @@
 	        }
 	      }
 
-	      var startEvent = $.Event(Event$3.SHOW);
+	      var startEvent = $.Event(EVENT_SHOW);
 	      $(this._element).trigger(startEvent);
 
 	      if (startEvent.isDefaultPrevented()) {
@@ -3991,22 +3927,22 @@
 
 	      var dimension = this._getDimension();
 
-	      $(this._element).removeClass(ClassName$3.COLLAPSE).addClass(ClassName$3.COLLAPSING);
+	      $(this._element).removeClass(CLASS_NAME_COLLAPSE).addClass(CLASS_NAME_COLLAPSING);
 	      this._element.style[dimension] = 0;
 
 	      if (this._triggerArray.length) {
-	        $(this._triggerArray).removeClass(ClassName$3.COLLAPSED).attr('aria-expanded', true);
+	        $(this._triggerArray).removeClass(CLASS_NAME_COLLAPSED).attr('aria-expanded', true);
 	      }
 
 	      this.setTransitioning(true);
 
 	      var complete = function complete() {
-	        $(_this._element).removeClass(ClassName$3.COLLAPSING).addClass(ClassName$3.COLLAPSE).addClass(ClassName$3.SHOW);
+	        $(_this._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$1);
 	        _this._element.style[dimension] = '';
 
 	        _this.setTransitioning(false);
 
-	        $(_this._element).trigger(Event$3.SHOWN);
+	        $(_this._element).trigger(EVENT_SHOWN);
 	      };
 
 	      var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
@@ -4019,11 +3955,11 @@
 	    _proto.hide = function hide() {
 	      var _this2 = this;
 
-	      if (this._isTransitioning || !$(this._element).hasClass(ClassName$3.SHOW)) {
+	      if (this._isTransitioning || !$(this._element).hasClass(CLASS_NAME_SHOW$1)) {
 	        return;
 	      }
 
-	      var startEvent = $.Event(Event$3.HIDE);
+	      var startEvent = $.Event(EVENT_HIDE);
 	      $(this._element).trigger(startEvent);
 
 	      if (startEvent.isDefaultPrevented()) {
@@ -4034,7 +3970,7 @@
 
 	      this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
 	      Util.reflow(this._element);
-	      $(this._element).addClass(ClassName$3.COLLAPSING).removeClass(ClassName$3.COLLAPSE).removeClass(ClassName$3.SHOW);
+	      $(this._element).addClass(CLASS_NAME_COLLAPSING).removeClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$1);
 	      var triggerArrayLength = this._triggerArray.length;
 
 	      if (triggerArrayLength > 0) {
@@ -4045,8 +3981,8 @@
 	          if (selector !== null) {
 	            var $elem = $([].slice.call(document.querySelectorAll(selector)));
 
-	            if (!$elem.hasClass(ClassName$3.SHOW)) {
-	              $(trigger).addClass(ClassName$3.COLLAPSED).attr('aria-expanded', false);
+	            if (!$elem.hasClass(CLASS_NAME_SHOW$1)) {
+	              $(trigger).addClass(CLASS_NAME_COLLAPSED).attr('aria-expanded', false);
 	            }
 	          }
 	        }
@@ -4057,7 +3993,7 @@
 	      var complete = function complete() {
 	        _this2.setTransitioning(false);
 
-	        $(_this2._element).removeClass(ClassName$3.COLLAPSING).addClass(ClassName$3.COLLAPSE).trigger(Event$3.HIDDEN);
+	        $(_this2._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE).trigger(EVENT_HIDDEN);
 	      };
 
 	      this._element.style[dimension] = '';
@@ -4080,7 +4016,7 @@
 	    ;
 
 	    _proto._getConfig = function _getConfig(config) {
-	      config = _objectSpread2({}, Default$1, {}, config);
+	      config = _extends({}, Default$1, config);
 	      config.toggle = Boolean(config.toggle); // Coerce string values
 
 	      Util.typeCheckConfig(NAME$3, config, DefaultType$1);
@@ -4088,8 +4024,8 @@
 	    };
 
 	    _proto._getDimension = function _getDimension() {
-	      var hasWidth = $(this._element).hasClass(Dimension.WIDTH);
-	      return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
+	      var hasWidth = $(this._element).hasClass(DIMENSION_WIDTH);
+	      return hasWidth ? DIMENSION_WIDTH : DIMENSION_HEIGHT;
 	    };
 
 	    _proto._getParent = function _getParent() {
@@ -4116,10 +4052,10 @@
 	    };
 
 	    _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
-	      var isOpen = $(element).hasClass(ClassName$3.SHOW);
+	      var isOpen = $(element).hasClass(CLASS_NAME_SHOW$1);
 
 	      if (triggerArray.length) {
-	        $(triggerArray).toggleClass(ClassName$3.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
+	        $(triggerArray).toggleClass(CLASS_NAME_COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
 	      }
 	    } // Static
 	    ;
@@ -4134,9 +4070,9 @@
 	        var $this = $(this);
 	        var data = $this.data(DATA_KEY$3);
 
-	        var _config = _objectSpread2({}, Default$1, {}, $this.data(), {}, typeof config === 'object' && config ? config : {});
+	        var _config = _extends({}, Default$1, $this.data(), typeof config === 'object' && config ? config : {});
 
-	        if (!data && _config.toggle && /show|hide/.test(config)) {
+	        if (!data && _config.toggle && typeof config === 'string' && /show|hide/.test(config)) {
 	          _config.toggle = false;
 	        }
 
@@ -4176,7 +4112,7 @@
 	   */
 
 
-	  $(document).on(Event$3.CLICK_DATA_API, Selector$3.DATA_TOGGLE, function (event) {
+	  $(document).on(EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$1, function (event) {
 	    // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
 	    if (event.currentTarget.tagName === 'A') {
 	      event.preventDefault();
@@ -4214,7 +4150,7 @@
 	   */
 
 	  var NAME$4 = 'dropdown';
-	  var VERSION$4 = '4.4.1';
+	  var VERSION$4 = '4.5.2';
 	  var DATA_KEY$4 = 'bs.dropdown';
 	  var EVENT_KEY$4 = "." + DATA_KEY$4;
 	  var DATA_API_KEY$4 = '.data-api';
@@ -4232,43 +4168,32 @@
 	  var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right button (assuming a right-handed mouse)
 
 	  var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + "|" + ARROW_DOWN_KEYCODE + "|" + ESCAPE_KEYCODE);
-	  var Event$4 = {
-	    HIDE: "hide" + EVENT_KEY$4,
-	    HIDDEN: "hidden" + EVENT_KEY$4,
-	    SHOW: "show" + EVENT_KEY$4,
-	    SHOWN: "shown" + EVENT_KEY$4,
-	    CLICK: "click" + EVENT_KEY$4,
-	    CLICK_DATA_API: "click" + EVENT_KEY$4 + DATA_API_KEY$4,
-	    KEYDOWN_DATA_API: "keydown" + EVENT_KEY$4 + DATA_API_KEY$4,
-	    KEYUP_DATA_API: "keyup" + EVENT_KEY$4 + DATA_API_KEY$4
-	  };
-	  var ClassName$4 = {
-	    DISABLED: 'disabled',
-	    SHOW: 'show',
-	    DROPUP: 'dropup',
-	    DROPRIGHT: 'dropright',
-	    DROPLEFT: 'dropleft',
-	    MENURIGHT: 'dropdown-menu-right',
-	    MENULEFT: 'dropdown-menu-left',
-	    POSITION_STATIC: 'position-static'
-	  };
-	  var Selector$4 = {
-	    DATA_TOGGLE: '[data-toggle="dropdown"]',
-	    FORM_CHILD: '.dropdown form',
-	    MENU: '.dropdown-menu',
-	    NAVBAR_NAV: '.navbar-nav',
-	    VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)'
-	  };
-	  var AttachmentMap = {
-	    TOP: 'top-start',
-	    TOPEND: 'top-end',
-	    BOTTOM: 'bottom-start',
-	    BOTTOMEND: 'bottom-end',
-	    RIGHT: 'right-start',
-	    RIGHTEND: 'right-end',
-	    LEFT: 'left-start',
-	    LEFTEND: 'left-end'
-	  };
+	  var EVENT_HIDE$1 = "hide" + EVENT_KEY$4;
+	  var EVENT_HIDDEN$1 = "hidden" + EVENT_KEY$4;
+	  var EVENT_SHOW$1 = "show" + EVENT_KEY$4;
+	  var EVENT_SHOWN$1 = "shown" + EVENT_KEY$4;
+	  var EVENT_CLICK = "click" + EVENT_KEY$4;
+	  var EVENT_CLICK_DATA_API$4 = "click" + EVENT_KEY$4 + DATA_API_KEY$4;
+	  var EVENT_KEYDOWN_DATA_API = "keydown" + EVENT_KEY$4 + DATA_API_KEY$4;
+	  var EVENT_KEYUP_DATA_API = "keyup" + EVENT_KEY$4 + DATA_API_KEY$4;
+	  var CLASS_NAME_DISABLED = 'disabled';
+	  var CLASS_NAME_SHOW$2 = 'show';
+	  var CLASS_NAME_DROPUP = 'dropup';
+	  var CLASS_NAME_DROPRIGHT = 'dropright';
+	  var CLASS_NAME_DROPLEFT = 'dropleft';
+	  var CLASS_NAME_MENURIGHT = 'dropdown-menu-right';
+	  var CLASS_NAME_POSITION_STATIC = 'position-static';
+	  var SELECTOR_DATA_TOGGLE$2 = '[data-toggle="dropdown"]';
+	  var SELECTOR_FORM_CHILD = '.dropdown form';
+	  var SELECTOR_MENU = '.dropdown-menu';
+	  var SELECTOR_NAVBAR_NAV = '.navbar-nav';
+	  var SELECTOR_VISIBLE_ITEMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
+	  var PLACEMENT_TOP = 'top-start';
+	  var PLACEMENT_TOPEND = 'top-end';
+	  var PLACEMENT_BOTTOM = 'bottom-start';
+	  var PLACEMENT_BOTTOMEND = 'bottom-end';
+	  var PLACEMENT_RIGHT = 'right-start';
+	  var PLACEMENT_LEFT = 'left-start';
 	  var Default$2 = {
 	    offset: 0,
 	    flip: true,
@@ -4291,9 +4216,7 @@
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Dropdown =
-	  /*#__PURE__*/
-	  function () {
+	  var Dropdown = /*#__PURE__*/function () {
 	    function Dropdown(element, config) {
 	      this._element = element;
 	      this._popper = null;
@@ -4309,11 +4232,11 @@
 
 	    // Public
 	    _proto.toggle = function toggle() {
-	      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED)) {
+	      if (this._element.disabled || $(this._element).hasClass(CLASS_NAME_DISABLED)) {
 	        return;
 	      }
 
-	      var isActive = $(this._menu).hasClass(ClassName$4.SHOW);
+	      var isActive = $(this._menu).hasClass(CLASS_NAME_SHOW$2);
 
 	      Dropdown._clearMenus();
 
@@ -4329,14 +4252,14 @@
 	        usePopper = false;
 	      }
 
-	      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || $(this._menu).hasClass(ClassName$4.SHOW)) {
+	      if (this._element.disabled || $(this._element).hasClass(CLASS_NAME_DISABLED) || $(this._menu).hasClass(CLASS_NAME_SHOW$2)) {
 	        return;
 	      }
 
 	      var relatedTarget = {
 	        relatedTarget: this._element
 	      };
-	      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
+	      var showEvent = $.Event(EVENT_SHOW$1, relatedTarget);
 
 	      var parent = Dropdown._getParentFromElement(this._element);
 
@@ -4372,7 +4295,7 @@
 
 
 	        if (this._config.boundary !== 'scrollParent') {
-	          $(parent).addClass(ClassName$4.POSITION_STATIC);
+	          $(parent).addClass(CLASS_NAME_POSITION_STATIC);
 	        }
 
 	        this._popper = new Popper(referenceElement, this._menu, this._getPopperConfig());
@@ -4382,7 +4305,7 @@
 	      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
 
-	      if ('ontouchstart' in document.documentElement && $(parent).closest(Selector$4.NAVBAR_NAV).length === 0) {
+	      if ('ontouchstart' in document.documentElement && $(parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
 	        $(document.body).children().on('mouseover', null, $.noop);
 	      }
 
@@ -4390,19 +4313,19 @@
 
 	      this._element.setAttribute('aria-expanded', true);
 
-	      $(this._menu).toggleClass(ClassName$4.SHOW);
-	      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
+	      $(this._menu).toggleClass(CLASS_NAME_SHOW$2);
+	      $(parent).toggleClass(CLASS_NAME_SHOW$2).trigger($.Event(EVENT_SHOWN$1, relatedTarget));
 	    };
 
 	    _proto.hide = function hide() {
-	      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || !$(this._menu).hasClass(ClassName$4.SHOW)) {
+	      if (this._element.disabled || $(this._element).hasClass(CLASS_NAME_DISABLED) || !$(this._menu).hasClass(CLASS_NAME_SHOW$2)) {
 	        return;
 	      }
 
 	      var relatedTarget = {
 	        relatedTarget: this._element
 	      };
-	      var hideEvent = $.Event(Event$4.HIDE, relatedTarget);
+	      var hideEvent = $.Event(EVENT_HIDE$1, relatedTarget);
 
 	      var parent = Dropdown._getParentFromElement(this._element);
 
@@ -4416,8 +4339,8 @@
 	        this._popper.destroy();
 	      }
 
-	      $(this._menu).toggleClass(ClassName$4.SHOW);
-	      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, relatedTarget));
+	      $(this._menu).toggleClass(CLASS_NAME_SHOW$2);
+	      $(parent).toggleClass(CLASS_NAME_SHOW$2).trigger($.Event(EVENT_HIDDEN$1, relatedTarget));
 	    };
 
 	    _proto.dispose = function dispose() {
@@ -4445,7 +4368,7 @@
 	    _proto._addEventListeners = function _addEventListeners() {
 	      var _this = this;
 
-	      $(this._element).on(Event$4.CLICK, function (event) {
+	      $(this._element).on(EVENT_CLICK, function (event) {
 	        event.preventDefault();
 	        event.stopPropagation();
 
@@ -4454,7 +4377,7 @@
 	    };
 
 	    _proto._getConfig = function _getConfig(config) {
-	      config = _objectSpread2({}, this.constructor.Default, {}, $(this._element).data(), {}, config);
+	      config = _extends({}, this.constructor.Default, $(this._element).data(), config);
 	      Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
 	      return config;
 	    };
@@ -4464,7 +4387,7 @@
 	        var parent = Dropdown._getParentFromElement(this._element);
 
 	        if (parent) {
-	          this._menu = parent.querySelector(Selector$4.MENU);
+	          this._menu = parent.querySelector(SELECTOR_MENU);
 	        }
 	      }
 
@@ -4473,20 +4396,16 @@
 
 	    _proto._getPlacement = function _getPlacement() {
 	      var $parentDropdown = $(this._element.parentNode);
-	      var placement = AttachmentMap.BOTTOM; // Handle dropup
+	      var placement = PLACEMENT_BOTTOM; // Handle dropup
 
-	      if ($parentDropdown.hasClass(ClassName$4.DROPUP)) {
-	        placement = AttachmentMap.TOP;
-
-	        if ($(this._menu).hasClass(ClassName$4.MENURIGHT)) {
-	          placement = AttachmentMap.TOPEND;
-	        }
-	      } else if ($parentDropdown.hasClass(ClassName$4.DROPRIGHT)) {
-	        placement = AttachmentMap.RIGHT;
-	      } else if ($parentDropdown.hasClass(ClassName$4.DROPLEFT)) {
-	        placement = AttachmentMap.LEFT;
-	      } else if ($(this._menu).hasClass(ClassName$4.MENURIGHT)) {
-	        placement = AttachmentMap.BOTTOMEND;
+	      if ($parentDropdown.hasClass(CLASS_NAME_DROPUP)) {
+	        placement = $(this._menu).hasClass(CLASS_NAME_MENURIGHT) ? PLACEMENT_TOPEND : PLACEMENT_TOP;
+	      } else if ($parentDropdown.hasClass(CLASS_NAME_DROPRIGHT)) {
+	        placement = PLACEMENT_RIGHT;
+	      } else if ($parentDropdown.hasClass(CLASS_NAME_DROPLEFT)) {
+	        placement = PLACEMENT_LEFT;
+	      } else if ($(this._menu).hasClass(CLASS_NAME_MENURIGHT)) {
+	        placement = PLACEMENT_BOTTOMEND;
 	      }
 
 	      return placement;
@@ -4503,7 +4422,7 @@
 
 	      if (typeof this._config.offset === 'function') {
 	        offset.fn = function (data) {
-	          data.offsets = _objectSpread2({}, data.offsets, {}, _this2._config.offset(data.offsets, _this2._element) || {});
+	          data.offsets = _extends({}, data.offsets, _this2._config.offset(data.offsets, _this2._element) || {});
 	          return data;
 	        };
 	      } else {
@@ -4533,7 +4452,7 @@
 	        };
 	      }
 
-	      return _objectSpread2({}, popperConfig, {}, this._config.popperConfig);
+	      return _extends({}, popperConfig, this._config.popperConfig);
 	    } // Static
 	    ;
 
@@ -4563,7 +4482,7 @@
 	        return;
 	      }
 
-	      var toggles = [].slice.call(document.querySelectorAll(Selector$4.DATA_TOGGLE));
+	      var toggles = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$2));
 
 	      for (var i = 0, len = toggles.length; i < len; i++) {
 	        var parent = Dropdown._getParentFromElement(toggles[i]);
@@ -4583,7 +4502,7 @@
 
 	        var dropdownMenu = context._menu;
 
-	        if (!$(parent).hasClass(ClassName$4.SHOW)) {
+	        if (!$(parent).hasClass(CLASS_NAME_SHOW$2)) {
 	          continue;
 	        }
 
@@ -4591,7 +4510,7 @@
 	          continue;
 	        }
 
-	        var hideEvent = $.Event(Event$4.HIDE, relatedTarget);
+	        var hideEvent = $.Event(EVENT_HIDE$1, relatedTarget);
 	        $(parent).trigger(hideEvent);
 
 	        if (hideEvent.isDefaultPrevented()) {
@@ -4610,8 +4529,8 @@
 	          context._popper.destroy();
 	        }
 
-	        $(dropdownMenu).removeClass(ClassName$4.SHOW);
-	        $(parent).removeClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, relatedTarget));
+	        $(dropdownMenu).removeClass(CLASS_NAME_SHOW$2);
+	        $(parent).removeClass(CLASS_NAME_SHOW$2).trigger($.Event(EVENT_HIDDEN$1, relatedTarget));
 	      }
 	    };
 
@@ -4635,36 +4554,35 @@
 	      //  - If key is other than escape
 	      //    - If key is not up or down => not a dropdown command
 	      //    - If trigger inside the menu => not a dropdown command
-	      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $(event.target).closest(Selector$4.MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+	      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $(event.target).closest(SELECTOR_MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+	        return;
+	      }
+
+	      if (this.disabled || $(this).hasClass(CLASS_NAME_DISABLED)) {
+	        return;
+	      }
+
+	      var parent = Dropdown._getParentFromElement(this);
+
+	      var isActive = $(parent).hasClass(CLASS_NAME_SHOW$2);
+
+	      if (!isActive && event.which === ESCAPE_KEYCODE) {
 	        return;
 	      }
 
 	      event.preventDefault();
 	      event.stopPropagation();
 
-	      if (this.disabled || $(this).hasClass(ClassName$4.DISABLED)) {
-	        return;
-	      }
-
-	      var parent = Dropdown._getParentFromElement(this);
-
-	      var isActive = $(parent).hasClass(ClassName$4.SHOW);
-
-	      if (!isActive && event.which === ESCAPE_KEYCODE) {
-	        return;
-	      }
-
 	      if (!isActive || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
 	        if (event.which === ESCAPE_KEYCODE) {
-	          var toggle = parent.querySelector(Selector$4.DATA_TOGGLE);
-	          $(toggle).trigger('focus');
+	          $(parent.querySelector(SELECTOR_DATA_TOGGLE$2)).trigger('focus');
 	        }
 
 	        $(this).trigger('click');
 	        return;
 	      }
 
-	      var items = [].slice.call(parent.querySelectorAll(Selector$4.VISIBLE_ITEMS)).filter(function (item) {
+	      var items = [].slice.call(parent.querySelectorAll(SELECTOR_VISIBLE_ITEMS)).filter(function (item) {
 	        return $(item).is(':visible');
 	      });
 
@@ -4717,12 +4635,12 @@
 	   */
 
 
-	  $(document).on(Event$4.KEYDOWN_DATA_API, Selector$4.DATA_TOGGLE, Dropdown._dataApiKeydownHandler).on(Event$4.KEYDOWN_DATA_API, Selector$4.MENU, Dropdown._dataApiKeydownHandler).on(Event$4.CLICK_DATA_API + " " + Event$4.KEYUP_DATA_API, Dropdown._clearMenus).on(Event$4.CLICK_DATA_API, Selector$4.DATA_TOGGLE, function (event) {
+	  $(document).on(EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown._dataApiKeydownHandler).on(EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown._dataApiKeydownHandler).on(EVENT_CLICK_DATA_API$4 + " " + EVENT_KEYUP_DATA_API, Dropdown._clearMenus).on(EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$2, function (event) {
 	    event.preventDefault();
 	    event.stopPropagation();
 
 	    Dropdown._jQueryInterface.call($(this), 'toggle');
-	  }).on(Event$4.CLICK_DATA_API, Selector$4.FORM_CHILD, function (e) {
+	  }).on(EVENT_CLICK_DATA_API$4, SELECTOR_FORM_CHILD, function (e) {
 	    e.stopPropagation();
 	  });
 	  /**
@@ -4746,7 +4664,7 @@
 	   */
 
 	  var NAME$5 = 'modal';
-	  var VERSION$5 = '4.4.1';
+	  var VERSION$5 = '4.5.2';
 	  var DATA_KEY$5 = 'bs.modal';
 	  var EVENT_KEY$5 = "." + DATA_KEY$5;
 	  var DATA_API_KEY$5 = '.data-api';
@@ -4765,50 +4683,42 @@
 	    focus: 'boolean',
 	    show: 'boolean'
 	  };
-	  var Event$5 = {
-	    HIDE: "hide" + EVENT_KEY$5,
-	    HIDE_PREVENTED: "hidePrevented" + EVENT_KEY$5,
-	    HIDDEN: "hidden" + EVENT_KEY$5,
-	    SHOW: "show" + EVENT_KEY$5,
-	    SHOWN: "shown" + EVENT_KEY$5,
-	    FOCUSIN: "focusin" + EVENT_KEY$5,
-	    RESIZE: "resize" + EVENT_KEY$5,
-	    CLICK_DISMISS: "click.dismiss" + EVENT_KEY$5,
-	    KEYDOWN_DISMISS: "keydown.dismiss" + EVENT_KEY$5,
-	    MOUSEUP_DISMISS: "mouseup.dismiss" + EVENT_KEY$5,
-	    MOUSEDOWN_DISMISS: "mousedown.dismiss" + EVENT_KEY$5,
-	    CLICK_DATA_API: "click" + EVENT_KEY$5 + DATA_API_KEY$5
-	  };
-	  var ClassName$5 = {
-	    SCROLLABLE: 'modal-dialog-scrollable',
-	    SCROLLBAR_MEASURER: 'modal-scrollbar-measure',
-	    BACKDROP: 'modal-backdrop',
-	    OPEN: 'modal-open',
-	    FADE: 'fade',
-	    SHOW: 'show',
-	    STATIC: 'modal-static'
-	  };
-	  var Selector$5 = {
-	    DIALOG: '.modal-dialog',
-	    MODAL_BODY: '.modal-body',
-	    DATA_TOGGLE: '[data-toggle="modal"]',
-	    DATA_DISMISS: '[data-dismiss="modal"]',
-	    FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-	    STICKY_CONTENT: '.sticky-top'
-	  };
+	  var EVENT_HIDE$2 = "hide" + EVENT_KEY$5;
+	  var EVENT_HIDE_PREVENTED = "hidePrevented" + EVENT_KEY$5;
+	  var EVENT_HIDDEN$2 = "hidden" + EVENT_KEY$5;
+	  var EVENT_SHOW$2 = "show" + EVENT_KEY$5;
+	  var EVENT_SHOWN$2 = "shown" + EVENT_KEY$5;
+	  var EVENT_FOCUSIN = "focusin" + EVENT_KEY$5;
+	  var EVENT_RESIZE = "resize" + EVENT_KEY$5;
+	  var EVENT_CLICK_DISMISS = "click.dismiss" + EVENT_KEY$5;
+	  var EVENT_KEYDOWN_DISMISS = "keydown.dismiss" + EVENT_KEY$5;
+	  var EVENT_MOUSEUP_DISMISS = "mouseup.dismiss" + EVENT_KEY$5;
+	  var EVENT_MOUSEDOWN_DISMISS = "mousedown.dismiss" + EVENT_KEY$5;
+	  var EVENT_CLICK_DATA_API$5 = "click" + EVENT_KEY$5 + DATA_API_KEY$5;
+	  var CLASS_NAME_SCROLLABLE = 'modal-dialog-scrollable';
+	  var CLASS_NAME_SCROLLBAR_MEASURER = 'modal-scrollbar-measure';
+	  var CLASS_NAME_BACKDROP = 'modal-backdrop';
+	  var CLASS_NAME_OPEN = 'modal-open';
+	  var CLASS_NAME_FADE$1 = 'fade';
+	  var CLASS_NAME_SHOW$3 = 'show';
+	  var CLASS_NAME_STATIC = 'modal-static';
+	  var SELECTOR_DIALOG = '.modal-dialog';
+	  var SELECTOR_MODAL_BODY = '.modal-body';
+	  var SELECTOR_DATA_TOGGLE$3 = '[data-toggle="modal"]';
+	  var SELECTOR_DATA_DISMISS = '[data-dismiss="modal"]';
+	  var SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top';
+	  var SELECTOR_STICKY_CONTENT = '.sticky-top';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Modal =
-	  /*#__PURE__*/
-	  function () {
+	  var Modal = /*#__PURE__*/function () {
 	    function Modal(element, config) {
 	      this._config = this._getConfig(config);
 	      this._element = element;
-	      this._dialog = element.querySelector(Selector$5.DIALOG);
+	      this._dialog = element.querySelector(SELECTOR_DIALOG);
 	      this._backdrop = null;
 	      this._isShown = false;
 	      this._isBodyOverflowing = false;
@@ -4832,11 +4742,11 @@
 	        return;
 	      }
 
-	      if ($(this._element).hasClass(ClassName$5.FADE)) {
+	      if ($(this._element).hasClass(CLASS_NAME_FADE$1)) {
 	        this._isTransitioning = true;
 	      }
 
-	      var showEvent = $.Event(Event$5.SHOW, {
+	      var showEvent = $.Event(EVENT_SHOW$2, {
 	        relatedTarget: relatedTarget
 	      });
 	      $(this._element).trigger(showEvent);
@@ -4857,11 +4767,11 @@
 
 	      this._setResizeEvent();
 
-	      $(this._element).on(Event$5.CLICK_DISMISS, Selector$5.DATA_DISMISS, function (event) {
+	      $(this._element).on(EVENT_CLICK_DISMISS, SELECTOR_DATA_DISMISS, function (event) {
 	        return _this.hide(event);
 	      });
-	      $(this._dialog).on(Event$5.MOUSEDOWN_DISMISS, function () {
-	        $(_this._element).one(Event$5.MOUSEUP_DISMISS, function (event) {
+	      $(this._dialog).on(EVENT_MOUSEDOWN_DISMISS, function () {
+	        $(_this._element).one(EVENT_MOUSEUP_DISMISS, function (event) {
 	          if ($(event.target).is(_this._element)) {
 	            _this._ignoreBackdropClick = true;
 	          }
@@ -4884,7 +4794,7 @@
 	        return;
 	      }
 
-	      var hideEvent = $.Event(Event$5.HIDE);
+	      var hideEvent = $.Event(EVENT_HIDE$2);
 	      $(this._element).trigger(hideEvent);
 
 	      if (!this._isShown || hideEvent.isDefaultPrevented()) {
@@ -4892,7 +4802,7 @@
 	      }
 
 	      this._isShown = false;
-	      var transition = $(this._element).hasClass(ClassName$5.FADE);
+	      var transition = $(this._element).hasClass(CLASS_NAME_FADE$1);
 
 	      if (transition) {
 	        this._isTransitioning = true;
@@ -4902,10 +4812,10 @@
 
 	      this._setResizeEvent();
 
-	      $(document).off(Event$5.FOCUSIN);
-	      $(this._element).removeClass(ClassName$5.SHOW);
-	      $(this._element).off(Event$5.CLICK_DISMISS);
-	      $(this._dialog).off(Event$5.MOUSEDOWN_DISMISS);
+	      $(document).off(EVENT_FOCUSIN);
+	      $(this._element).removeClass(CLASS_NAME_SHOW$3);
+	      $(this._element).off(EVENT_CLICK_DISMISS);
+	      $(this._dialog).off(EVENT_MOUSEDOWN_DISMISS);
 
 	      if (transition) {
 	        var transitionDuration = Util.getTransitionDurationFromElement(this._element);
@@ -4922,12 +4832,12 @@
 	        return $(htmlElement).off(EVENT_KEY$5);
 	      });
 	      /**
-	       * `document` has 2 events `Event.FOCUSIN` and `Event.CLICK_DATA_API`
+	       * `document` has 2 events `EVENT_FOCUSIN` and `EVENT_CLICK_DATA_API`
 	       * Do not move `document` in `htmlElements` array
-	       * It will remove `Event.CLICK_DATA_API` event that should remain
+	       * It will remove `EVENT_CLICK_DATA_API` event that should remain
 	       */
 
-	      $(document).off(Event$5.FOCUSIN);
+	      $(document).off(EVENT_FOCUSIN);
 	      $.removeData(this._element, DATA_KEY$5);
 	      this._config = null;
 	      this._element = null;
@@ -4946,7 +4856,7 @@
 	    ;
 
 	    _proto._getConfig = function _getConfig(config) {
-	      config = _objectSpread2({}, Default$3, {}, config);
+	      config = _extends({}, Default$3, config);
 	      Util.typeCheckConfig(NAME$5, config, DefaultType$3);
 	      return config;
 	    };
@@ -4955,18 +4865,31 @@
 	      var _this3 = this;
 
 	      if (this._config.backdrop === 'static') {
-	        var hideEventPrevented = $.Event(Event$5.HIDE_PREVENTED);
+	        var hideEventPrevented = $.Event(EVENT_HIDE_PREVENTED);
 	        $(this._element).trigger(hideEventPrevented);
 
 	        if (hideEventPrevented.defaultPrevented) {
 	          return;
 	        }
 
-	        this._element.classList.add(ClassName$5.STATIC);
+	        var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
 
-	        var modalTransitionDuration = Util.getTransitionDurationFromElement(this._element);
+	        if (!isModalOverflowing) {
+	          this._element.style.overflowY = 'hidden';
+	        }
+
+	        this._element.classList.add(CLASS_NAME_STATIC);
+
+	        var modalTransitionDuration = Util.getTransitionDurationFromElement(this._dialog);
+	        $(this._element).off(Util.TRANSITION_END);
 	        $(this._element).one(Util.TRANSITION_END, function () {
-	          _this3._element.classList.remove(ClassName$5.STATIC);
+	          _this3._element.classList.remove(CLASS_NAME_STATIC);
+
+	          if (!isModalOverflowing) {
+	            $(_this3._element).one(Util.TRANSITION_END, function () {
+	              _this3._element.style.overflowY = '';
+	            }).emulateTransitionEnd(_this3._element, modalTransitionDuration);
+	          }
 	        }).emulateTransitionEnd(modalTransitionDuration);
 
 	        this._element.focus();
@@ -4978,8 +4901,8 @@
 	    _proto._showElement = function _showElement(relatedTarget) {
 	      var _this4 = this;
 
-	      var transition = $(this._element).hasClass(ClassName$5.FADE);
-	      var modalBody = this._dialog ? this._dialog.querySelector(Selector$5.MODAL_BODY) : null;
+	      var transition = $(this._element).hasClass(CLASS_NAME_FADE$1);
+	      var modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null;
 
 	      if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
 	        // Don't move modal's DOM position
@@ -4992,7 +4915,9 @@
 
 	      this._element.setAttribute('aria-modal', true);
 
-	      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE) && modalBody) {
+	      this._element.setAttribute('role', 'dialog');
+
+	      if ($(this._dialog).hasClass(CLASS_NAME_SCROLLABLE) && modalBody) {
 	        modalBody.scrollTop = 0;
 	      } else {
 	        this._element.scrollTop = 0;
@@ -5002,13 +4927,13 @@
 	        Util.reflow(this._element);
 	      }
 
-	      $(this._element).addClass(ClassName$5.SHOW);
+	      $(this._element).addClass(CLASS_NAME_SHOW$3);
 
 	      if (this._config.focus) {
 	        this._enforceFocus();
 	      }
 
-	      var shownEvent = $.Event(Event$5.SHOWN, {
+	      var shownEvent = $.Event(EVENT_SHOWN$2, {
 	        relatedTarget: relatedTarget
 	      });
 
@@ -5032,8 +4957,8 @@
 	    _proto._enforceFocus = function _enforceFocus() {
 	      var _this5 = this;
 
-	      $(document).off(Event$5.FOCUSIN) // Guard against infinite focus loop
-	      .on(Event$5.FOCUSIN, function (event) {
+	      $(document).off(EVENT_FOCUSIN) // Guard against infinite focus loop
+	      .on(EVENT_FOCUSIN, function (event) {
 	        if (document !== event.target && _this5._element !== event.target && $(_this5._element).has(event.target).length === 0) {
 	          _this5._element.focus();
 	        }
@@ -5043,14 +4968,18 @@
 	    _proto._setEscapeEvent = function _setEscapeEvent() {
 	      var _this6 = this;
 
-	      if (this._isShown && this._config.keyboard) {
-	        $(this._element).on(Event$5.KEYDOWN_DISMISS, function (event) {
-	          if (event.which === ESCAPE_KEYCODE$1) {
+	      if (this._isShown) {
+	        $(this._element).on(EVENT_KEYDOWN_DISMISS, function (event) {
+	          if (_this6._config.keyboard && event.which === ESCAPE_KEYCODE$1) {
+	            event.preventDefault();
+
+	            _this6.hide();
+	          } else if (!_this6._config.keyboard && event.which === ESCAPE_KEYCODE$1) {
 	            _this6._triggerBackdropTransition();
 	          }
 	        });
 	      } else if (!this._isShown) {
-	        $(this._element).off(Event$5.KEYDOWN_DISMISS);
+	        $(this._element).off(EVENT_KEYDOWN_DISMISS);
 	      }
 	    };
 
@@ -5058,11 +4987,11 @@
 	      var _this7 = this;
 
 	      if (this._isShown) {
-	        $(window).on(Event$5.RESIZE, function (event) {
+	        $(window).on(EVENT_RESIZE, function (event) {
 	          return _this7.handleUpdate(event);
 	        });
 	      } else {
-	        $(window).off(Event$5.RESIZE);
+	        $(window).off(EVENT_RESIZE);
 	      }
 	    };
 
@@ -5075,16 +5004,18 @@
 
 	      this._element.removeAttribute('aria-modal');
 
+	      this._element.removeAttribute('role');
+
 	      this._isTransitioning = false;
 
 	      this._showBackdrop(function () {
-	        $(document.body).removeClass(ClassName$5.OPEN);
+	        $(document.body).removeClass(CLASS_NAME_OPEN);
 
 	        _this8._resetAdjustments();
 
 	        _this8._resetScrollbar();
 
-	        $(_this8._element).trigger(Event$5.HIDDEN);
+	        $(_this8._element).trigger(EVENT_HIDDEN$2);
 	      });
 	    };
 
@@ -5098,18 +5029,18 @@
 	    _proto._showBackdrop = function _showBackdrop(callback) {
 	      var _this9 = this;
 
-	      var animate = $(this._element).hasClass(ClassName$5.FADE) ? ClassName$5.FADE : '';
+	      var animate = $(this._element).hasClass(CLASS_NAME_FADE$1) ? CLASS_NAME_FADE$1 : '';
 
 	      if (this._isShown && this._config.backdrop) {
 	        this._backdrop = document.createElement('div');
-	        this._backdrop.className = ClassName$5.BACKDROP;
+	        this._backdrop.className = CLASS_NAME_BACKDROP;
 
 	        if (animate) {
 	          this._backdrop.classList.add(animate);
 	        }
 
 	        $(this._backdrop).appendTo(document.body);
-	        $(this._element).on(Event$5.CLICK_DISMISS, function (event) {
+	        $(this._element).on(EVENT_CLICK_DISMISS, function (event) {
 	          if (_this9._ignoreBackdropClick) {
 	            _this9._ignoreBackdropClick = false;
 	            return;
@@ -5126,7 +5057,7 @@
 	          Util.reflow(this._backdrop);
 	        }
 
-	        $(this._backdrop).addClass(ClassName$5.SHOW);
+	        $(this._backdrop).addClass(CLASS_NAME_SHOW$3);
 
 	        if (!callback) {
 	          return;
@@ -5140,7 +5071,7 @@
 	        var backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
 	        $(this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(backdropTransitionDuration);
 	      } else if (!this._isShown && this._backdrop) {
-	        $(this._backdrop).removeClass(ClassName$5.SHOW);
+	        $(this._backdrop).removeClass(CLASS_NAME_SHOW$3);
 
 	        var callbackRemove = function callbackRemove() {
 	          _this9._removeBackdrop();
@@ -5150,7 +5081,7 @@
 	          }
 	        };
 
-	        if ($(this._element).hasClass(ClassName$5.FADE)) {
+	        if ($(this._element).hasClass(CLASS_NAME_FADE$1)) {
 	          var _backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
 
 	          $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
@@ -5185,7 +5116,7 @@
 
 	    _proto._checkScrollbar = function _checkScrollbar() {
 	      var rect = document.body.getBoundingClientRect();
-	      this._isBodyOverflowing = rect.left + rect.right < window.innerWidth;
+	      this._isBodyOverflowing = Math.round(rect.left + rect.right) < window.innerWidth;
 	      this._scrollbarWidth = this._getScrollbarWidth();
 	    };
 
@@ -5195,8 +5126,8 @@
 	      if (this._isBodyOverflowing) {
 	        // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
 	        //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-	        var fixedContent = [].slice.call(document.querySelectorAll(Selector$5.FIXED_CONTENT));
-	        var stickyContent = [].slice.call(document.querySelectorAll(Selector$5.STICKY_CONTENT)); // Adjust fixed content padding
+	        var fixedContent = [].slice.call(document.querySelectorAll(SELECTOR_FIXED_CONTENT));
+	        var stickyContent = [].slice.call(document.querySelectorAll(SELECTOR_STICKY_CONTENT)); // Adjust fixed content padding
 
 	        $(fixedContent).each(function (index, element) {
 	          var actualPadding = element.style.paddingRight;
@@ -5215,19 +5146,19 @@
 	        $(document.body).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + this._scrollbarWidth + "px");
 	      }
 
-	      $(document.body).addClass(ClassName$5.OPEN);
+	      $(document.body).addClass(CLASS_NAME_OPEN);
 	    };
 
 	    _proto._resetScrollbar = function _resetScrollbar() {
 	      // Restore fixed content padding
-	      var fixedContent = [].slice.call(document.querySelectorAll(Selector$5.FIXED_CONTENT));
+	      var fixedContent = [].slice.call(document.querySelectorAll(SELECTOR_FIXED_CONTENT));
 	      $(fixedContent).each(function (index, element) {
 	        var padding = $(element).data('padding-right');
 	        $(element).removeData('padding-right');
 	        element.style.paddingRight = padding ? padding : '';
 	      }); // Restore sticky content
 
-	      var elements = [].slice.call(document.querySelectorAll("" + Selector$5.STICKY_CONTENT));
+	      var elements = [].slice.call(document.querySelectorAll("" + SELECTOR_STICKY_CONTENT));
 	      $(elements).each(function (index, element) {
 	        var margin = $(element).data('margin-right');
 
@@ -5244,7 +5175,7 @@
 	    _proto._getScrollbarWidth = function _getScrollbarWidth() {
 	      // thx d.walsh
 	      var scrollDiv = document.createElement('div');
-	      scrollDiv.className = ClassName$5.SCROLLBAR_MEASURER;
+	      scrollDiv.className = CLASS_NAME_SCROLLBAR_MEASURER;
 	      document.body.appendChild(scrollDiv);
 	      var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
 	      document.body.removeChild(scrollDiv);
@@ -5256,7 +5187,7 @@
 	      return this.each(function () {
 	        var data = $(this).data(DATA_KEY$5);
 
-	        var _config = _objectSpread2({}, Default$3, {}, $(this).data(), {}, typeof config === 'object' && config ? config : {});
+	        var _config = _extends({}, Default$3, $(this).data(), typeof config === 'object' && config ? config : {});
 
 	        if (!data) {
 	          data = new Modal(this, _config);
@@ -5296,7 +5227,7 @@
 	   */
 
 
-	  $(document).on(Event$5.CLICK_DATA_API, Selector$5.DATA_TOGGLE, function (event) {
+	  $(document).on(EVENT_CLICK_DATA_API$5, SELECTOR_DATA_TOGGLE$3, function (event) {
 	    var _this11 = this;
 
 	    var target;
@@ -5306,19 +5237,19 @@
 	      target = document.querySelector(selector);
 	    }
 
-	    var config = $(target).data(DATA_KEY$5) ? 'toggle' : _objectSpread2({}, $(target).data(), {}, $(this).data());
+	    var config = $(target).data(DATA_KEY$5) ? 'toggle' : _extends({}, $(target).data(), $(this).data());
 
 	    if (this.tagName === 'A' || this.tagName === 'AREA') {
 	      event.preventDefault();
 	    }
 
-	    var $target = $(target).one(Event$5.SHOW, function (showEvent) {
+	    var $target = $(target).one(EVENT_SHOW$2, function (showEvent) {
 	      if (showEvent.isDefaultPrevented()) {
 	        // Only register focus restorer if modal will actually get shown
 	        return;
 	      }
 
-	      $target.one(Event$5.HIDDEN, function () {
+	      $target.one(EVENT_HIDDEN$2, function () {
 	        if ($(_this11).is(':visible')) {
 	          _this11.focus();
 	        }
@@ -5343,8 +5274,8 @@
 
 	  /**
 	   * --------------------------------------------------------------------------
-	   * Bootstrap (v4.4.1): tools/sanitizer.js
-	   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	   * Bootstrap (v4.5.2): tools/sanitizer.js
+	   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
 	   * --------------------------------------------------------------------------
 	   */
 	  var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href'];
@@ -5368,7 +5299,7 @@
 	    h5: [],
 	    h6: [],
 	    i: [],
-	    img: ['src', 'alt', 'title', 'width', 'height'],
+	    img: ['src', 'srcset', 'alt', 'title', 'width', 'height'],
 	    li: [],
 	    ol: [],
 	    p: [],
@@ -5388,14 +5319,14 @@
 	   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
 	   */
 
-	  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+	  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/gi;
 	  /**
 	   * A pattern that matches safe data URLs. Only matches image, video and audio types.
 	   *
 	   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
 	   */
 
-	  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i;
+	  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
 
 	  function allowedAttribute(attr, allowedAttributeList) {
 	    var attrName = attr.nodeName.toLowerCase();
@@ -5412,7 +5343,7 @@
 	      return attrRegex instanceof RegExp;
 	    }); // Check if a regular expression validates the attribute.
 
-	    for (var i = 0, l = regExp.length; i < l; i++) {
+	    for (var i = 0, len = regExp.length; i < len; i++) {
 	      if (attrName.match(regExp[i])) {
 	        return true;
 	      }
@@ -5469,7 +5400,7 @@
 	   */
 
 	  var NAME$6 = 'tooltip';
-	  var VERSION$6 = '4.4.1';
+	  var VERSION$6 = '4.5.2';
 	  var DATA_KEY$6 = 'bs.tooltip';
 	  var EVENT_KEY$6 = "." + DATA_KEY$6;
 	  var JQUERY_NO_CONFLICT$6 = $.fn[NAME$6];
@@ -5494,7 +5425,7 @@
 	    whiteList: 'object',
 	    popperConfig: '(null|object)'
 	  };
-	  var AttachmentMap$1 = {
+	  var AttachmentMap = {
 	    AUTO: 'auto',
 	    TOP: 'top',
 	    RIGHT: 'right',
@@ -5519,11 +5450,9 @@
 	    whiteList: DefaultWhitelist,
 	    popperConfig: null
 	  };
-	  var HoverState = {
-	    SHOW: 'show',
-	    OUT: 'out'
-	  };
-	  var Event$6 = {
+	  var HOVER_STATE_SHOW = 'show';
+	  var HOVER_STATE_OUT = 'out';
+	  var Event = {
 	    HIDE: "hide" + EVENT_KEY$6,
 	    HIDDEN: "hidden" + EVENT_KEY$6,
 	    SHOW: "show" + EVENT_KEY$6,
@@ -5535,30 +5464,21 @@
 	    MOUSEENTER: "mouseenter" + EVENT_KEY$6,
 	    MOUSELEAVE: "mouseleave" + EVENT_KEY$6
 	  };
-	  var ClassName$6 = {
-	    FADE: 'fade',
-	    SHOW: 'show'
-	  };
-	  var Selector$6 = {
-	    TOOLTIP: '.tooltip',
-	    TOOLTIP_INNER: '.tooltip-inner',
-	    ARROW: '.arrow'
-	  };
-	  var Trigger = {
-	    HOVER: 'hover',
-	    FOCUS: 'focus',
-	    CLICK: 'click',
-	    MANUAL: 'manual'
-	  };
+	  var CLASS_NAME_FADE$2 = 'fade';
+	  var CLASS_NAME_SHOW$4 = 'show';
+	  var SELECTOR_TOOLTIP_INNER = '.tooltip-inner';
+	  var SELECTOR_ARROW = '.arrow';
+	  var TRIGGER_HOVER = 'hover';
+	  var TRIGGER_FOCUS = 'focus';
+	  var TRIGGER_CLICK = 'click';
+	  var TRIGGER_MANUAL = 'manual';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Tooltip =
-	  /*#__PURE__*/
-	  function () {
+	  var Tooltip = /*#__PURE__*/function () {
 	    function Tooltip(element, config) {
 	      if (typeof Popper === 'undefined') {
 	        throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org/)');
@@ -5616,7 +5536,7 @@
 	          context._leave(null, context);
 	        }
 	      } else {
-	        if ($(this.getTipElement()).hasClass(ClassName$6.SHOW)) {
+	        if ($(this.getTipElement()).hasClass(CLASS_NAME_SHOW$4)) {
 	          this._leave(null, this);
 
 	          return;
@@ -5676,7 +5596,7 @@
 	        this.setContent();
 
 	        if (this.config.animation) {
-	          $(tip).addClass(ClassName$6.FADE);
+	          $(tip).addClass(CLASS_NAME_FADE$2);
 	        }
 
 	        var placement = typeof this.config.placement === 'function' ? this.config.placement.call(this, tip, this.element) : this.config.placement;
@@ -5695,7 +5615,7 @@
 
 	        $(this.element).trigger(this.constructor.Event.INSERTED);
 	        this._popper = new Popper(this.element, tip, this._getPopperConfig(attachment));
-	        $(tip).addClass(ClassName$6.SHOW); // If this is a touch-enabled device we add extra
+	        $(tip).addClass(CLASS_NAME_SHOW$4); // If this is a touch-enabled device we add extra
 	        // empty mouseover listeners to the body's immediate children;
 	        // only needed because of broken event delegation on iOS
 	        // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
@@ -5713,12 +5633,12 @@
 	          _this._hoverState = null;
 	          $(_this.element).trigger(_this.constructor.Event.SHOWN);
 
-	          if (prevHoverState === HoverState.OUT) {
+	          if (prevHoverState === HOVER_STATE_OUT) {
 	            _this._leave(null, _this);
 	          }
 	        };
 
-	        if ($(this.tip).hasClass(ClassName$6.FADE)) {
+	        if ($(this.tip).hasClass(CLASS_NAME_FADE$2)) {
 	          var transitionDuration = Util.getTransitionDurationFromElement(this.tip);
 	          $(this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
 	        } else {
@@ -5734,7 +5654,7 @@
 	      var hideEvent = $.Event(this.constructor.Event.HIDE);
 
 	      var complete = function complete() {
-	        if (_this2._hoverState !== HoverState.SHOW && tip.parentNode) {
+	        if (_this2._hoverState !== HOVER_STATE_SHOW && tip.parentNode) {
 	          tip.parentNode.removeChild(tip);
 	        }
 
@@ -5759,18 +5679,18 @@
 	        return;
 	      }
 
-	      $(tip).removeClass(ClassName$6.SHOW); // If this is a touch-enabled device we remove the extra
+	      $(tip).removeClass(CLASS_NAME_SHOW$4); // If this is a touch-enabled device we remove the extra
 	      // empty mouseover listeners we added for iOS support
 
 	      if ('ontouchstart' in document.documentElement) {
 	        $(document.body).children().off('mouseover', null, $.noop);
 	      }
 
-	      this._activeTrigger[Trigger.CLICK] = false;
-	      this._activeTrigger[Trigger.FOCUS] = false;
-	      this._activeTrigger[Trigger.HOVER] = false;
+	      this._activeTrigger[TRIGGER_CLICK] = false;
+	      this._activeTrigger[TRIGGER_FOCUS] = false;
+	      this._activeTrigger[TRIGGER_HOVER] = false;
 
-	      if ($(this.tip).hasClass(ClassName$6.FADE)) {
+	      if ($(this.tip).hasClass(CLASS_NAME_FADE$2)) {
 	        var transitionDuration = Util.getTransitionDurationFromElement(tip);
 	        $(tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
 	      } else {
@@ -5802,8 +5722,8 @@
 
 	    _proto.setContent = function setContent() {
 	      var tip = this.getTipElement();
-	      this.setElementContent($(tip.querySelectorAll(Selector$6.TOOLTIP_INNER)), this.getTitle());
-	      $(tip).removeClass(ClassName$6.FADE + " " + ClassName$6.SHOW);
+	      this.setElementContent($(tip.querySelectorAll(SELECTOR_TOOLTIP_INNER)), this.getTitle());
+	      $(tip).removeClass(CLASS_NAME_FADE$2 + " " + CLASS_NAME_SHOW$4);
 	    };
 
 	    _proto.setElementContent = function setElementContent($element, content) {
@@ -5853,7 +5773,7 @@
 	            behavior: this.config.fallbackPlacement
 	          },
 	          arrow: {
-	            element: Selector$6.ARROW
+	            element: SELECTOR_ARROW
 	          },
 	          preventOverflow: {
 	            boundariesElement: this.config.boundary
@@ -5868,7 +5788,7 @@
 	          return _this3._handlePopperPlacementChange(data);
 	        }
 	      };
-	      return _objectSpread2({}, defaultBsConfig, {}, this.config.popperConfig);
+	      return _extends({}, defaultBsConfig, this.config.popperConfig);
 	    };
 
 	    _proto._getOffset = function _getOffset() {
@@ -5878,7 +5798,7 @@
 
 	      if (typeof this.config.offset === 'function') {
 	        offset.fn = function (data) {
-	          data.offsets = _objectSpread2({}, data.offsets, {}, _this4.config.offset(data.offsets, _this4.element) || {});
+	          data.offsets = _extends({}, data.offsets, _this4.config.offset(data.offsets, _this4.element) || {});
 	          return data;
 	        };
 	      } else {
@@ -5901,7 +5821,7 @@
 	    };
 
 	    _proto._getAttachment = function _getAttachment(placement) {
-	      return AttachmentMap$1[placement.toUpperCase()];
+	      return AttachmentMap[placement.toUpperCase()];
 	    };
 
 	    _proto._setListeners = function _setListeners() {
@@ -5913,9 +5833,9 @@
 	          $(_this5.element).on(_this5.constructor.Event.CLICK, _this5.config.selector, function (event) {
 	            return _this5.toggle(event);
 	          });
-	        } else if (trigger !== Trigger.MANUAL) {
-	          var eventIn = trigger === Trigger.HOVER ? _this5.constructor.Event.MOUSEENTER : _this5.constructor.Event.FOCUSIN;
-	          var eventOut = trigger === Trigger.HOVER ? _this5.constructor.Event.MOUSELEAVE : _this5.constructor.Event.FOCUSOUT;
+	        } else if (trigger !== TRIGGER_MANUAL) {
+	          var eventIn = trigger === TRIGGER_HOVER ? _this5.constructor.Event.MOUSEENTER : _this5.constructor.Event.FOCUSIN;
+	          var eventOut = trigger === TRIGGER_HOVER ? _this5.constructor.Event.MOUSELEAVE : _this5.constructor.Event.FOCUSOUT;
 	          $(_this5.element).on(eventIn, _this5.config.selector, function (event) {
 	            return _this5._enter(event);
 	          }).on(eventOut, _this5.config.selector, function (event) {
@@ -5933,7 +5853,7 @@
 	      $(this.element).closest('.modal').on('hide.bs.modal', this._hideModalHandler);
 
 	      if (this.config.selector) {
-	        this.config = _objectSpread2({}, this.config, {
+	        this.config = _extends({}, this.config, {
 	          trigger: 'manual',
 	          selector: ''
 	        });
@@ -5961,16 +5881,16 @@
 	      }
 
 	      if (event) {
-	        context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = true;
+	        context._activeTrigger[event.type === 'focusin' ? TRIGGER_FOCUS : TRIGGER_HOVER] = true;
 	      }
 
-	      if ($(context.getTipElement()).hasClass(ClassName$6.SHOW) || context._hoverState === HoverState.SHOW) {
-	        context._hoverState = HoverState.SHOW;
+	      if ($(context.getTipElement()).hasClass(CLASS_NAME_SHOW$4) || context._hoverState === HOVER_STATE_SHOW) {
+	        context._hoverState = HOVER_STATE_SHOW;
 	        return;
 	      }
 
 	      clearTimeout(context._timeout);
-	      context._hoverState = HoverState.SHOW;
+	      context._hoverState = HOVER_STATE_SHOW;
 
 	      if (!context.config.delay || !context.config.delay.show) {
 	        context.show();
@@ -5978,7 +5898,7 @@
 	      }
 
 	      context._timeout = setTimeout(function () {
-	        if (context._hoverState === HoverState.SHOW) {
+	        if (context._hoverState === HOVER_STATE_SHOW) {
 	          context.show();
 	        }
 	      }, context.config.delay.show);
@@ -5994,7 +5914,7 @@
 	      }
 
 	      if (event) {
-	        context._activeTrigger[event.type === 'focusout' ? Trigger.FOCUS : Trigger.HOVER] = false;
+	        context._activeTrigger[event.type === 'focusout' ? TRIGGER_FOCUS : TRIGGER_HOVER] = false;
 	      }
 
 	      if (context._isWithActiveTrigger()) {
@@ -6002,7 +5922,7 @@
 	      }
 
 	      clearTimeout(context._timeout);
-	      context._hoverState = HoverState.OUT;
+	      context._hoverState = HOVER_STATE_OUT;
 
 	      if (!context.config.delay || !context.config.delay.hide) {
 	        context.hide();
@@ -6010,7 +5930,7 @@
 	      }
 
 	      context._timeout = setTimeout(function () {
-	        if (context._hoverState === HoverState.OUT) {
+	        if (context._hoverState === HOVER_STATE_OUT) {
 	          context.hide();
 	        }
 	      }, context.config.delay.hide);
@@ -6033,7 +5953,7 @@
 	          delete dataAttributes[dataAttr];
 	        }
 	      });
-	      config = _objectSpread2({}, this.constructor.Default, {}, dataAttributes, {}, typeof config === 'object' && config ? config : {});
+	      config = _extends({}, this.constructor.Default, dataAttributes, typeof config === 'object' && config ? config : {});
 
 	      if (typeof config.delay === 'number') {
 	        config.delay = {
@@ -6083,8 +6003,7 @@
 	    };
 
 	    _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(popperData) {
-	      var popperInstance = popperData.instance;
-	      this.tip = popperInstance.popper;
+	      this.tip = popperData.instance.popper;
 
 	      this._cleanTipClass();
 
@@ -6099,7 +6018,7 @@
 	        return;
 	      }
 
-	      $(tip).removeClass(ClassName$6.FADE);
+	      $(tip).removeClass(CLASS_NAME_FADE$2);
 	      this.config.animation = false;
 	      this.hide();
 	      this.show();
@@ -6155,7 +6074,7 @@
 	    }, {
 	      key: "Event",
 	      get: function get() {
-	        return Event$6;
+	        return Event;
 	      }
 	    }, {
 	      key: "EVENT_KEY",
@@ -6193,33 +6112,29 @@
 	   */
 
 	  var NAME$7 = 'popover';
-	  var VERSION$7 = '4.4.1';
+	  var VERSION$7 = '4.5.2';
 	  var DATA_KEY$7 = 'bs.popover';
 	  var EVENT_KEY$7 = "." + DATA_KEY$7;
 	  var JQUERY_NO_CONFLICT$7 = $.fn[NAME$7];
 	  var CLASS_PREFIX$1 = 'bs-popover';
 	  var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
-	  var Default$5 = _objectSpread2({}, Tooltip.Default, {
+	  var Default$5 = _extends({}, Tooltip.Default, {
 	    placement: 'right',
 	    trigger: 'click',
 	    content: '',
 	    template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
 	  });
 
-	  var DefaultType$5 = _objectSpread2({}, Tooltip.DefaultType, {
+	  var DefaultType$5 = _extends({}, Tooltip.DefaultType, {
 	    content: '(string|element|function)'
 	  });
 
-	  var ClassName$7 = {
-	    FADE: 'fade',
-	    SHOW: 'show'
-	  };
-	  var Selector$7 = {
-	    TITLE: '.popover-header',
-	    CONTENT: '.popover-body'
-	  };
-	  var Event$7 = {
+	  var CLASS_NAME_FADE$3 = 'fade';
+	  var CLASS_NAME_SHOW$5 = 'show';
+	  var SELECTOR_TITLE = '.popover-header';
+	  var SELECTOR_CONTENT = '.popover-body';
+	  var Event$1 = {
 	    HIDE: "hide" + EVENT_KEY$7,
 	    HIDDEN: "hidden" + EVENT_KEY$7,
 	    SHOW: "show" + EVENT_KEY$7,
@@ -6237,9 +6152,7 @@
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Popover =
-	  /*#__PURE__*/
-	  function (_Tooltip) {
+	  var Popover = /*#__PURE__*/function (_Tooltip) {
 	    _inheritsLoose(Popover, _Tooltip);
 
 	    function Popover() {
@@ -6265,7 +6178,7 @@
 	    _proto.setContent = function setContent() {
 	      var $tip = $(this.getTipElement()); // We use append for html objects to maintain js events
 
-	      this.setElementContent($tip.find(Selector$7.TITLE), this.getTitle());
+	      this.setElementContent($tip.find(SELECTOR_TITLE), this.getTitle());
 
 	      var content = this._getContent();
 
@@ -6273,8 +6186,8 @@
 	        content = content.call(this.element);
 	      }
 
-	      this.setElementContent($tip.find(Selector$7.CONTENT), content);
-	      $tip.removeClass(ClassName$7.FADE + " " + ClassName$7.SHOW);
+	      this.setElementContent($tip.find(SELECTOR_CONTENT), content);
+	      $tip.removeClass(CLASS_NAME_FADE$3 + " " + CLASS_NAME_SHOW$5);
 	    } // Private
 	    ;
 
@@ -6341,7 +6254,7 @@
 	    }, {
 	      key: "Event",
 	      get: function get() {
-	        return Event$7;
+	        return Event$1;
 	      }
 	    }, {
 	      key: "EVENT_KEY",
@@ -6379,7 +6292,7 @@
 	   */
 
 	  var NAME$8 = 'scrollspy';
-	  var VERSION$8 = '4.4.1';
+	  var VERSION$8 = '4.5.2';
 	  var DATA_KEY$8 = 'bs.scrollspy';
 	  var EVENT_KEY$8 = "." + DATA_KEY$8;
 	  var DATA_API_KEY$6 = '.data-api';
@@ -6394,52 +6307,40 @@
 	    method: 'string',
 	    target: '(string|element)'
 	  };
-	  var Event$8 = {
-	    ACTIVATE: "activate" + EVENT_KEY$8,
-	    SCROLL: "scroll" + EVENT_KEY$8,
-	    LOAD_DATA_API: "load" + EVENT_KEY$8 + DATA_API_KEY$6
-	  };
-	  var ClassName$8 = {
-	    DROPDOWN_ITEM: 'dropdown-item',
-	    DROPDOWN_MENU: 'dropdown-menu',
-	    ACTIVE: 'active'
-	  };
-	  var Selector$8 = {
-	    DATA_SPY: '[data-spy="scroll"]',
-	    ACTIVE: '.active',
-	    NAV_LIST_GROUP: '.nav, .list-group',
-	    NAV_LINKS: '.nav-link',
-	    NAV_ITEMS: '.nav-item',
-	    LIST_ITEMS: '.list-group-item',
-	    DROPDOWN: '.dropdown',
-	    DROPDOWN_ITEMS: '.dropdown-item',
-	    DROPDOWN_TOGGLE: '.dropdown-toggle'
-	  };
-	  var OffsetMethod = {
-	    OFFSET: 'offset',
-	    POSITION: 'position'
-	  };
+	  var EVENT_ACTIVATE = "activate" + EVENT_KEY$8;
+	  var EVENT_SCROLL = "scroll" + EVENT_KEY$8;
+	  var EVENT_LOAD_DATA_API$2 = "load" + EVENT_KEY$8 + DATA_API_KEY$6;
+	  var CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
+	  var CLASS_NAME_ACTIVE$2 = 'active';
+	  var SELECTOR_DATA_SPY = '[data-spy="scroll"]';
+	  var SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
+	  var SELECTOR_NAV_LINKS = '.nav-link';
+	  var SELECTOR_NAV_ITEMS = '.nav-item';
+	  var SELECTOR_LIST_ITEMS = '.list-group-item';
+	  var SELECTOR_DROPDOWN = '.dropdown';
+	  var SELECTOR_DROPDOWN_ITEMS = '.dropdown-item';
+	  var SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle';
+	  var METHOD_OFFSET = 'offset';
+	  var METHOD_POSITION = 'position';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var ScrollSpy =
-	  /*#__PURE__*/
-	  function () {
+	  var ScrollSpy = /*#__PURE__*/function () {
 	    function ScrollSpy(element, config) {
 	      var _this = this;
 
 	      this._element = element;
 	      this._scrollElement = element.tagName === 'BODY' ? window : element;
 	      this._config = this._getConfig(config);
-	      this._selector = this._config.target + " " + Selector$8.NAV_LINKS + "," + (this._config.target + " " + Selector$8.LIST_ITEMS + ",") + (this._config.target + " " + Selector$8.DROPDOWN_ITEMS);
+	      this._selector = this._config.target + " " + SELECTOR_NAV_LINKS + "," + (this._config.target + " " + SELECTOR_LIST_ITEMS + ",") + (this._config.target + " " + SELECTOR_DROPDOWN_ITEMS);
 	      this._offsets = [];
 	      this._targets = [];
 	      this._activeTarget = null;
 	      this._scrollHeight = 0;
-	      $(this._scrollElement).on(Event$8.SCROLL, function (event) {
+	      $(this._scrollElement).on(EVENT_SCROLL, function (event) {
 	        return _this._process(event);
 	      });
 	      this.refresh();
@@ -6454,9 +6355,9 @@
 	    _proto.refresh = function refresh() {
 	      var _this2 = this;
 
-	      var autoMethod = this._scrollElement === this._scrollElement.window ? OffsetMethod.OFFSET : OffsetMethod.POSITION;
+	      var autoMethod = this._scrollElement === this._scrollElement.window ? METHOD_OFFSET : METHOD_POSITION;
 	      var offsetMethod = this._config.method === 'auto' ? autoMethod : this._config.method;
-	      var offsetBase = offsetMethod === OffsetMethod.POSITION ? this._getScrollTop() : 0;
+	      var offsetBase = offsetMethod === METHOD_POSITION ? this._getScrollTop() : 0;
 	      this._offsets = [];
 	      this._targets = [];
 	      this._scrollHeight = this._getScrollHeight();
@@ -6505,9 +6406,9 @@
 	    ;
 
 	    _proto._getConfig = function _getConfig(config) {
-	      config = _objectSpread2({}, Default$6, {}, typeof config === 'object' && config ? config : {});
+	      config = _extends({}, Default$6, typeof config === 'object' && config ? config : {});
 
-	      if (typeof config.target !== 'string') {
+	      if (typeof config.target !== 'string' && Util.isElement(config.target)) {
 	        var id = $(config.target).attr('id');
 
 	        if (!id) {
@@ -6563,9 +6464,7 @@
 	        return;
 	      }
 
-	      var offsetLength = this._offsets.length;
-
-	      for (var i = offsetLength; i--;) {
+	      for (var i = this._offsets.length; i--;) {
 	        var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
 
 	        if (isActiveTarget) {
@@ -6585,29 +6484,29 @@
 
 	      var $link = $([].slice.call(document.querySelectorAll(queries.join(','))));
 
-	      if ($link.hasClass(ClassName$8.DROPDOWN_ITEM)) {
-	        $link.closest(Selector$8.DROPDOWN).find(Selector$8.DROPDOWN_TOGGLE).addClass(ClassName$8.ACTIVE);
-	        $link.addClass(ClassName$8.ACTIVE);
+	      if ($link.hasClass(CLASS_NAME_DROPDOWN_ITEM)) {
+	        $link.closest(SELECTOR_DROPDOWN).find(SELECTOR_DROPDOWN_TOGGLE).addClass(CLASS_NAME_ACTIVE$2);
+	        $link.addClass(CLASS_NAME_ACTIVE$2);
 	      } else {
 	        // Set triggered link as active
-	        $link.addClass(ClassName$8.ACTIVE); // Set triggered links parents as active
+	        $link.addClass(CLASS_NAME_ACTIVE$2); // Set triggered links parents as active
 	        // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
 
-	        $link.parents(Selector$8.NAV_LIST_GROUP).prev(Selector$8.NAV_LINKS + ", " + Selector$8.LIST_ITEMS).addClass(ClassName$8.ACTIVE); // Handle special case when .nav-link is inside .nav-item
+	        $link.parents(SELECTOR_NAV_LIST_GROUP).prev(SELECTOR_NAV_LINKS + ", " + SELECTOR_LIST_ITEMS).addClass(CLASS_NAME_ACTIVE$2); // Handle special case when .nav-link is inside .nav-item
 
-	        $link.parents(Selector$8.NAV_LIST_GROUP).prev(Selector$8.NAV_ITEMS).children(Selector$8.NAV_LINKS).addClass(ClassName$8.ACTIVE);
+	        $link.parents(SELECTOR_NAV_LIST_GROUP).prev(SELECTOR_NAV_ITEMS).children(SELECTOR_NAV_LINKS).addClass(CLASS_NAME_ACTIVE$2);
 	      }
 
-	      $(this._scrollElement).trigger(Event$8.ACTIVATE, {
+	      $(this._scrollElement).trigger(EVENT_ACTIVATE, {
 	        relatedTarget: target
 	      });
 	    };
 
 	    _proto._clear = function _clear() {
 	      [].slice.call(document.querySelectorAll(this._selector)).filter(function (node) {
-	        return node.classList.contains(ClassName$8.ACTIVE);
+	        return node.classList.contains(CLASS_NAME_ACTIVE$2);
 	      }).forEach(function (node) {
-	        return node.classList.remove(ClassName$8.ACTIVE);
+	        return node.classList.remove(CLASS_NAME_ACTIVE$2);
 	      });
 	    } // Static
 	    ;
@@ -6654,8 +6553,8 @@
 	   */
 
 
-	  $(window).on(Event$8.LOAD_DATA_API, function () {
-	    var scrollSpys = [].slice.call(document.querySelectorAll(Selector$8.DATA_SPY));
+	  $(window).on(EVENT_LOAD_DATA_API$2, function () {
+	    var scrollSpys = [].slice.call(document.querySelectorAll(SELECTOR_DATA_SPY));
 	    var scrollSpysLength = scrollSpys.length;
 
 	    for (var i = scrollSpysLength; i--;) {
@@ -6685,43 +6584,35 @@
 	   */
 
 	  var NAME$9 = 'tab';
-	  var VERSION$9 = '4.4.1';
+	  var VERSION$9 = '4.5.2';
 	  var DATA_KEY$9 = 'bs.tab';
 	  var EVENT_KEY$9 = "." + DATA_KEY$9;
 	  var DATA_API_KEY$7 = '.data-api';
 	  var JQUERY_NO_CONFLICT$9 = $.fn[NAME$9];
-	  var Event$9 = {
-	    HIDE: "hide" + EVENT_KEY$9,
-	    HIDDEN: "hidden" + EVENT_KEY$9,
-	    SHOW: "show" + EVENT_KEY$9,
-	    SHOWN: "shown" + EVENT_KEY$9,
-	    CLICK_DATA_API: "click" + EVENT_KEY$9 + DATA_API_KEY$7
-	  };
-	  var ClassName$9 = {
-	    DROPDOWN_MENU: 'dropdown-menu',
-	    ACTIVE: 'active',
-	    DISABLED: 'disabled',
-	    FADE: 'fade',
-	    SHOW: 'show'
-	  };
-	  var Selector$9 = {
-	    DROPDOWN: '.dropdown',
-	    NAV_LIST_GROUP: '.nav, .list-group',
-	    ACTIVE: '.active',
-	    ACTIVE_UL: '> li > .active',
-	    DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
-	    DROPDOWN_TOGGLE: '.dropdown-toggle',
-	    DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
-	  };
+	  var EVENT_HIDE$3 = "hide" + EVENT_KEY$9;
+	  var EVENT_HIDDEN$3 = "hidden" + EVENT_KEY$9;
+	  var EVENT_SHOW$3 = "show" + EVENT_KEY$9;
+	  var EVENT_SHOWN$3 = "shown" + EVENT_KEY$9;
+	  var EVENT_CLICK_DATA_API$6 = "click" + EVENT_KEY$9 + DATA_API_KEY$7;
+	  var CLASS_NAME_DROPDOWN_MENU = 'dropdown-menu';
+	  var CLASS_NAME_ACTIVE$3 = 'active';
+	  var CLASS_NAME_DISABLED$1 = 'disabled';
+	  var CLASS_NAME_FADE$4 = 'fade';
+	  var CLASS_NAME_SHOW$6 = 'show';
+	  var SELECTOR_DROPDOWN$1 = '.dropdown';
+	  var SELECTOR_NAV_LIST_GROUP$1 = '.nav, .list-group';
+	  var SELECTOR_ACTIVE$2 = '.active';
+	  var SELECTOR_ACTIVE_UL = '> li > .active';
+	  var SELECTOR_DATA_TOGGLE$4 = '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]';
+	  var SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
+	  var SELECTOR_DROPDOWN_ACTIVE_CHILD = '> .dropdown-menu .active';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Tab =
-	  /*#__PURE__*/
-	  function () {
+	  var Tab = /*#__PURE__*/function () {
 	    function Tab(element) {
 	      this._element = element;
 	    } // Getters
@@ -6733,25 +6624,25 @@
 	    _proto.show = function show() {
 	      var _this = this;
 
-	      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $(this._element).hasClass(ClassName$9.ACTIVE) || $(this._element).hasClass(ClassName$9.DISABLED)) {
+	      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $(this._element).hasClass(CLASS_NAME_ACTIVE$3) || $(this._element).hasClass(CLASS_NAME_DISABLED$1)) {
 	        return;
 	      }
 
 	      var target;
 	      var previous;
-	      var listElement = $(this._element).closest(Selector$9.NAV_LIST_GROUP)[0];
+	      var listElement = $(this._element).closest(SELECTOR_NAV_LIST_GROUP$1)[0];
 	      var selector = Util.getSelectorFromElement(this._element);
 
 	      if (listElement) {
-	        var itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? Selector$9.ACTIVE_UL : Selector$9.ACTIVE;
+	        var itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE$2;
 	        previous = $.makeArray($(listElement).find(itemSelector));
 	        previous = previous[previous.length - 1];
 	      }
 
-	      var hideEvent = $.Event(Event$9.HIDE, {
+	      var hideEvent = $.Event(EVENT_HIDE$3, {
 	        relatedTarget: this._element
 	      });
-	      var showEvent = $.Event(Event$9.SHOW, {
+	      var showEvent = $.Event(EVENT_SHOW$3, {
 	        relatedTarget: previous
 	      });
 
@@ -6772,10 +6663,10 @@
 	      this._activate(this._element, listElement);
 
 	      var complete = function complete() {
-	        var hiddenEvent = $.Event(Event$9.HIDDEN, {
+	        var hiddenEvent = $.Event(EVENT_HIDDEN$3, {
 	          relatedTarget: _this._element
 	        });
-	        var shownEvent = $.Event(Event$9.SHOWN, {
+	        var shownEvent = $.Event(EVENT_SHOWN$3, {
 	          relatedTarget: previous
 	        });
 	        $(previous).trigger(hiddenEvent);
@@ -6798,9 +6689,9 @@
 	    _proto._activate = function _activate(element, container, callback) {
 	      var _this2 = this;
 
-	      var activeElements = container && (container.nodeName === 'UL' || container.nodeName === 'OL') ? $(container).find(Selector$9.ACTIVE_UL) : $(container).children(Selector$9.ACTIVE);
+	      var activeElements = container && (container.nodeName === 'UL' || container.nodeName === 'OL') ? $(container).find(SELECTOR_ACTIVE_UL) : $(container).children(SELECTOR_ACTIVE$2);
 	      var active = activeElements[0];
-	      var isTransitioning = callback && active && $(active).hasClass(ClassName$9.FADE);
+	      var isTransitioning = callback && active && $(active).hasClass(CLASS_NAME_FADE$4);
 
 	      var complete = function complete() {
 	        return _this2._transitionComplete(element, active, callback);
@@ -6808,7 +6699,7 @@
 
 	      if (active && isTransitioning) {
 	        var transitionDuration = Util.getTransitionDurationFromElement(active);
-	        $(active).removeClass(ClassName$9.SHOW).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+	        $(active).removeClass(CLASS_NAME_SHOW$6).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
 	      } else {
 	        complete();
 	      }
@@ -6816,11 +6707,11 @@
 
 	    _proto._transitionComplete = function _transitionComplete(element, active, callback) {
 	      if (active) {
-	        $(active).removeClass(ClassName$9.ACTIVE);
-	        var dropdownChild = $(active.parentNode).find(Selector$9.DROPDOWN_ACTIVE_CHILD)[0];
+	        $(active).removeClass(CLASS_NAME_ACTIVE$3);
+	        var dropdownChild = $(active.parentNode).find(SELECTOR_DROPDOWN_ACTIVE_CHILD)[0];
 
 	        if (dropdownChild) {
-	          $(dropdownChild).removeClass(ClassName$9.ACTIVE);
+	          $(dropdownChild).removeClass(CLASS_NAME_ACTIVE$3);
 	        }
 
 	        if (active.getAttribute('role') === 'tab') {
@@ -6828,7 +6719,7 @@
 	        }
 	      }
 
-	      $(element).addClass(ClassName$9.ACTIVE);
+	      $(element).addClass(CLASS_NAME_ACTIVE$3);
 
 	      if (element.getAttribute('role') === 'tab') {
 	        element.setAttribute('aria-selected', true);
@@ -6836,16 +6727,16 @@
 
 	      Util.reflow(element);
 
-	      if (element.classList.contains(ClassName$9.FADE)) {
-	        element.classList.add(ClassName$9.SHOW);
+	      if (element.classList.contains(CLASS_NAME_FADE$4)) {
+	        element.classList.add(CLASS_NAME_SHOW$6);
 	      }
 
-	      if (element.parentNode && $(element.parentNode).hasClass(ClassName$9.DROPDOWN_MENU)) {
-	        var dropdownElement = $(element).closest(Selector$9.DROPDOWN)[0];
+	      if (element.parentNode && $(element.parentNode).hasClass(CLASS_NAME_DROPDOWN_MENU)) {
+	        var dropdownElement = $(element).closest(SELECTOR_DROPDOWN$1)[0];
 
 	        if (dropdownElement) {
-	          var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(Selector$9.DROPDOWN_TOGGLE));
-	          $(dropdownToggleList).addClass(ClassName$9.ACTIVE);
+	          var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(SELECTOR_DROPDOWN_TOGGLE$1));
+	          $(dropdownToggleList).addClass(CLASS_NAME_ACTIVE$3);
 	        }
 
 	        element.setAttribute('aria-expanded', true);
@@ -6893,7 +6784,7 @@
 	   */
 
 
-	  $(document).on(Event$9.CLICK_DATA_API, Selector$9.DATA_TOGGLE, function (event) {
+	  $(document).on(EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$4, function (event) {
 	    event.preventDefault();
 
 	    Tab._jQueryInterface.call($(this), 'show');
@@ -6919,23 +6810,19 @@
 	   */
 
 	  var NAME$a = 'toast';
-	  var VERSION$a = '4.4.1';
+	  var VERSION$a = '4.5.2';
 	  var DATA_KEY$a = 'bs.toast';
 	  var EVENT_KEY$a = "." + DATA_KEY$a;
 	  var JQUERY_NO_CONFLICT$a = $.fn[NAME$a];
-	  var Event$a = {
-	    CLICK_DISMISS: "click.dismiss" + EVENT_KEY$a,
-	    HIDE: "hide" + EVENT_KEY$a,
-	    HIDDEN: "hidden" + EVENT_KEY$a,
-	    SHOW: "show" + EVENT_KEY$a,
-	    SHOWN: "shown" + EVENT_KEY$a
-	  };
-	  var ClassName$a = {
-	    FADE: 'fade',
-	    HIDE: 'hide',
-	    SHOW: 'show',
-	    SHOWING: 'showing'
-	  };
+	  var EVENT_CLICK_DISMISS$1 = "click.dismiss" + EVENT_KEY$a;
+	  var EVENT_HIDE$4 = "hide" + EVENT_KEY$a;
+	  var EVENT_HIDDEN$4 = "hidden" + EVENT_KEY$a;
+	  var EVENT_SHOW$4 = "show" + EVENT_KEY$a;
+	  var EVENT_SHOWN$4 = "shown" + EVENT_KEY$a;
+	  var CLASS_NAME_FADE$5 = 'fade';
+	  var CLASS_NAME_HIDE = 'hide';
+	  var CLASS_NAME_SHOW$7 = 'show';
+	  var CLASS_NAME_SHOWING = 'showing';
 	  var DefaultType$7 = {
 	    animation: 'boolean',
 	    autohide: 'boolean',
@@ -6946,18 +6833,14 @@
 	    autohide: true,
 	    delay: 500
 	  };
-	  var Selector$a = {
-	    DATA_DISMISS: '[data-dismiss="toast"]'
-	  };
+	  var SELECTOR_DATA_DISMISS$1 = '[data-dismiss="toast"]';
 	  /**
 	   * ------------------------------------------------------------------------
 	   * Class Definition
 	   * ------------------------------------------------------------------------
 	   */
 
-	  var Toast =
-	  /*#__PURE__*/
-	  function () {
+	  var Toast = /*#__PURE__*/function () {
 	    function Toast(element, config) {
 	      this._element = element;
 	      this._config = this._getConfig(config);
@@ -6973,23 +6856,25 @@
 	    _proto.show = function show() {
 	      var _this = this;
 
-	      var showEvent = $.Event(Event$a.SHOW);
+	      var showEvent = $.Event(EVENT_SHOW$4);
 	      $(this._element).trigger(showEvent);
 
 	      if (showEvent.isDefaultPrevented()) {
 	        return;
 	      }
 
+	      this._clearTimeout();
+
 	      if (this._config.animation) {
-	        this._element.classList.add(ClassName$a.FADE);
+	        this._element.classList.add(CLASS_NAME_FADE$5);
 	      }
 
 	      var complete = function complete() {
-	        _this._element.classList.remove(ClassName$a.SHOWING);
+	        _this._element.classList.remove(CLASS_NAME_SHOWING);
 
-	        _this._element.classList.add(ClassName$a.SHOW);
+	        _this._element.classList.add(CLASS_NAME_SHOW$7);
 
-	        $(_this._element).trigger(Event$a.SHOWN);
+	        $(_this._element).trigger(EVENT_SHOWN$4);
 
 	        if (_this._config.autohide) {
 	          _this._timeout = setTimeout(function () {
@@ -6998,11 +6883,11 @@
 	        }
 	      };
 
-	      this._element.classList.remove(ClassName$a.HIDE);
+	      this._element.classList.remove(CLASS_NAME_HIDE);
 
 	      Util.reflow(this._element);
 
-	      this._element.classList.add(ClassName$a.SHOWING);
+	      this._element.classList.add(CLASS_NAME_SHOWING);
 
 	      if (this._config.animation) {
 	        var transitionDuration = Util.getTransitionDurationFromElement(this._element);
@@ -7013,11 +6898,11 @@
 	    };
 
 	    _proto.hide = function hide() {
-	      if (!this._element.classList.contains(ClassName$a.SHOW)) {
+	      if (!this._element.classList.contains(CLASS_NAME_SHOW$7)) {
 	        return;
 	      }
 
-	      var hideEvent = $.Event(Event$a.HIDE);
+	      var hideEvent = $.Event(EVENT_HIDE$4);
 	      $(this._element).trigger(hideEvent);
 
 	      if (hideEvent.isDefaultPrevented()) {
@@ -7028,14 +6913,13 @@
 	    };
 
 	    _proto.dispose = function dispose() {
-	      clearTimeout(this._timeout);
-	      this._timeout = null;
+	      this._clearTimeout();
 
-	      if (this._element.classList.contains(ClassName$a.SHOW)) {
-	        this._element.classList.remove(ClassName$a.SHOW);
+	      if (this._element.classList.contains(CLASS_NAME_SHOW$7)) {
+	        this._element.classList.remove(CLASS_NAME_SHOW$7);
 	      }
 
-	      $(this._element).off(Event$a.CLICK_DISMISS);
+	      $(this._element).off(EVENT_CLICK_DISMISS$1);
 	      $.removeData(this._element, DATA_KEY$a);
 	      this._element = null;
 	      this._config = null;
@@ -7043,7 +6927,7 @@
 	    ;
 
 	    _proto._getConfig = function _getConfig(config) {
-	      config = _objectSpread2({}, Default$7, {}, $(this._element).data(), {}, typeof config === 'object' && config ? config : {});
+	      config = _extends({}, Default$7, $(this._element).data(), typeof config === 'object' && config ? config : {});
 	      Util.typeCheckConfig(NAME$a, config, this.constructor.DefaultType);
 	      return config;
 	    };
@@ -7051,7 +6935,7 @@
 	    _proto._setListeners = function _setListeners() {
 	      var _this2 = this;
 
-	      $(this._element).on(Event$a.CLICK_DISMISS, Selector$a.DATA_DISMISS, function () {
+	      $(this._element).on(EVENT_CLICK_DISMISS$1, SELECTOR_DATA_DISMISS$1, function () {
 	        return _this2.hide();
 	      });
 	    };
@@ -7060,12 +6944,12 @@
 	      var _this3 = this;
 
 	      var complete = function complete() {
-	        _this3._element.classList.add(ClassName$a.HIDE);
+	        _this3._element.classList.add(CLASS_NAME_HIDE);
 
-	        $(_this3._element).trigger(Event$a.HIDDEN);
+	        $(_this3._element).trigger(EVENT_HIDDEN$4);
 	      };
 
-	      this._element.classList.remove(ClassName$a.SHOW);
+	      this._element.classList.remove(CLASS_NAME_SHOW$7);
 
 	      if (this._config.animation) {
 	        var transitionDuration = Util.getTransitionDurationFromElement(this._element);
@@ -7073,6 +6957,11 @@
 	      } else {
 	        complete();
 	      }
+	    };
+
+	    _proto._clearTimeout = function _clearTimeout() {
+	      clearTimeout(this._timeout);
+	      this._timeout = null;
 	    } // Static
 	    ;
 
@@ -9843,6 +9732,3509 @@
 	  }
 	});
 
+	var dropzone = createCommonjsModule(function (module) {
+
+	function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+	function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+	function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+	function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+	function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+	function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+	function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+	function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+	function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+	function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+	function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+	/*
+	 *
+	 * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
+	 *
+	 * Copyright (c) 2012, Matias Meno
+	 *
+	 * Permission is hereby granted, free of charge, to any person obtaining a copy
+	 * of this software and associated documentation files (the "Software"), to deal
+	 * in the Software without restriction, including without limitation the rights
+	 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	 * copies of the Software, and to permit persons to whom the Software is
+	 * furnished to do so, subject to the following conditions:
+	 *
+	 * The above copyright notice and this permission notice shall be included in
+	 * all copies or substantial portions of the Software.
+	 *
+	 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	 * THE SOFTWARE.
+	 *
+	 */
+	// The Emitter class provides the ability to call `.on()` on Dropzone to listen
+	// to events.
+	// It is strongly based on component's emitter class, and I removed the
+	// functionality because of the dependency hell with different frameworks.
+	var Emitter = /*#__PURE__*/function () {
+	  function Emitter() {
+	    _classCallCheck(this, Emitter);
+	  }
+
+	  _createClass(Emitter, [{
+	    key: "on",
+	    // Add an event listener for given event
+	    value: function on(event, fn) {
+	      this._callbacks = this._callbacks || {}; // Create namespace for this event
+
+	      if (!this._callbacks[event]) {
+	        this._callbacks[event] = [];
+	      }
+
+	      this._callbacks[event].push(fn);
+
+	      return this;
+	    }
+	  }, {
+	    key: "emit",
+	    value: function emit(event) {
+	      this._callbacks = this._callbacks || {};
+	      var callbacks = this._callbacks[event];
+
+	      if (callbacks) {
+	        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	          args[_key - 1] = arguments[_key];
+	        }
+
+	        var _iterator = _createForOfIteratorHelper(callbacks),
+	            _step;
+
+	        try {
+	          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+	            var callback = _step.value;
+	            callback.apply(this, args);
+	          }
+	        } catch (err) {
+	          _iterator.e(err);
+	        } finally {
+	          _iterator.f();
+	        }
+	      }
+
+	      return this;
+	    } // Remove event listener for given event. If fn is not provided, all event
+	    // listeners for that event will be removed. If neither is provided, all
+	    // event listeners will be removed.
+
+	  }, {
+	    key: "off",
+	    value: function off(event, fn) {
+	      if (!this._callbacks || arguments.length === 0) {
+	        this._callbacks = {};
+	        return this;
+	      } // specific event
+
+
+	      var callbacks = this._callbacks[event];
+
+	      if (!callbacks) {
+	        return this;
+	      } // remove all handlers
+
+
+	      if (arguments.length === 1) {
+	        delete this._callbacks[event];
+	        return this;
+	      } // remove specific handler
+
+
+	      for (var i = 0; i < callbacks.length; i++) {
+	        var callback = callbacks[i];
+
+	        if (callback === fn) {
+	          callbacks.splice(i, 1);
+	          break;
+	        }
+	      }
+
+	      return this;
+	    }
+	  }]);
+
+	  return Emitter;
+	}();
+
+	var Dropzone = /*#__PURE__*/function (_Emitter) {
+	  _inherits(Dropzone, _Emitter);
+
+	  var _super = _createSuper(Dropzone);
+
+	  _createClass(Dropzone, null, [{
+	    key: "initClass",
+	    value: function initClass() {
+	      // Exposing the emitter class, mainly for tests
+	      this.prototype.Emitter = Emitter;
+	      /*
+	       This is a list of all available events you can register on a dropzone object.
+	        You can register an event handler like this:
+	        dropzone.on("dragEnter", function() { });
+	        */
+
+	      this.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+	      this.prototype.defaultOptions = {
+	        /**
+	         * Has to be specified on elements other than form (or when the form
+	         * doesn't have an `action` attribute). You can also
+	         * provide a function that will be called with `files` and
+	         * must return the url (since `v3.12.0`)
+	         */
+	        url: null,
+
+	        /**
+	         * Can be changed to `"put"` if necessary. You can also provide a function
+	         * that will be called with `files` and must return the method (since `v3.12.0`).
+	         */
+	        method: "post",
+
+	        /**
+	         * Will be set on the XHRequest.
+	         */
+	        withCredentials: false,
+
+	        /**
+	         * The timeout for the XHR requests in milliseconds (since `v4.4.0`).
+	         */
+	        timeout: 30000,
+
+	        /**
+	         * How many file uploads to process in parallel (See the
+	         * Enqueuing file uploads documentation section for more info)
+	         */
+	        parallelUploads: 2,
+
+	        /**
+	         * Whether to send multiple files in one request. If
+	         * this it set to true, then the fallback file input element will
+	         * have the `multiple` attribute as well. This option will
+	         * also trigger additional events (like `processingmultiple`). See the events
+	         * documentation section for more information.
+	         */
+	        uploadMultiple: false,
+
+	        /**
+	         * Whether you want files to be uploaded in chunks to your server. This can't be
+	         * used in combination with `uploadMultiple`.
+	         *
+	         * See [chunksUploaded](#config-chunksUploaded) for the callback to finalise an upload.
+	         */
+	        chunking: false,
+
+	        /**
+	         * If `chunking` is enabled, this defines whether **every** file should be chunked,
+	         * even if the file size is below chunkSize. This means, that the additional chunk
+	         * form data will be submitted and the `chunksUploaded` callback will be invoked.
+	         */
+	        forceChunking: false,
+
+	        /**
+	         * If `chunking` is `true`, then this defines the chunk size in bytes.
+	         */
+	        chunkSize: 2000000,
+
+	        /**
+	         * If `true`, the individual chunks of a file are being uploaded simultaneously.
+	         */
+	        parallelChunkUploads: false,
+
+	        /**
+	         * Whether a chunk should be retried if it fails.
+	         */
+	        retryChunks: false,
+
+	        /**
+	         * If `retryChunks` is true, how many times should it be retried.
+	         */
+	        retryChunksLimit: 3,
+
+	        /**
+	         * If not `null` defines how many files this Dropzone handles. If it exceeds,
+	         * the event `maxfilesexceeded` will be called. The dropzone element gets the
+	         * class `dz-max-files-reached` accordingly so you can provide visual feedback.
+	         */
+	        maxFilesize: 256,
+
+	        /**
+	         * The name of the file param that gets transferred.
+	         * **NOTE**: If you have the option  `uploadMultiple` set to `true`, then
+	         * Dropzone will append `[]` to the name.
+	         */
+	        paramName: "file",
+
+	        /**
+	         * Whether thumbnails for images should be generated
+	         */
+	        createImageThumbnails: true,
+
+	        /**
+	         * In MB. When the filename exceeds this limit, the thumbnail will not be generated.
+	         */
+	        maxThumbnailFilesize: 10,
+
+	        /**
+	         * If `null`, the ratio of the image will be used to calculate it.
+	         */
+	        thumbnailWidth: 120,
+
+	        /**
+	         * The same as `thumbnailWidth`. If both are null, images will not be resized.
+	         */
+	        thumbnailHeight: 120,
+
+	        /**
+	         * How the images should be scaled down in case both, `thumbnailWidth` and `thumbnailHeight` are provided.
+	         * Can be either `contain` or `crop`.
+	         */
+	        thumbnailMethod: 'crop',
+
+	        /**
+	         * If set, images will be resized to these dimensions before being **uploaded**.
+	         * If only one, `resizeWidth` **or** `resizeHeight` is provided, the original aspect
+	         * ratio of the file will be preserved.
+	         *
+	         * The `options.transformFile` function uses these options, so if the `transformFile` function
+	         * is overridden, these options don't do anything.
+	         */
+	        resizeWidth: null,
+
+	        /**
+	         * See `resizeWidth`.
+	         */
+	        resizeHeight: null,
+
+	        /**
+	         * The mime type of the resized image (before it gets uploaded to the server).
+	         * If `null` the original mime type will be used. To force jpeg, for example, use `image/jpeg`.
+	         * See `resizeWidth` for more information.
+	         */
+	        resizeMimeType: null,
+
+	        /**
+	         * The quality of the resized images. See `resizeWidth`.
+	         */
+	        resizeQuality: 0.8,
+
+	        /**
+	         * How the images should be scaled down in case both, `resizeWidth` and `resizeHeight` are provided.
+	         * Can be either `contain` or `crop`.
+	         */
+	        resizeMethod: 'contain',
+
+	        /**
+	         * The base that is used to calculate the filesize. You can change this to
+	         * 1024 if you would rather display kibibytes, mebibytes, etc...
+	         * 1024 is technically incorrect, because `1024 bytes` are `1 kibibyte` not `1 kilobyte`.
+	         * You can change this to `1024` if you don't care about validity.
+	         */
+	        filesizeBase: 1000,
+
+	        /**
+	         * Can be used to limit the maximum number of files that will be handled by this Dropzone
+	         */
+	        maxFiles: null,
+
+	        /**
+	         * An optional object to send additional headers to the server. Eg:
+	         * `{ "My-Awesome-Header": "header value" }`
+	         */
+	        headers: null,
+
+	        /**
+	         * If `true`, the dropzone element itself will be clickable, if `false`
+	         * nothing will be clickable.
+	         *
+	         * You can also pass an HTML element, a CSS selector (for multiple elements)
+	         * or an array of those. In that case, all of those elements will trigger an
+	         * upload when clicked.
+	         */
+	        clickable: true,
+
+	        /**
+	         * Whether hidden files in directories should be ignored.
+	         */
+	        ignoreHiddenFiles: true,
+
+	        /**
+	         * The default implementation of `accept` checks the file's mime type or
+	         * extension against this list. This is a comma separated list of mime
+	         * types or file extensions.
+	         *
+	         * Eg.: `image/*,application/pdf,.psd`
+	         *
+	         * If the Dropzone is `clickable` this option will also be used as
+	         * [`accept`](https://developer.mozilla.org/en-US/docs/HTML/Element/input#attr-accept)
+	         * parameter on the hidden file input as well.
+	         */
+	        acceptedFiles: null,
+
+	        /**
+	         * **Deprecated!**
+	         * Use acceptedFiles instead.
+	         */
+	        acceptedMimeTypes: null,
+
+	        /**
+	         * If false, files will be added to the queue but the queue will not be
+	         * processed automatically.
+	         * This can be useful if you need some additional user input before sending
+	         * files (or if you want want all files sent at once).
+	         * If you're ready to send the file simply call `myDropzone.processQueue()`.
+	         *
+	         * See the [enqueuing file uploads](#enqueuing-file-uploads) documentation
+	         * section for more information.
+	         */
+	        autoProcessQueue: true,
+
+	        /**
+	         * If false, files added to the dropzone will not be queued by default.
+	         * You'll have to call `enqueueFile(file)` manually.
+	         */
+	        autoQueue: true,
+
+	        /**
+	         * If `true`, this will add a link to every file preview to remove or cancel (if
+	         * already uploading) the file. The `dictCancelUpload`, `dictCancelUploadConfirmation`
+	         * and `dictRemoveFile` options are used for the wording.
+	         */
+	        addRemoveLinks: false,
+
+	        /**
+	         * Defines where to display the file previews – if `null` the
+	         * Dropzone element itself is used. Can be a plain `HTMLElement` or a CSS
+	         * selector. The element should have the `dropzone-previews` class so
+	         * the previews are displayed properly.
+	         */
+	        previewsContainer: null,
+
+	        /**
+	         * This is the element the hidden input field (which is used when clicking on the
+	         * dropzone to trigger file selection) will be appended to. This might
+	         * be important in case you use frameworks to switch the content of your page.
+	         *
+	         * Can be a selector string, or an element directly.
+	         */
+	        hiddenInputContainer: "body",
+
+	        /**
+	         * If null, no capture type will be specified
+	         * If camera, mobile devices will skip the file selection and choose camera
+	         * If microphone, mobile devices will skip the file selection and choose the microphone
+	         * If camcorder, mobile devices will skip the file selection and choose the camera in video mode
+	         * On apple devices multiple must be set to false.  AcceptedFiles may need to
+	         * be set to an appropriate mime type (e.g. "image/*", "audio/*", or "video/*").
+	         */
+	        capture: null,
+
+	        /**
+	         * **Deprecated**. Use `renameFile` instead.
+	         */
+	        renameFilename: null,
+
+	        /**
+	         * A function that is invoked before the file is uploaded to the server and renames the file.
+	         * This function gets the `File` as argument and can use the `file.name`. The actual name of the
+	         * file that gets used during the upload can be accessed through `file.upload.filename`.
+	         */
+	        renameFile: null,
+
+	        /**
+	         * If `true` the fallback will be forced. This is very useful to test your server
+	         * implementations first and make sure that everything works as
+	         * expected without dropzone if you experience problems, and to test
+	         * how your fallbacks will look.
+	         */
+	        forceFallback: false,
+
+	        /**
+	         * The text used before any files are dropped.
+	         */
+	        dictDefaultMessage: "Drop files here to upload",
+
+	        /**
+	         * The text that replaces the default message text it the browser is not supported.
+	         */
+	        dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+
+	        /**
+	         * The text that will be added before the fallback form.
+	         * If you provide a  fallback element yourself, or if this option is `null` this will
+	         * be ignored.
+	         */
+	        dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+
+	        /**
+	         * If the filesize is too big.
+	         * `{{filesize}}` and `{{maxFilesize}}` will be replaced with the respective configuration values.
+	         */
+	        dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+
+	        /**
+	         * If the file doesn't match the file type.
+	         */
+	        dictInvalidFileType: "You can't upload files of this type.",
+
+	        /**
+	         * If the server response was invalid.
+	         * `{{statusCode}}` will be replaced with the servers status code.
+	         */
+	        dictResponseError: "Server responded with {{statusCode}} code.",
+
+	        /**
+	         * If `addRemoveLinks` is true, the text to be used for the cancel upload link.
+	         */
+	        dictCancelUpload: "Cancel upload",
+
+	        /**
+	         * The text that is displayed if an upload was manually canceled
+	         */
+	        dictUploadCanceled: "Upload canceled.",
+
+	        /**
+	         * If `addRemoveLinks` is true, the text to be used for confirmation when cancelling upload.
+	         */
+	        dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+
+	        /**
+	         * If `addRemoveLinks` is true, the text to be used to remove a file.
+	         */
+	        dictRemoveFile: "Remove file",
+
+	        /**
+	         * If this is not null, then the user will be prompted before removing a file.
+	         */
+	        dictRemoveFileConfirmation: null,
+
+	        /**
+	         * Displayed if `maxFiles` is st and exceeded.
+	         * The string `{{maxFiles}}` will be replaced by the configuration value.
+	         */
+	        dictMaxFilesExceeded: "You can not upload any more files.",
+
+	        /**
+	         * Allows you to translate the different units. Starting with `tb` for terabytes and going down to
+	         * `b` for bytes.
+	         */
+	        dictFileSizeUnits: {
+	          tb: "TB",
+	          gb: "GB",
+	          mb: "MB",
+	          kb: "KB",
+	          b: "b"
+	        },
+
+	        /**
+	         * Called when dropzone initialized
+	         * You can add event listeners here
+	         */
+	        init: function init() {},
+
+	        /**
+	         * Can be an **object** of additional parameters to transfer to the server, **or** a `Function`
+	         * that gets invoked with the `files`, `xhr` and, if it's a chunked upload, `chunk` arguments. In case
+	         * of a function, this needs to return a map.
+	         *
+	         * The default implementation does nothing for normal uploads, but adds relevant information for
+	         * chunked uploads.
+	         *
+	         * This is the same as adding hidden input fields in the form element.
+	         */
+	        params: function params(files, xhr, chunk) {
+	          if (chunk) {
+	            return {
+	              dzuuid: chunk.file.upload.uuid,
+	              dzchunkindex: chunk.index,
+	              dztotalfilesize: chunk.file.size,
+	              dzchunksize: this.options.chunkSize,
+	              dztotalchunkcount: chunk.file.upload.totalChunkCount,
+	              dzchunkbyteoffset: chunk.index * this.options.chunkSize
+	            };
+	          }
+	        },
+
+	        /**
+	         * A function that gets a [file](https://developer.mozilla.org/en-US/docs/DOM/File)
+	         * and a `done` function as parameters.
+	         *
+	         * If the done function is invoked without arguments, the file is "accepted" and will
+	         * be processed. If you pass an error message, the file is rejected, and the error
+	         * message will be displayed.
+	         * This function will not be called if the file is too big or doesn't match the mime types.
+	         */
+	        accept: function accept(file, done) {
+	          return done();
+	        },
+
+	        /**
+	         * The callback that will be invoked when all chunks have been uploaded for a file.
+	         * It gets the file for which the chunks have been uploaded as the first parameter,
+	         * and the `done` function as second. `done()` needs to be invoked when everything
+	         * needed to finish the upload process is done.
+	         */
+	        chunksUploaded: function chunksUploaded(file, done) {
+	          done();
+	        },
+
+	        /**
+	         * Gets called when the browser is not supported.
+	         * The default implementation shows the fallback input field and adds
+	         * a text.
+	         */
+	        fallback: function fallback() {
+	          // This code should pass in IE7... :(
+	          var messageElement;
+	          this.element.className = "".concat(this.element.className, " dz-browser-not-supported");
+
+	          var _iterator2 = _createForOfIteratorHelper(this.element.getElementsByTagName("div")),
+	              _step2;
+
+	          try {
+	            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+	              var child = _step2.value;
+
+	              if (/(^| )dz-message($| )/.test(child.className)) {
+	                messageElement = child;
+	                child.className = "dz-message"; // Removes the 'dz-default' class
+
+	                break;
+	              }
+	            }
+	          } catch (err) {
+	            _iterator2.e(err);
+	          } finally {
+	            _iterator2.f();
+	          }
+
+	          if (!messageElement) {
+	            messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+	            this.element.appendChild(messageElement);
+	          }
+
+	          var span = messageElement.getElementsByTagName("span")[0];
+
+	          if (span) {
+	            if (span.textContent != null) {
+	              span.textContent = this.options.dictFallbackMessage;
+	            } else if (span.innerText != null) {
+	              span.innerText = this.options.dictFallbackMessage;
+	            }
+	          }
+
+	          return this.element.appendChild(this.getFallbackForm());
+	        },
+
+	        /**
+	         * Gets called to calculate the thumbnail dimensions.
+	         *
+	         * It gets `file`, `width` and `height` (both may be `null`) as parameters and must return an object containing:
+	         *
+	         *  - `srcWidth` & `srcHeight` (required)
+	         *  - `trgWidth` & `trgHeight` (required)
+	         *  - `srcX` & `srcY` (optional, default `0`)
+	         *  - `trgX` & `trgY` (optional, default `0`)
+	         *
+	         * Those values are going to be used by `ctx.drawImage()`.
+	         */
+	        resize: function resize(file, width, height, resizeMethod) {
+	          var info = {
+	            srcX: 0,
+	            srcY: 0,
+	            srcWidth: file.width,
+	            srcHeight: file.height
+	          };
+	          var srcRatio = file.width / file.height; // Automatically calculate dimensions if not specified
+
+	          if (width == null && height == null) {
+	            width = info.srcWidth;
+	            height = info.srcHeight;
+	          } else if (width == null) {
+	            width = height * srcRatio;
+	          } else if (height == null) {
+	            height = width / srcRatio;
+	          } // Make sure images aren't upscaled
+
+
+	          width = Math.min(width, info.srcWidth);
+	          height = Math.min(height, info.srcHeight);
+	          var trgRatio = width / height;
+
+	          if (info.srcWidth > width || info.srcHeight > height) {
+	            // Image is bigger and needs rescaling
+	            if (resizeMethod === 'crop') {
+	              if (srcRatio > trgRatio) {
+	                info.srcHeight = file.height;
+	                info.srcWidth = info.srcHeight * trgRatio;
+	              } else {
+	                info.srcWidth = file.width;
+	                info.srcHeight = info.srcWidth / trgRatio;
+	              }
+	            } else if (resizeMethod === 'contain') {
+	              // Method 'contain'
+	              if (srcRatio > trgRatio) {
+	                height = width / srcRatio;
+	              } else {
+	                width = height * srcRatio;
+	              }
+	            } else {
+	              throw new Error("Unknown resizeMethod '".concat(resizeMethod, "'"));
+	            }
+	          }
+
+	          info.srcX = (file.width - info.srcWidth) / 2;
+	          info.srcY = (file.height - info.srcHeight) / 2;
+	          info.trgWidth = width;
+	          info.trgHeight = height;
+	          return info;
+	        },
+
+	        /**
+	         * Can be used to transform the file (for example, resize an image if necessary).
+	         *
+	         * The default implementation uses `resizeWidth` and `resizeHeight` (if provided) and resizes
+	         * images according to those dimensions.
+	         *
+	         * Gets the `file` as the first parameter, and a `done()` function as the second, that needs
+	         * to be invoked with the file when the transformation is done.
+	         */
+	        transformFile: function transformFile(file, done) {
+	          if ((this.options.resizeWidth || this.options.resizeHeight) && file.type.match(/image.*/)) {
+	            return this.resizeImage(file, this.options.resizeWidth, this.options.resizeHeight, this.options.resizeMethod, done);
+	          } else {
+	            return done(file);
+	          }
+	        },
+
+	        /**
+	         * A string that contains the template used for each dropped
+	         * file. Change it to fulfill your needs but make sure to properly
+	         * provide all elements.
+	         *
+	         * If you want to use an actual HTML element instead of providing a String
+	         * as a config option, you could create a div with the id `tpl`,
+	         * put the template inside it and provide the element like this:
+	         *
+	         *     document
+	         *       .querySelector('#tpl')
+	         *       .innerHTML
+	         *
+	         */
+	        previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n      <title>Check</title>\n      <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n      <title>Error</title>\n      <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n        <g stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>",
+	        // END OPTIONS
+	        // (Required by the dropzone documentation parser)
+
+	        /*
+	         Those functions register themselves to the events on init and handle all
+	         the user interface specific stuff. Overwriting them won't break the upload
+	         but can break the way it's displayed.
+	         You can overwrite them if you don't like the default behavior. If you just
+	         want to add an additional event handler, register it on the dropzone object
+	         and don't overwrite those options.
+	         */
+	        // Those are self explanatory and simply concern the DragnDrop.
+	        drop: function drop(e) {
+	          return this.element.classList.remove("dz-drag-hover");
+	        },
+	        dragstart: function dragstart(e) {},
+	        dragend: function dragend(e) {
+	          return this.element.classList.remove("dz-drag-hover");
+	        },
+	        dragenter: function dragenter(e) {
+	          return this.element.classList.add("dz-drag-hover");
+	        },
+	        dragover: function dragover(e) {
+	          return this.element.classList.add("dz-drag-hover");
+	        },
+	        dragleave: function dragleave(e) {
+	          return this.element.classList.remove("dz-drag-hover");
+	        },
+	        paste: function paste(e) {},
+	        // Called whenever there are no files left in the dropzone anymore, and the
+	        // dropzone should be displayed as if in the initial state.
+	        reset: function reset() {
+	          return this.element.classList.remove("dz-started");
+	        },
+	        // Called when a file is added to the queue
+	        // Receives `file`
+	        addedfile: function addedfile(file) {
+	          var _this2 = this;
+
+	          if (this.element === this.previewsContainer) {
+	            this.element.classList.add("dz-started");
+	          }
+
+	          if (this.previewsContainer) {
+	            file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
+	            file.previewTemplate = file.previewElement; // Backwards compatibility
+
+	            this.previewsContainer.appendChild(file.previewElement);
+
+	            var _iterator3 = _createForOfIteratorHelper(file.previewElement.querySelectorAll("[data-dz-name]")),
+	                _step3;
+
+	            try {
+	              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+	                var node = _step3.value;
+	                node.textContent = file.name;
+	              }
+	            } catch (err) {
+	              _iterator3.e(err);
+	            } finally {
+	              _iterator3.f();
+	            }
+
+	            var _iterator4 = _createForOfIteratorHelper(file.previewElement.querySelectorAll("[data-dz-size]")),
+	                _step4;
+
+	            try {
+	              for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+	                node = _step4.value;
+	                node.innerHTML = this.filesize(file.size);
+	              }
+	            } catch (err) {
+	              _iterator4.e(err);
+	            } finally {
+	              _iterator4.f();
+	            }
+
+	            if (this.options.addRemoveLinks) {
+	              file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>".concat(this.options.dictRemoveFile, "</a>"));
+	              file.previewElement.appendChild(file._removeLink);
+	            }
+
+	            var removeFileEvent = function removeFileEvent(e) {
+	              e.preventDefault();
+	              e.stopPropagation();
+
+	              if (file.status === Dropzone.UPLOADING) {
+	                return Dropzone.confirm(_this2.options.dictCancelUploadConfirmation, function () {
+	                  return _this2.removeFile(file);
+	                });
+	              } else {
+	                if (_this2.options.dictRemoveFileConfirmation) {
+	                  return Dropzone.confirm(_this2.options.dictRemoveFileConfirmation, function () {
+	                    return _this2.removeFile(file);
+	                  });
+	                } else {
+	                  return _this2.removeFile(file);
+	                }
+	              }
+	            };
+
+	            var _iterator5 = _createForOfIteratorHelper(file.previewElement.querySelectorAll("[data-dz-remove]")),
+	                _step5;
+
+	            try {
+	              for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+	                var removeLink = _step5.value;
+	                removeLink.addEventListener("click", removeFileEvent);
+	              }
+	            } catch (err) {
+	              _iterator5.e(err);
+	            } finally {
+	              _iterator5.f();
+	            }
+	          }
+	        },
+	        // Called whenever a file is removed.
+	        removedfile: function removedfile(file) {
+	          if (file.previewElement != null && file.previewElement.parentNode != null) {
+	            file.previewElement.parentNode.removeChild(file.previewElement);
+	          }
+
+	          return this._updateMaxFilesReachedClass();
+	        },
+	        // Called when a thumbnail has been generated
+	        // Receives `file` and `dataUrl`
+	        thumbnail: function thumbnail(file, dataUrl) {
+	          if (file.previewElement) {
+	            file.previewElement.classList.remove("dz-file-preview");
+
+	            var _iterator6 = _createForOfIteratorHelper(file.previewElement.querySelectorAll("[data-dz-thumbnail]")),
+	                _step6;
+
+	            try {
+	              for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+	                var thumbnailElement = _step6.value;
+	                thumbnailElement.alt = file.name;
+	                thumbnailElement.src = dataUrl;
+	              }
+	            } catch (err) {
+	              _iterator6.e(err);
+	            } finally {
+	              _iterator6.f();
+	            }
+
+	            return setTimeout(function () {
+	              return file.previewElement.classList.add("dz-image-preview");
+	            }, 1);
+	          }
+	        },
+	        // Called whenever an error occurs
+	        // Receives `file` and `message`
+	        error: function error(file, message) {
+	          if (file.previewElement) {
+	            file.previewElement.classList.add("dz-error");
+
+	            if (typeof message !== "string" && message.error) {
+	              message = message.error;
+	            }
+
+	            var _iterator7 = _createForOfIteratorHelper(file.previewElement.querySelectorAll("[data-dz-errormessage]")),
+	                _step7;
+
+	            try {
+	              for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+	                var node = _step7.value;
+	                node.textContent = message;
+	              }
+	            } catch (err) {
+	              _iterator7.e(err);
+	            } finally {
+	              _iterator7.f();
+	            }
+	          }
+	        },
+	        errormultiple: function errormultiple() {},
+	        // Called when a file gets processed. Since there is a cue, not all added
+	        // files are processed immediately.
+	        // Receives `file`
+	        processing: function processing(file) {
+	          if (file.previewElement) {
+	            file.previewElement.classList.add("dz-processing");
+
+	            if (file._removeLink) {
+	              return file._removeLink.innerHTML = this.options.dictCancelUpload;
+	            }
+	          }
+	        },
+	        processingmultiple: function processingmultiple() {},
+	        // Called whenever the upload progress gets updated.
+	        // Receives `file`, `progress` (percentage 0-100) and `bytesSent`.
+	        // To get the total number of bytes of the file, use `file.size`
+	        uploadprogress: function uploadprogress(file, progress, bytesSent) {
+	          if (file.previewElement) {
+	            var _iterator8 = _createForOfIteratorHelper(file.previewElement.querySelectorAll("[data-dz-uploadprogress]")),
+	                _step8;
+
+	            try {
+	              for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+	                var node = _step8.value;
+	                node.nodeName === 'PROGRESS' ? node.value = progress : node.style.width = "".concat(progress, "%");
+	              }
+	            } catch (err) {
+	              _iterator8.e(err);
+	            } finally {
+	              _iterator8.f();
+	            }
+	          }
+	        },
+	        // Called whenever the total upload progress gets updated.
+	        // Called with totalUploadProgress (0-100), totalBytes and totalBytesSent
+	        totaluploadprogress: function totaluploadprogress() {},
+	        // Called just before the file is sent. Gets the `xhr` object as second
+	        // parameter, so you can modify it (for example to add a CSRF token) and a
+	        // `formData` object to add additional information.
+	        sending: function sending() {},
+	        sendingmultiple: function sendingmultiple() {},
+	        // When the complete upload is finished and successful
+	        // Receives `file`
+	        success: function success(file) {
+	          if (file.previewElement) {
+	            return file.previewElement.classList.add("dz-success");
+	          }
+	        },
+	        successmultiple: function successmultiple() {},
+	        // When the upload is canceled.
+	        canceled: function canceled(file) {
+	          return this.emit("error", file, this.options.dictUploadCanceled);
+	        },
+	        canceledmultiple: function canceledmultiple() {},
+	        // When the upload is finished, either with success or an error.
+	        // Receives `file`
+	        complete: function complete(file) {
+	          if (file._removeLink) {
+	            file._removeLink.innerHTML = this.options.dictRemoveFile;
+	          }
+
+	          if (file.previewElement) {
+	            return file.previewElement.classList.add("dz-complete");
+	          }
+	        },
+	        completemultiple: function completemultiple() {},
+	        maxfilesexceeded: function maxfilesexceeded() {},
+	        maxfilesreached: function maxfilesreached() {},
+	        queuecomplete: function queuecomplete() {},
+	        addedfiles: function addedfiles() {}
+	      };
+	      this.prototype._thumbnailQueue = [];
+	      this.prototype._processingThumbnail = false;
+	    } // global utility
+
+	  }, {
+	    key: "extend",
+	    value: function extend(target) {
+	      for (var _len2 = arguments.length, objects = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	        objects[_key2 - 1] = arguments[_key2];
+	      }
+
+	      for (var _i = 0, _objects = objects; _i < _objects.length; _i++) {
+	        var object = _objects[_i];
+
+	        for (var key in object) {
+	          var val = object[key];
+	          target[key] = val;
+	        }
+	      }
+
+	      return target;
+	    }
+	  }]);
+
+	  function Dropzone(el, options) {
+	    var _this;
+
+	    _classCallCheck(this, Dropzone);
+
+	    _this = _super.call(this);
+	    var fallback, left;
+	    _this.element = el; // For backwards compatibility since the version was in the prototype previously
+
+	    _this.version = Dropzone.version;
+	    _this.defaultOptions.previewTemplate = _this.defaultOptions.previewTemplate.replace(/\n*/g, "");
+	    _this.clickableElements = [];
+	    _this.listeners = [];
+	    _this.files = []; // All files
+
+	    if (typeof _this.element === "string") {
+	      _this.element = document.querySelector(_this.element);
+	    } // Not checking if instance of HTMLElement or Element since IE9 is extremely weird.
+
+
+	    if (!_this.element || _this.element.nodeType == null) {
+	      throw new Error("Invalid dropzone element.");
+	    }
+
+	    if (_this.element.dropzone) {
+	      throw new Error("Dropzone already attached.");
+	    } // Now add this dropzone to the instances.
+
+
+	    Dropzone.instances.push(_assertThisInitialized(_this)); // Put the dropzone inside the element itself.
+
+	    _this.element.dropzone = _assertThisInitialized(_this);
+	    var elementOptions = (left = Dropzone.optionsForElement(_this.element)) != null ? left : {};
+	    _this.options = Dropzone.extend({}, _this.defaultOptions, elementOptions, options != null ? options : {}); // If the browser failed, just call the fallback and leave
+
+	    if (_this.options.forceFallback || !Dropzone.isBrowserSupported()) {
+	      return _possibleConstructorReturn(_this, _this.options.fallback.call(_assertThisInitialized(_this)));
+	    } // @options.url = @element.getAttribute "action" unless @options.url?
+
+
+	    if (_this.options.url == null) {
+	      _this.options.url = _this.element.getAttribute("action");
+	    }
+
+	    if (!_this.options.url) {
+	      throw new Error("No URL provided.");
+	    }
+
+	    if (_this.options.acceptedFiles && _this.options.acceptedMimeTypes) {
+	      throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");
+	    }
+
+	    if (_this.options.uploadMultiple && _this.options.chunking) {
+	      throw new Error('You cannot set both: uploadMultiple and chunking.');
+	    } // Backwards compatibility
+
+
+	    if (_this.options.acceptedMimeTypes) {
+	      _this.options.acceptedFiles = _this.options.acceptedMimeTypes;
+	      delete _this.options.acceptedMimeTypes;
+	    } // Backwards compatibility
+
+
+	    if (_this.options.renameFilename != null) {
+	      _this.options.renameFile = function (file) {
+	        return _this.options.renameFilename.call(_assertThisInitialized(_this), file.name, file);
+	      };
+	    }
+
+	    if (typeof _this.options.method === 'string') {
+	      _this.options.method = _this.options.method.toUpperCase();
+	    }
+
+	    if ((fallback = _this.getExistingFallback()) && fallback.parentNode) {
+	      // Remove the fallback
+	      fallback.parentNode.removeChild(fallback);
+	    } // Display previews in the previewsContainer element or the Dropzone element unless explicitly set to false
+
+
+	    if (_this.options.previewsContainer !== false) {
+	      if (_this.options.previewsContainer) {
+	        _this.previewsContainer = Dropzone.getElement(_this.options.previewsContainer, "previewsContainer");
+	      } else {
+	        _this.previewsContainer = _this.element;
+	      }
+	    }
+
+	    if (_this.options.clickable) {
+	      if (_this.options.clickable === true) {
+	        _this.clickableElements = [_this.element];
+	      } else {
+	        _this.clickableElements = Dropzone.getElements(_this.options.clickable, "clickable");
+	      }
+	    }
+
+	    _this.init();
+
+	    return _this;
+	  } // Returns all files that have been accepted
+
+
+	  _createClass(Dropzone, [{
+	    key: "getAcceptedFiles",
+	    value: function getAcceptedFiles() {
+	      return this.files.filter(function (file) {
+	        return file.accepted;
+	      }).map(function (file) {
+	        return file;
+	      });
+	    } // Returns all files that have been rejected
+	    // Not sure when that's going to be useful, but added for completeness.
+
+	  }, {
+	    key: "getRejectedFiles",
+	    value: function getRejectedFiles() {
+	      return this.files.filter(function (file) {
+	        return !file.accepted;
+	      }).map(function (file) {
+	        return file;
+	      });
+	    }
+	  }, {
+	    key: "getFilesWithStatus",
+	    value: function getFilesWithStatus(status) {
+	      return this.files.filter(function (file) {
+	        return file.status === status;
+	      }).map(function (file) {
+	        return file;
+	      });
+	    } // Returns all files that are in the queue
+
+	  }, {
+	    key: "getQueuedFiles",
+	    value: function getQueuedFiles() {
+	      return this.getFilesWithStatus(Dropzone.QUEUED);
+	    }
+	  }, {
+	    key: "getUploadingFiles",
+	    value: function getUploadingFiles() {
+	      return this.getFilesWithStatus(Dropzone.UPLOADING);
+	    }
+	  }, {
+	    key: "getAddedFiles",
+	    value: function getAddedFiles() {
+	      return this.getFilesWithStatus(Dropzone.ADDED);
+	    } // Files that are either queued or uploading
+
+	  }, {
+	    key: "getActiveFiles",
+	    value: function getActiveFiles() {
+	      return this.files.filter(function (file) {
+	        return file.status === Dropzone.UPLOADING || file.status === Dropzone.QUEUED;
+	      }).map(function (file) {
+	        return file;
+	      });
+	    } // The function that gets called when Dropzone is initialized. You
+	    // can (and should) setup event listeners inside this function.
+
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      var _this3 = this;
+
+	      // In case it isn't set already
+	      if (this.element.tagName === "form") {
+	        this.element.setAttribute("enctype", "multipart/form-data");
+	      }
+
+	      if (this.element.classList.contains("dropzone") && !this.element.querySelector(".dz-message")) {
+	        this.element.appendChild(Dropzone.createElement("<div class=\"dz-default dz-message\"><button class=\"dz-button\" type=\"button\">".concat(this.options.dictDefaultMessage, "</button></div>")));
+	      }
+
+	      if (this.clickableElements.length) {
+	        var setupHiddenFileInput = function setupHiddenFileInput() {
+	          if (_this3.hiddenFileInput) {
+	            _this3.hiddenFileInput.parentNode.removeChild(_this3.hiddenFileInput);
+	          }
+
+	          _this3.hiddenFileInput = document.createElement("input");
+
+	          _this3.hiddenFileInput.setAttribute("type", "file");
+
+	          if (_this3.options.maxFiles === null || _this3.options.maxFiles > 1) {
+	            _this3.hiddenFileInput.setAttribute("multiple", "multiple");
+	          }
+
+	          _this3.hiddenFileInput.className = "dz-hidden-input";
+
+	          if (_this3.options.acceptedFiles !== null) {
+	            _this3.hiddenFileInput.setAttribute("accept", _this3.options.acceptedFiles);
+	          }
+
+	          if (_this3.options.capture !== null) {
+	            _this3.hiddenFileInput.setAttribute("capture", _this3.options.capture);
+	          } // Not setting `display="none"` because some browsers don't accept clicks
+	          // on elements that aren't displayed.
+
+
+	          _this3.hiddenFileInput.style.visibility = "hidden";
+	          _this3.hiddenFileInput.style.position = "absolute";
+	          _this3.hiddenFileInput.style.top = "0";
+	          _this3.hiddenFileInput.style.left = "0";
+	          _this3.hiddenFileInput.style.height = "0";
+	          _this3.hiddenFileInput.style.width = "0";
+	          Dropzone.getElement(_this3.options.hiddenInputContainer, 'hiddenInputContainer').appendChild(_this3.hiddenFileInput);
+	          return _this3.hiddenFileInput.addEventListener("change", function () {
+	            var files = _this3.hiddenFileInput.files;
+
+	            if (files.length) {
+	              var _iterator9 = _createForOfIteratorHelper(files),
+	                  _step9;
+
+	              try {
+	                for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+	                  var file = _step9.value;
+
+	                  _this3.addFile(file);
+	                }
+	              } catch (err) {
+	                _iterator9.e(err);
+	              } finally {
+	                _iterator9.f();
+	              }
+	            }
+
+	            _this3.emit("addedfiles", files);
+
+	            return setupHiddenFileInput();
+	          });
+	        };
+
+	        setupHiddenFileInput();
+	      }
+
+	      this.URL = window.URL !== null ? window.URL : window.webkitURL; // Setup all event listeners on the Dropzone object itself.
+	      // They're not in @setupEventListeners() because they shouldn't be removed
+	      // again when the dropzone gets disabled.
+
+	      var _iterator10 = _createForOfIteratorHelper(this.events),
+	          _step10;
+
+	      try {
+	        for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+	          var eventName = _step10.value;
+	          this.on(eventName, this.options[eventName]);
+	        }
+	      } catch (err) {
+	        _iterator10.e(err);
+	      } finally {
+	        _iterator10.f();
+	      }
+
+	      this.on("uploadprogress", function () {
+	        return _this3.updateTotalUploadProgress();
+	      });
+	      this.on("removedfile", function () {
+	        return _this3.updateTotalUploadProgress();
+	      });
+	      this.on("canceled", function (file) {
+	        return _this3.emit("complete", file);
+	      }); // Emit a `queuecomplete` event if all files finished uploading.
+
+	      this.on("complete", function (file) {
+	        if (_this3.getAddedFiles().length === 0 && _this3.getUploadingFiles().length === 0 && _this3.getQueuedFiles().length === 0) {
+	          // This needs to be deferred so that `queuecomplete` really triggers after `complete`
+	          return setTimeout(function () {
+	            return _this3.emit("queuecomplete");
+	          }, 0);
+	        }
+	      });
+
+	      var containsFiles = function containsFiles(e) {
+	        if (e.dataTransfer.types) {
+	          // Because e.dataTransfer.types is an Object in
+	          // IE, we need to iterate like this instead of
+	          // using e.dataTransfer.types.some()
+	          for (var i = 0; i < e.dataTransfer.types.length; i++) {
+	            if (e.dataTransfer.types[i] === "Files") return true;
+	          }
+	        }
+
+	        return false;
+	      };
+
+	      var noPropagation = function noPropagation(e) {
+	        // If there are no files, we don't want to stop
+	        // propagation so we don't interfere with other
+	        // drag and drop behaviour.
+	        if (!containsFiles(e)) return;
+	        e.stopPropagation();
+
+	        if (e.preventDefault) {
+	          return e.preventDefault();
+	        } else {
+	          return e.returnValue = false;
+	        }
+	      }; // Create the listeners
+
+
+	      this.listeners = [{
+	        element: this.element,
+	        events: {
+	          "dragstart": function dragstart(e) {
+	            return _this3.emit("dragstart", e);
+	          },
+	          "dragenter": function dragenter(e) {
+	            noPropagation(e);
+	            return _this3.emit("dragenter", e);
+	          },
+	          "dragover": function dragover(e) {
+	            // Makes it possible to drag files from chrome's download bar
+	            // http://stackoverflow.com/questions/19526430/drag-and-drop-file-uploads-from-chrome-downloads-bar
+	            // Try is required to prevent bug in Internet Explorer 11 (SCRIPT65535 exception)
+	            var efct;
+
+	            try {
+	              efct = e.dataTransfer.effectAllowed;
+	            } catch (error) {}
+
+	            e.dataTransfer.dropEffect = 'move' === efct || 'linkMove' === efct ? 'move' : 'copy';
+	            noPropagation(e);
+	            return _this3.emit("dragover", e);
+	          },
+	          "dragleave": function dragleave(e) {
+	            return _this3.emit("dragleave", e);
+	          },
+	          "drop": function drop(e) {
+	            noPropagation(e);
+	            return _this3.drop(e);
+	          },
+	          "dragend": function dragend(e) {
+	            return _this3.emit("dragend", e);
+	          }
+	        } // This is disabled right now, because the browsers don't implement it properly.
+	        // "paste": (e) =>
+	        //   noPropagation e
+	        //   @paste e
+
+	      }];
+	      this.clickableElements.forEach(function (clickableElement) {
+	        return _this3.listeners.push({
+	          element: clickableElement,
+	          events: {
+	            "click": function click(evt) {
+	              // Only the actual dropzone or the message element should trigger file selection
+	              if (clickableElement !== _this3.element || evt.target === _this3.element || Dropzone.elementInside(evt.target, _this3.element.querySelector(".dz-message"))) {
+	                _this3.hiddenFileInput.click(); // Forward the click
+
+	              }
+
+	              return true;
+	            }
+	          }
+	        });
+	      });
+	      this.enable();
+	      return this.options.init.call(this);
+	    } // Not fully tested yet
+
+	  }, {
+	    key: "destroy",
+	    value: function destroy() {
+	      this.disable();
+	      this.removeAllFiles(true);
+
+	      if (this.hiddenFileInput != null ? this.hiddenFileInput.parentNode : undefined) {
+	        this.hiddenFileInput.parentNode.removeChild(this.hiddenFileInput);
+	        this.hiddenFileInput = null;
+	      }
+
+	      delete this.element.dropzone;
+	      return Dropzone.instances.splice(Dropzone.instances.indexOf(this), 1);
+	    }
+	  }, {
+	    key: "updateTotalUploadProgress",
+	    value: function updateTotalUploadProgress() {
+	      var totalUploadProgress;
+	      var totalBytesSent = 0;
+	      var totalBytes = 0;
+	      var activeFiles = this.getActiveFiles();
+
+	      if (activeFiles.length) {
+	        var _iterator11 = _createForOfIteratorHelper(this.getActiveFiles()),
+	            _step11;
+
+	        try {
+	          for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+	            var file = _step11.value;
+	            totalBytesSent += file.upload.bytesSent;
+	            totalBytes += file.upload.total;
+	          }
+	        } catch (err) {
+	          _iterator11.e(err);
+	        } finally {
+	          _iterator11.f();
+	        }
+
+	        totalUploadProgress = 100 * totalBytesSent / totalBytes;
+	      } else {
+	        totalUploadProgress = 100;
+	      }
+
+	      return this.emit("totaluploadprogress", totalUploadProgress, totalBytes, totalBytesSent);
+	    } // @options.paramName can be a function taking one parameter rather than a string.
+	    // A parameter name for a file is obtained simply by calling this with an index number.
+
+	  }, {
+	    key: "_getParamName",
+	    value: function _getParamName(n) {
+	      if (typeof this.options.paramName === "function") {
+	        return this.options.paramName(n);
+	      } else {
+	        return "".concat(this.options.paramName).concat(this.options.uploadMultiple ? "[".concat(n, "]") : "");
+	      }
+	    } // If @options.renameFile is a function,
+	    // the function will be used to rename the file.name before appending it to the formData
+
+	  }, {
+	    key: "_renameFile",
+	    value: function _renameFile(file) {
+	      if (typeof this.options.renameFile !== "function") {
+	        return file.name;
+	      }
+
+	      return this.options.renameFile(file);
+	    } // Returns a form that can be used as fallback if the browser does not support DragnDrop
+	    //
+	    // If the dropzone is already a form, only the input field and button are returned. Otherwise a complete form element is provided.
+	    // This code has to pass in IE7 :(
+
+	  }, {
+	    key: "getFallbackForm",
+	    value: function getFallbackForm() {
+	      var existingFallback, form;
+
+	      if (existingFallback = this.getExistingFallback()) {
+	        return existingFallback;
+	      }
+
+	      var fieldsString = "<div class=\"dz-fallback\">";
+
+	      if (this.options.dictFallbackText) {
+	        fieldsString += "<p>".concat(this.options.dictFallbackText, "</p>");
+	      }
+
+	      fieldsString += "<input type=\"file\" name=\"".concat(this._getParamName(0), "\" ").concat(this.options.uploadMultiple ? 'multiple="multiple"' : undefined, " /><input type=\"submit\" value=\"Upload!\"></div>");
+	      var fields = Dropzone.createElement(fieldsString);
+
+	      if (this.element.tagName !== "FORM") {
+	        form = Dropzone.createElement("<form action=\"".concat(this.options.url, "\" enctype=\"multipart/form-data\" method=\"").concat(this.options.method, "\"></form>"));
+	        form.appendChild(fields);
+	      } else {
+	        // Make sure that the enctype and method attributes are set properly
+	        this.element.setAttribute("enctype", "multipart/form-data");
+	        this.element.setAttribute("method", this.options.method);
+	      }
+
+	      return form != null ? form : fields;
+	    } // Returns the fallback elements if they exist already
+	    //
+	    // This code has to pass in IE7 :(
+
+	  }, {
+	    key: "getExistingFallback",
+	    value: function getExistingFallback() {
+	      var getFallback = function getFallback(elements) {
+	        var _iterator12 = _createForOfIteratorHelper(elements),
+	            _step12;
+
+	        try {
+	          for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
+	            var el = _step12.value;
+
+	            if (/(^| )fallback($| )/.test(el.className)) {
+	              return el;
+	            }
+	          }
+	        } catch (err) {
+	          _iterator12.e(err);
+	        } finally {
+	          _iterator12.f();
+	        }
+	      };
+
+	      for (var _i2 = 0, _arr = ["div", "form"]; _i2 < _arr.length; _i2++) {
+	        var tagName = _arr[_i2];
+	        var fallback;
+
+	        if (fallback = getFallback(this.element.getElementsByTagName(tagName))) {
+	          return fallback;
+	        }
+	      }
+	    } // Activates all listeners stored in @listeners
+
+	  }, {
+	    key: "setupEventListeners",
+	    value: function setupEventListeners() {
+	      return this.listeners.map(function (elementListeners) {
+	        return function () {
+	          var result = [];
+
+	          for (var event in elementListeners.events) {
+	            var listener = elementListeners.events[event];
+	            result.push(elementListeners.element.addEventListener(event, listener, false));
+	          }
+
+	          return result;
+	        }();
+	      });
+	    } // Deactivates all listeners stored in @listeners
+
+	  }, {
+	    key: "removeEventListeners",
+	    value: function removeEventListeners() {
+	      return this.listeners.map(function (elementListeners) {
+	        return function () {
+	          var result = [];
+
+	          for (var event in elementListeners.events) {
+	            var listener = elementListeners.events[event];
+	            result.push(elementListeners.element.removeEventListener(event, listener, false));
+	          }
+
+	          return result;
+	        }();
+	      });
+	    } // Removes all event listeners and cancels all files in the queue or being processed.
+
+	  }, {
+	    key: "disable",
+	    value: function disable() {
+	      var _this4 = this;
+
+	      this.clickableElements.forEach(function (element) {
+	        return element.classList.remove("dz-clickable");
+	      });
+	      this.removeEventListeners();
+	      this.disabled = true;
+	      return this.files.map(function (file) {
+	        return _this4.cancelUpload(file);
+	      });
+	    }
+	  }, {
+	    key: "enable",
+	    value: function enable() {
+	      delete this.disabled;
+	      this.clickableElements.forEach(function (element) {
+	        return element.classList.add("dz-clickable");
+	      });
+	      return this.setupEventListeners();
+	    } // Returns a nicely formatted filesize
+
+	  }, {
+	    key: "filesize",
+	    value: function filesize(size) {
+	      var selectedSize = 0;
+	      var selectedUnit = "b";
+
+	      if (size > 0) {
+	        var units = ['tb', 'gb', 'mb', 'kb', 'b'];
+
+	        for (var i = 0; i < units.length; i++) {
+	          var unit = units[i];
+	          var cutoff = Math.pow(this.options.filesizeBase, 4 - i) / 10;
+
+	          if (size >= cutoff) {
+	            selectedSize = size / Math.pow(this.options.filesizeBase, 4 - i);
+	            selectedUnit = unit;
+	            break;
+	          }
+	        }
+
+	        selectedSize = Math.round(10 * selectedSize) / 10; // Cutting of digits
+	      }
+
+	      return "<strong>".concat(selectedSize, "</strong> ").concat(this.options.dictFileSizeUnits[selectedUnit]);
+	    } // Adds or removes the `dz-max-files-reached` class from the form.
+
+	  }, {
+	    key: "_updateMaxFilesReachedClass",
+	    value: function _updateMaxFilesReachedClass() {
+	      if (this.options.maxFiles != null && this.getAcceptedFiles().length >= this.options.maxFiles) {
+	        if (this.getAcceptedFiles().length === this.options.maxFiles) {
+	          this.emit('maxfilesreached', this.files);
+	        }
+
+	        return this.element.classList.add("dz-max-files-reached");
+	      } else {
+	        return this.element.classList.remove("dz-max-files-reached");
+	      }
+	    }
+	  }, {
+	    key: "drop",
+	    value: function drop(e) {
+	      if (!e.dataTransfer) {
+	        return;
+	      }
+
+	      this.emit("drop", e); // Convert the FileList to an Array
+	      // This is necessary for IE11
+
+	      var files = [];
+
+	      for (var i = 0; i < e.dataTransfer.files.length; i++) {
+	        files[i] = e.dataTransfer.files[i];
+	      } // Even if it's a folder, files.length will contain the folders.
+
+
+	      if (files.length) {
+	        var items = e.dataTransfer.items;
+
+	        if (items && items.length && items[0].webkitGetAsEntry != null) {
+	          // The browser supports dropping of folders, so handle items instead of files
+	          this._addFilesFromItems(items);
+	        } else {
+	          this.handleFiles(files);
+	        }
+	      }
+
+	      this.emit("addedfiles", files);
+	    }
+	  }, {
+	    key: "paste",
+	    value: function paste(e) {
+	      if (__guard__(e != null ? e.clipboardData : undefined, function (x) {
+	        return x.items;
+	      }) == null) {
+	        return;
+	      }
+
+	      this.emit("paste", e);
+	      var items = e.clipboardData.items;
+
+	      if (items.length) {
+	        return this._addFilesFromItems(items);
+	      }
+	    }
+	  }, {
+	    key: "handleFiles",
+	    value: function handleFiles(files) {
+	      var _iterator13 = _createForOfIteratorHelper(files),
+	          _step13;
+
+	      try {
+	        for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
+	          var file = _step13.value;
+	          this.addFile(file);
+	        }
+	      } catch (err) {
+	        _iterator13.e(err);
+	      } finally {
+	        _iterator13.f();
+	      }
+	    } // When a folder is dropped (or files are pasted), items must be handled
+	    // instead of files.
+
+	  }, {
+	    key: "_addFilesFromItems",
+	    value: function _addFilesFromItems(items) {
+	      var _this5 = this;
+
+	      return function () {
+	        var result = [];
+
+	        var _iterator14 = _createForOfIteratorHelper(items),
+	            _step14;
+
+	        try {
+	          for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
+	            var item = _step14.value;
+	            var entry;
+
+	            if (item.webkitGetAsEntry != null && (entry = item.webkitGetAsEntry())) {
+	              if (entry.isFile) {
+	                result.push(_this5.addFile(item.getAsFile()));
+	              } else if (entry.isDirectory) {
+	                // Append all files from that directory to files
+	                result.push(_this5._addFilesFromDirectory(entry, entry.name));
+	              } else {
+	                result.push(undefined);
+	              }
+	            } else if (item.getAsFile != null) {
+	              if (item.kind == null || item.kind === "file") {
+	                result.push(_this5.addFile(item.getAsFile()));
+	              } else {
+	                result.push(undefined);
+	              }
+	            } else {
+	              result.push(undefined);
+	            }
+	          }
+	        } catch (err) {
+	          _iterator14.e(err);
+	        } finally {
+	          _iterator14.f();
+	        }
+
+	        return result;
+	      }();
+	    } // Goes through the directory, and adds each file it finds recursively
+
+	  }, {
+	    key: "_addFilesFromDirectory",
+	    value: function _addFilesFromDirectory(directory, path) {
+	      var _this6 = this;
+
+	      var dirReader = directory.createReader();
+
+	      var errorHandler = function errorHandler(error) {
+	        return __guardMethod__(console, 'log', function (o) {
+	          return o.log(error);
+	        });
+	      };
+
+	      var readEntries = function readEntries() {
+	        return dirReader.readEntries(function (entries) {
+	          if (entries.length > 0) {
+	            var _iterator15 = _createForOfIteratorHelper(entries),
+	                _step15;
+
+	            try {
+	              for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
+	                var entry = _step15.value;
+
+	                if (entry.isFile) {
+	                  entry.file(function (file) {
+	                    if (_this6.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
+	                      return;
+	                    }
+
+	                    file.fullPath = "".concat(path, "/").concat(file.name);
+	                    return _this6.addFile(file);
+	                  });
+	                } else if (entry.isDirectory) {
+	                  _this6._addFilesFromDirectory(entry, "".concat(path, "/").concat(entry.name));
+	                }
+	              } // Recursively call readEntries() again, since browser only handle
+	              // the first 100 entries.
+	              // See: https://developer.mozilla.org/en-US/docs/Web/API/DirectoryReader#readEntries
+
+	            } catch (err) {
+	              _iterator15.e(err);
+	            } finally {
+	              _iterator15.f();
+	            }
+
+	            readEntries();
+	          }
+
+	          return null;
+	        }, errorHandler);
+	      };
+
+	      return readEntries();
+	    } // If `done()` is called without argument the file is accepted
+	    // If you call it with an error message, the file is rejected
+	    // (This allows for asynchronous validation)
+	    //
+	    // This function checks the filesize, and if the file.type passes the
+	    // `acceptedFiles` check.
+
+	  }, {
+	    key: "accept",
+	    value: function accept(file, done) {
+	      if (this.options.maxFilesize && file.size > this.options.maxFilesize * 1024 * 1024) {
+	        done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
+	      } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
+	        done(this.options.dictInvalidFileType);
+	      } else if (this.options.maxFiles != null && this.getAcceptedFiles().length >= this.options.maxFiles) {
+	        done(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}", this.options.maxFiles));
+	        this.emit("maxfilesexceeded", file);
+	      } else {
+	        this.options.accept.call(this, file, done);
+	      }
+	    }
+	  }, {
+	    key: "addFile",
+	    value: function addFile(file) {
+	      var _this7 = this;
+
+	      file.upload = {
+	        uuid: Dropzone.uuidv4(),
+	        progress: 0,
+	        // Setting the total upload size to file.size for the beginning
+	        // It's actual different than the size to be transmitted.
+	        total: file.size,
+	        bytesSent: 0,
+	        filename: this._renameFile(file) // Not setting chunking information here, because the acutal data — and
+	        // thus the chunks — might change if `options.transformFile` is set
+	        // and does something to the data.
+
+	      };
+	      this.files.push(file);
+	      file.status = Dropzone.ADDED;
+	      this.emit("addedfile", file);
+
+	      this._enqueueThumbnail(file);
+
+	      this.accept(file, function (error) {
+	        if (error) {
+	          file.accepted = false;
+
+	          _this7._errorProcessing([file], error); // Will set the file.status
+
+	        } else {
+	          file.accepted = true;
+
+	          if (_this7.options.autoQueue) {
+	            _this7.enqueueFile(file);
+	          } // Will set .accepted = true
+
+	        }
+
+	        _this7._updateMaxFilesReachedClass();
+	      });
+	    } // Wrapper for enqueueFile
+
+	  }, {
+	    key: "enqueueFiles",
+	    value: function enqueueFiles(files) {
+	      var _iterator16 = _createForOfIteratorHelper(files),
+	          _step16;
+
+	      try {
+	        for (_iterator16.s(); !(_step16 = _iterator16.n()).done;) {
+	          var file = _step16.value;
+	          this.enqueueFile(file);
+	        }
+	      } catch (err) {
+	        _iterator16.e(err);
+	      } finally {
+	        _iterator16.f();
+	      }
+
+	      return null;
+	    }
+	  }, {
+	    key: "enqueueFile",
+	    value: function enqueueFile(file) {
+	      var _this8 = this;
+
+	      if (file.status === Dropzone.ADDED && file.accepted === true) {
+	        file.status = Dropzone.QUEUED;
+
+	        if (this.options.autoProcessQueue) {
+	          return setTimeout(function () {
+	            return _this8.processQueue();
+	          }, 0); // Deferring the call
+	        }
+	      } else {
+	        throw new Error("This file can't be queued because it has already been processed or was rejected.");
+	      }
+	    }
+	  }, {
+	    key: "_enqueueThumbnail",
+	    value: function _enqueueThumbnail(file) {
+	      var _this9 = this;
+
+	      if (this.options.createImageThumbnails && file.type.match(/image.*/) && file.size <= this.options.maxThumbnailFilesize * 1024 * 1024) {
+	        this._thumbnailQueue.push(file);
+
+	        return setTimeout(function () {
+	          return _this9._processThumbnailQueue();
+	        }, 0); // Deferring the call
+	      }
+	    }
+	  }, {
+	    key: "_processThumbnailQueue",
+	    value: function _processThumbnailQueue() {
+	      var _this10 = this;
+
+	      if (this._processingThumbnail || this._thumbnailQueue.length === 0) {
+	        return;
+	      }
+
+	      this._processingThumbnail = true;
+
+	      var file = this._thumbnailQueue.shift();
+
+	      return this.createThumbnail(file, this.options.thumbnailWidth, this.options.thumbnailHeight, this.options.thumbnailMethod, true, function (dataUrl) {
+	        _this10.emit("thumbnail", file, dataUrl);
+
+	        _this10._processingThumbnail = false;
+	        return _this10._processThumbnailQueue();
+	      });
+	    } // Can be called by the user to remove a file
+
+	  }, {
+	    key: "removeFile",
+	    value: function removeFile(file) {
+	      if (file.status === Dropzone.UPLOADING) {
+	        this.cancelUpload(file);
+	      }
+
+	      this.files = without(this.files, file);
+	      this.emit("removedfile", file);
+
+	      if (this.files.length === 0) {
+	        return this.emit("reset");
+	      }
+	    } // Removes all files that aren't currently processed from the list
+
+	  }, {
+	    key: "removeAllFiles",
+	    value: function removeAllFiles(cancelIfNecessary) {
+	      // Create a copy of files since removeFile() changes the @files array.
+	      if (cancelIfNecessary == null) {
+	        cancelIfNecessary = false;
+	      }
+
+	      var _iterator17 = _createForOfIteratorHelper(this.files.slice()),
+	          _step17;
+
+	      try {
+	        for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
+	          var file = _step17.value;
+
+	          if (file.status !== Dropzone.UPLOADING || cancelIfNecessary) {
+	            this.removeFile(file);
+	          }
+	        }
+	      } catch (err) {
+	        _iterator17.e(err);
+	      } finally {
+	        _iterator17.f();
+	      }
+
+	      return null;
+	    } // Resizes an image before it gets sent to the server. This function is the default behavior of
+	    // `options.transformFile` if `resizeWidth` or `resizeHeight` are set. The callback is invoked with
+	    // the resized blob.
+
+	  }, {
+	    key: "resizeImage",
+	    value: function resizeImage(file, width, height, resizeMethod, callback) {
+	      var _this11 = this;
+
+	      return this.createThumbnail(file, width, height, resizeMethod, true, function (dataUrl, canvas) {
+	        if (canvas == null) {
+	          // The image has not been resized
+	          return callback(file);
+	        } else {
+	          var resizeMimeType = _this11.options.resizeMimeType;
+
+	          if (resizeMimeType == null) {
+	            resizeMimeType = file.type;
+	          }
+
+	          var resizedDataURL = canvas.toDataURL(resizeMimeType, _this11.options.resizeQuality);
+
+	          if (resizeMimeType === 'image/jpeg' || resizeMimeType === 'image/jpg') {
+	            // Now add the original EXIF information
+	            resizedDataURL = ExifRestore.restore(file.dataURL, resizedDataURL);
+	          }
+
+	          return callback(Dropzone.dataURItoBlob(resizedDataURL));
+	        }
+	      });
+	    }
+	  }, {
+	    key: "createThumbnail",
+	    value: function createThumbnail(file, width, height, resizeMethod, fixOrientation, callback) {
+	      var _this12 = this;
+
+	      var fileReader = new FileReader();
+
+	      fileReader.onload = function () {
+	        file.dataURL = fileReader.result; // Don't bother creating a thumbnail for SVG images since they're vector
+
+	        if (file.type === "image/svg+xml") {
+	          if (callback != null) {
+	            callback(fileReader.result);
+	          }
+
+	          return;
+	        }
+
+	        _this12.createThumbnailFromUrl(file, width, height, resizeMethod, fixOrientation, callback);
+	      };
+
+	      fileReader.readAsDataURL(file);
+	    } // `mockFile` needs to have these attributes:
+	    // 
+	    //     { name: 'name', size: 12345, imageUrl: '' }
+	    //
+	    // `callback` will be invoked when the image has been downloaded and displayed.
+	    // `crossOrigin` will be added to the `img` tag when accessing the file.
+
+	  }, {
+	    key: "displayExistingFile",
+	    value: function displayExistingFile(mockFile, imageUrl, callback, crossOrigin) {
+	      var _this13 = this;
+
+	      var resizeThumbnail = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+	      this.emit("addedfile", mockFile);
+	      this.emit("complete", mockFile);
+
+	      if (!resizeThumbnail) {
+	        this.emit("thumbnail", mockFile, imageUrl);
+	        if (callback) callback();
+	      } else {
+	        var onDone = function onDone(thumbnail) {
+	          _this13.emit('thumbnail', mockFile, thumbnail);
+
+	          if (callback) callback();
+	        };
+
+	        mockFile.dataURL = imageUrl;
+	        this.createThumbnailFromUrl(mockFile, this.options.thumbnailWidth, this.options.thumbnailHeight, this.options.resizeMethod, this.options.fixOrientation, onDone, crossOrigin);
+	      }
+	    }
+	  }, {
+	    key: "createThumbnailFromUrl",
+	    value: function createThumbnailFromUrl(file, width, height, resizeMethod, fixOrientation, callback, crossOrigin) {
+	      var _this14 = this;
+
+	      // Not using `new Image` here because of a bug in latest Chrome versions.
+	      // See https://github.com/enyo/dropzone/pull/226
+	      var img = document.createElement("img");
+
+	      if (crossOrigin) {
+	        img.crossOrigin = crossOrigin;
+	      } // fixOrientation is not needed anymore with browsers handling imageOrientation
+
+
+	      fixOrientation = getComputedStyle(document.body)['imageOrientation'] == 'from-image' ? false : fixOrientation;
+
+	      img.onload = function () {
+	        var loadExif = function loadExif(callback) {
+	          return callback(1);
+	        };
+
+	        if (typeof EXIF !== 'undefined' && EXIF !== null && fixOrientation) {
+	          loadExif = function loadExif(callback) {
+	            return EXIF.getData(img, function () {
+	              return callback(EXIF.getTag(this, 'Orientation'));
+	            });
+	          };
+	        }
+
+	        return loadExif(function (orientation) {
+	          file.width = img.width;
+	          file.height = img.height;
+
+	          var resizeInfo = _this14.options.resize.call(_this14, file, width, height, resizeMethod);
+
+	          var canvas = document.createElement("canvas");
+	          var ctx = canvas.getContext("2d");
+	          canvas.width = resizeInfo.trgWidth;
+	          canvas.height = resizeInfo.trgHeight;
+
+	          if (orientation > 4) {
+	            canvas.width = resizeInfo.trgHeight;
+	            canvas.height = resizeInfo.trgWidth;
+	          }
+
+	          switch (orientation) {
+	            case 2:
+	              // horizontal flip
+	              ctx.translate(canvas.width, 0);
+	              ctx.scale(-1, 1);
+	              break;
+
+	            case 3:
+	              // 180° rotate left
+	              ctx.translate(canvas.width, canvas.height);
+	              ctx.rotate(Math.PI);
+	              break;
+
+	            case 4:
+	              // vertical flip
+	              ctx.translate(0, canvas.height);
+	              ctx.scale(1, -1);
+	              break;
+
+	            case 5:
+	              // vertical flip + 90 rotate right
+	              ctx.rotate(0.5 * Math.PI);
+	              ctx.scale(1, -1);
+	              break;
+
+	            case 6:
+	              // 90° rotate right
+	              ctx.rotate(0.5 * Math.PI);
+	              ctx.translate(0, -canvas.width);
+	              break;
+
+	            case 7:
+	              // horizontal flip + 90 rotate right
+	              ctx.rotate(0.5 * Math.PI);
+	              ctx.translate(canvas.height, -canvas.width);
+	              ctx.scale(-1, 1);
+	              break;
+
+	            case 8:
+	              // 90° rotate left
+	              ctx.rotate(-0.5 * Math.PI);
+	              ctx.translate(-canvas.height, 0);
+	              break;
+	          } // This is a bugfix for iOS' scaling bug.
+
+
+	          drawImageIOSFix(ctx, img, resizeInfo.srcX != null ? resizeInfo.srcX : 0, resizeInfo.srcY != null ? resizeInfo.srcY : 0, resizeInfo.srcWidth, resizeInfo.srcHeight, resizeInfo.trgX != null ? resizeInfo.trgX : 0, resizeInfo.trgY != null ? resizeInfo.trgY : 0, resizeInfo.trgWidth, resizeInfo.trgHeight);
+	          var thumbnail = canvas.toDataURL("image/png");
+
+	          if (callback != null) {
+	            return callback(thumbnail, canvas);
+	          }
+	        });
+	      };
+
+	      if (callback != null) {
+	        img.onerror = callback;
+	      }
+
+	      return img.src = file.dataURL;
+	    } // Goes through the queue and processes files if there aren't too many already.
+
+	  }, {
+	    key: "processQueue",
+	    value: function processQueue() {
+	      var parallelUploads = this.options.parallelUploads;
+	      var processingLength = this.getUploadingFiles().length;
+	      var i = processingLength; // There are already at least as many files uploading than should be
+
+	      if (processingLength >= parallelUploads) {
+	        return;
+	      }
+
+	      var queuedFiles = this.getQueuedFiles();
+
+	      if (!(queuedFiles.length > 0)) {
+	        return;
+	      }
+
+	      if (this.options.uploadMultiple) {
+	        // The files should be uploaded in one request
+	        return this.processFiles(queuedFiles.slice(0, parallelUploads - processingLength));
+	      } else {
+	        while (i < parallelUploads) {
+	          if (!queuedFiles.length) {
+	            return;
+	          } // Nothing left to process
+
+
+	          this.processFile(queuedFiles.shift());
+	          i++;
+	        }
+	      }
+	    } // Wrapper for `processFiles`
+
+	  }, {
+	    key: "processFile",
+	    value: function processFile(file) {
+	      return this.processFiles([file]);
+	    } // Loads the file, then calls finishedLoading()
+
+	  }, {
+	    key: "processFiles",
+	    value: function processFiles(files) {
+	      var _iterator18 = _createForOfIteratorHelper(files),
+	          _step18;
+
+	      try {
+	        for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+	          var file = _step18.value;
+	          file.processing = true; // Backwards compatibility
+
+	          file.status = Dropzone.UPLOADING;
+	          this.emit("processing", file);
+	        }
+	      } catch (err) {
+	        _iterator18.e(err);
+	      } finally {
+	        _iterator18.f();
+	      }
+
+	      if (this.options.uploadMultiple) {
+	        this.emit("processingmultiple", files);
+	      }
+
+	      return this.uploadFiles(files);
+	    }
+	  }, {
+	    key: "_getFilesWithXhr",
+	    value: function _getFilesWithXhr(xhr) {
+	      var files;
+	      return files = this.files.filter(function (file) {
+	        return file.xhr === xhr;
+	      }).map(function (file) {
+	        return file;
+	      });
+	    } // Cancels the file upload and sets the status to CANCELED
+	    // **if** the file is actually being uploaded.
+	    // If it's still in the queue, the file is being removed from it and the status
+	    // set to CANCELED.
+
+	  }, {
+	    key: "cancelUpload",
+	    value: function cancelUpload(file) {
+	      if (file.status === Dropzone.UPLOADING) {
+	        var groupedFiles = this._getFilesWithXhr(file.xhr);
+
+	        var _iterator19 = _createForOfIteratorHelper(groupedFiles),
+	            _step19;
+
+	        try {
+	          for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+	            var groupedFile = _step19.value;
+	            groupedFile.status = Dropzone.CANCELED;
+	          }
+	        } catch (err) {
+	          _iterator19.e(err);
+	        } finally {
+	          _iterator19.f();
+	        }
+
+	        if (typeof file.xhr !== 'undefined') {
+	          file.xhr.abort();
+	        }
+
+	        var _iterator20 = _createForOfIteratorHelper(groupedFiles),
+	            _step20;
+
+	        try {
+	          for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+	            var _groupedFile = _step20.value;
+	            this.emit("canceled", _groupedFile);
+	          }
+	        } catch (err) {
+	          _iterator20.e(err);
+	        } finally {
+	          _iterator20.f();
+	        }
+
+	        if (this.options.uploadMultiple) {
+	          this.emit("canceledmultiple", groupedFiles);
+	        }
+	      } else if (file.status === Dropzone.ADDED || file.status === Dropzone.QUEUED) {
+	        file.status = Dropzone.CANCELED;
+	        this.emit("canceled", file);
+
+	        if (this.options.uploadMultiple) {
+	          this.emit("canceledmultiple", [file]);
+	        }
+	      }
+
+	      if (this.options.autoProcessQueue) {
+	        return this.processQueue();
+	      }
+	    }
+	  }, {
+	    key: "resolveOption",
+	    value: function resolveOption(option) {
+	      if (typeof option === 'function') {
+	        for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+	          args[_key3 - 1] = arguments[_key3];
+	        }
+
+	        return option.apply(this, args);
+	      }
+
+	      return option;
+	    }
+	  }, {
+	    key: "uploadFile",
+	    value: function uploadFile(file) {
+	      return this.uploadFiles([file]);
+	    }
+	  }, {
+	    key: "uploadFiles",
+	    value: function uploadFiles(files) {
+	      var _this15 = this;
+
+	      this._transformFiles(files, function (transformedFiles) {
+	        if (_this15.options.chunking) {
+	          // Chunking is not allowed to be used with `uploadMultiple` so we know
+	          // that there is only __one__file.
+	          var transformedFile = transformedFiles[0];
+	          files[0].upload.chunked = _this15.options.chunking && (_this15.options.forceChunking || transformedFile.size > _this15.options.chunkSize);
+	          files[0].upload.totalChunkCount = Math.ceil(transformedFile.size / _this15.options.chunkSize);
+	        }
+
+	        if (files[0].upload.chunked) {
+	          // This file should be sent in chunks!
+	          // If the chunking option is set, we **know** that there can only be **one** file, since
+	          // uploadMultiple is not allowed with this option.
+	          var file = files[0];
+	          var _transformedFile = transformedFiles[0];
+	          file.upload.chunks = [];
+
+	          var handleNextChunk = function handleNextChunk() {
+	            var chunkIndex = 0; // Find the next item in file.upload.chunks that is not defined yet.
+
+	            while (file.upload.chunks[chunkIndex] !== undefined) {
+	              chunkIndex++;
+	            } // This means, that all chunks have already been started.
+
+
+	            if (chunkIndex >= file.upload.totalChunkCount) return;
+	            var start = chunkIndex * _this15.options.chunkSize;
+	            var end = Math.min(start + _this15.options.chunkSize, _transformedFile.size);
+	            var dataBlock = {
+	              name: _this15._getParamName(0),
+	              data: _transformedFile.webkitSlice ? _transformedFile.webkitSlice(start, end) : _transformedFile.slice(start, end),
+	              filename: file.upload.filename,
+	              chunkIndex: chunkIndex
+	            };
+	            file.upload.chunks[chunkIndex] = {
+	              file: file,
+	              index: chunkIndex,
+	              dataBlock: dataBlock,
+	              // In case we want to retry.
+	              status: Dropzone.UPLOADING,
+	              progress: 0,
+	              retries: 0 // The number of times this block has been retried.
+
+	            };
+
+	            _this15._uploadData(files, [dataBlock]);
+	          };
+
+	          file.upload.finishedChunkUpload = function (chunk) {
+	            var allFinished = true;
+	            chunk.status = Dropzone.SUCCESS; // Clear the data from the chunk
+
+	            chunk.dataBlock = null; // Leaving this reference to xhr intact here will cause memory leaks in some browsers
+
+	            chunk.xhr = null;
+
+	            for (var i = 0; i < file.upload.totalChunkCount; i++) {
+	              if (file.upload.chunks[i] === undefined) {
+	                return handleNextChunk();
+	              }
+
+	              if (file.upload.chunks[i].status !== Dropzone.SUCCESS) {
+	                allFinished = false;
+	              }
+	            }
+
+	            if (allFinished) {
+	              _this15.options.chunksUploaded(file, function () {
+	                _this15._finished(files, '', null);
+	              });
+	            }
+	          };
+
+	          if (_this15.options.parallelChunkUploads) {
+	            for (var i = 0; i < file.upload.totalChunkCount; i++) {
+	              handleNextChunk();
+	            }
+	          } else {
+	            handleNextChunk();
+	          }
+	        } else {
+	          var dataBlocks = [];
+
+	          for (var _i3 = 0; _i3 < files.length; _i3++) {
+	            dataBlocks[_i3] = {
+	              name: _this15._getParamName(_i3),
+	              data: transformedFiles[_i3],
+	              filename: files[_i3].upload.filename
+	            };
+	          }
+
+	          _this15._uploadData(files, dataBlocks);
+	        }
+	      });
+	    } /// Returns the right chunk for given file and xhr
+
+	  }, {
+	    key: "_getChunk",
+	    value: function _getChunk(file, xhr) {
+	      for (var i = 0; i < file.upload.totalChunkCount; i++) {
+	        if (file.upload.chunks[i] !== undefined && file.upload.chunks[i].xhr === xhr) {
+	          return file.upload.chunks[i];
+	        }
+	      }
+	    } // This function actually uploads the file(s) to the server.
+	    // If dataBlocks contains the actual data to upload (meaning, that this could either be transformed
+	    // files, or individual chunks for chunked upload).
+
+	  }, {
+	    key: "_uploadData",
+	    value: function _uploadData(files, dataBlocks) {
+	      var _this16 = this;
+
+	      var xhr = new XMLHttpRequest(); // Put the xhr object in the file objects to be able to reference it later.
+
+	      var _iterator21 = _createForOfIteratorHelper(files),
+	          _step21;
+
+	      try {
+	        for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+	          var file = _step21.value;
+	          file.xhr = xhr;
+	        }
+	      } catch (err) {
+	        _iterator21.e(err);
+	      } finally {
+	        _iterator21.f();
+	      }
+
+	      if (files[0].upload.chunked) {
+	        // Put the xhr object in the right chunk object, so it can be associated later, and found with _getChunk
+	        files[0].upload.chunks[dataBlocks[0].chunkIndex].xhr = xhr;
+	      }
+
+	      var method = this.resolveOption(this.options.method, files);
+	      var url = this.resolveOption(this.options.url, files);
+	      xhr.open(method, url, true); // Setting the timeout after open because of IE11 issue: https://gitlab.com/meno/dropzone/issues/8
+
+	      xhr.timeout = this.resolveOption(this.options.timeout, files); // Has to be after `.open()`. See https://github.com/enyo/dropzone/issues/179
+
+	      xhr.withCredentials = !!this.options.withCredentials;
+
+	      xhr.onload = function (e) {
+	        _this16._finishedUploading(files, xhr, e);
+	      };
+
+	      xhr.ontimeout = function () {
+	        _this16._handleUploadError(files, xhr, "Request timedout after ".concat(_this16.options.timeout / 1000, " seconds"));
+	      };
+
+	      xhr.onerror = function () {
+	        _this16._handleUploadError(files, xhr);
+	      }; // Some browsers do not have the .upload property
+
+
+	      var progressObj = xhr.upload != null ? xhr.upload : xhr;
+
+	      progressObj.onprogress = function (e) {
+	        return _this16._updateFilesUploadProgress(files, xhr, e);
+	      };
+
+	      var headers = {
+	        "Accept": "application/json",
+	        "Cache-Control": "no-cache",
+	        "X-Requested-With": "XMLHttpRequest"
+	      };
+
+	      if (this.options.headers) {
+	        Dropzone.extend(headers, this.options.headers);
+	      }
+
+	      for (var headerName in headers) {
+	        var headerValue = headers[headerName];
+
+	        if (headerValue) {
+	          xhr.setRequestHeader(headerName, headerValue);
+	        }
+	      }
+
+	      var formData = new FormData(); // Adding all @options parameters
+
+	      if (this.options.params) {
+	        var additionalParams = this.options.params;
+
+	        if (typeof additionalParams === 'function') {
+	          additionalParams = additionalParams.call(this, files, xhr, files[0].upload.chunked ? this._getChunk(files[0], xhr) : null);
+	        }
+
+	        for (var key in additionalParams) {
+	          var value = additionalParams[key];
+
+	          if (Array.isArray(value)) {
+	            // The additional parameter contains an array,
+	            // so lets iterate over it to attach each value
+	            // individually.
+	            for (var i = 0; i < value.length; i++) {
+	              formData.append(key, value[i]);
+	            }
+	          } else {
+	            formData.append(key, value);
+	          }
+	        }
+	      } // Let the user add additional data if necessary
+
+
+	      var _iterator22 = _createForOfIteratorHelper(files),
+	          _step22;
+
+	      try {
+	        for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+	          var _file = _step22.value;
+	          this.emit("sending", _file, xhr, formData);
+	        }
+	      } catch (err) {
+	        _iterator22.e(err);
+	      } finally {
+	        _iterator22.f();
+	      }
+
+	      if (this.options.uploadMultiple) {
+	        this.emit("sendingmultiple", files, xhr, formData);
+	      }
+
+	      this._addFormElementData(formData); // Finally add the files
+	      // Has to be last because some servers (eg: S3) expect the file to be the last parameter
+
+
+	      for (var _i4 = 0; _i4 < dataBlocks.length; _i4++) {
+	        var dataBlock = dataBlocks[_i4];
+	        formData.append(dataBlock.name, dataBlock.data, dataBlock.filename);
+	      }
+
+	      this.submitRequest(xhr, formData, files);
+	    } // Transforms all files with this.options.transformFile and invokes done with the transformed files when done.
+
+	  }, {
+	    key: "_transformFiles",
+	    value: function _transformFiles(files, done) {
+	      var _this17 = this;
+
+	      var transformedFiles = []; // Clumsy way of handling asynchronous calls, until I get to add a proper Future library.
+
+	      var doneCounter = 0;
+
+	      var _loop = function _loop(i) {
+	        _this17.options.transformFile.call(_this17, files[i], function (transformedFile) {
+	          transformedFiles[i] = transformedFile;
+
+	          if (++doneCounter === files.length) {
+	            done(transformedFiles);
+	          }
+	        });
+	      };
+
+	      for (var i = 0; i < files.length; i++) {
+	        _loop(i);
+	      }
+	    } // Takes care of adding other input elements of the form to the AJAX request
+
+	  }, {
+	    key: "_addFormElementData",
+	    value: function _addFormElementData(formData) {
+	      // Take care of other input elements
+	      if (this.element.tagName === "FORM") {
+	        var _iterator23 = _createForOfIteratorHelper(this.element.querySelectorAll("input, textarea, select, button")),
+	            _step23;
+
+	        try {
+	          for (_iterator23.s(); !(_step23 = _iterator23.n()).done;) {
+	            var input = _step23.value;
+	            var inputName = input.getAttribute("name");
+	            var inputType = input.getAttribute("type");
+	            if (inputType) inputType = inputType.toLowerCase(); // If the input doesn't have a name, we can't use it.
+
+	            if (typeof inputName === 'undefined' || inputName === null) continue;
+
+	            if (input.tagName === "SELECT" && input.hasAttribute("multiple")) {
+	              // Possibly multiple values
+	              var _iterator24 = _createForOfIteratorHelper(input.options),
+	                  _step24;
+
+	              try {
+	                for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
+	                  var option = _step24.value;
+
+	                  if (option.selected) {
+	                    formData.append(inputName, option.value);
+	                  }
+	                }
+	              } catch (err) {
+	                _iterator24.e(err);
+	              } finally {
+	                _iterator24.f();
+	              }
+	            } else if (!inputType || inputType !== "checkbox" && inputType !== "radio" || input.checked) {
+	              formData.append(inputName, input.value);
+	            }
+	          }
+	        } catch (err) {
+	          _iterator23.e(err);
+	        } finally {
+	          _iterator23.f();
+	        }
+	      }
+	    } // Invoked when there is new progress information about given files.
+	    // If e is not provided, it is assumed that the upload is finished.
+
+	  }, {
+	    key: "_updateFilesUploadProgress",
+	    value: function _updateFilesUploadProgress(files, xhr, e) {
+	      var progress;
+
+	      if (typeof e !== 'undefined') {
+	        progress = 100 * e.loaded / e.total;
+
+	        if (files[0].upload.chunked) {
+	          var file = files[0]; // Since this is a chunked upload, we need to update the appropriate chunk progress.
+
+	          var chunk = this._getChunk(file, xhr);
+
+	          chunk.progress = progress;
+	          chunk.total = e.total;
+	          chunk.bytesSent = e.loaded;
+	          file.upload.progress = 0;
+	          file.upload.total = 0;
+	          file.upload.bytesSent = 0;
+
+	          for (var i = 0; i < file.upload.totalChunkCount; i++) {
+	            if (file.upload.chunks[i] !== undefined && file.upload.chunks[i].progress !== undefined) {
+	              file.upload.progress += file.upload.chunks[i].progress;
+	              file.upload.total += file.upload.chunks[i].total;
+	              file.upload.bytesSent += file.upload.chunks[i].bytesSent;
+	            }
+	          }
+
+	          file.upload.progress = file.upload.progress / file.upload.totalChunkCount;
+	        } else {
+	          var _iterator25 = _createForOfIteratorHelper(files),
+	              _step25;
+
+	          try {
+	            for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
+	              var _file2 = _step25.value;
+	              _file2.upload.progress = progress;
+	              _file2.upload.total = e.total;
+	              _file2.upload.bytesSent = e.loaded;
+	            }
+	          } catch (err) {
+	            _iterator25.e(err);
+	          } finally {
+	            _iterator25.f();
+	          }
+	        }
+
+	        var _iterator26 = _createForOfIteratorHelper(files),
+	            _step26;
+
+	        try {
+	          for (_iterator26.s(); !(_step26 = _iterator26.n()).done;) {
+	            var _file3 = _step26.value;
+	            this.emit("uploadprogress", _file3, _file3.upload.progress, _file3.upload.bytesSent);
+	          }
+	        } catch (err) {
+	          _iterator26.e(err);
+	        } finally {
+	          _iterator26.f();
+	        }
+	      } else {
+	        // Called when the file finished uploading
+	        var allFilesFinished = true;
+	        progress = 100;
+
+	        var _iterator27 = _createForOfIteratorHelper(files),
+	            _step27;
+
+	        try {
+	          for (_iterator27.s(); !(_step27 = _iterator27.n()).done;) {
+	            var _file4 = _step27.value;
+
+	            if (_file4.upload.progress !== 100 || _file4.upload.bytesSent !== _file4.upload.total) {
+	              allFilesFinished = false;
+	            }
+
+	            _file4.upload.progress = progress;
+	            _file4.upload.bytesSent = _file4.upload.total;
+	          } // Nothing to do, all files already at 100%
+
+	        } catch (err) {
+	          _iterator27.e(err);
+	        } finally {
+	          _iterator27.f();
+	        }
+
+	        if (allFilesFinished) {
+	          return;
+	        }
+
+	        var _iterator28 = _createForOfIteratorHelper(files),
+	            _step28;
+
+	        try {
+	          for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
+	            var _file5 = _step28.value;
+	            this.emit("uploadprogress", _file5, progress, _file5.upload.bytesSent);
+	          }
+	        } catch (err) {
+	          _iterator28.e(err);
+	        } finally {
+	          _iterator28.f();
+	        }
+	      }
+	    }
+	  }, {
+	    key: "_finishedUploading",
+	    value: function _finishedUploading(files, xhr, e) {
+	      var response;
+
+	      if (files[0].status === Dropzone.CANCELED) {
+	        return;
+	      }
+
+	      if (xhr.readyState !== 4) {
+	        return;
+	      }
+
+	      if (xhr.responseType !== 'arraybuffer' && xhr.responseType !== 'blob') {
+	        response = xhr.responseText;
+
+	        if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
+	          try {
+	            response = JSON.parse(response);
+	          } catch (error) {
+	            e = error;
+	            response = "Invalid JSON response from server.";
+	          }
+	        }
+	      }
+
+	      this._updateFilesUploadProgress(files);
+
+	      if (!(200 <= xhr.status && xhr.status < 300)) {
+	        this._handleUploadError(files, xhr, response);
+	      } else {
+	        if (files[0].upload.chunked) {
+	          files[0].upload.finishedChunkUpload(this._getChunk(files[0], xhr));
+	        } else {
+	          this._finished(files, response, e);
+	        }
+	      }
+	    }
+	  }, {
+	    key: "_handleUploadError",
+	    value: function _handleUploadError(files, xhr, response) {
+	      if (files[0].status === Dropzone.CANCELED) {
+	        return;
+	      }
+
+	      if (files[0].upload.chunked && this.options.retryChunks) {
+	        var chunk = this._getChunk(files[0], xhr);
+
+	        if (chunk.retries++ < this.options.retryChunksLimit) {
+	          this._uploadData(files, [chunk.dataBlock]);
+
+	          return;
+	        } else {
+	          console.warn('Retried this chunk too often. Giving up.');
+	        }
+	      }
+
+	      this._errorProcessing(files, response || this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr);
+	    }
+	  }, {
+	    key: "submitRequest",
+	    value: function submitRequest(xhr, formData, files) {
+	      xhr.send(formData);
+	    } // Called internally when processing is finished.
+	    // Individual callbacks have to be called in the appropriate sections.
+
+	  }, {
+	    key: "_finished",
+	    value: function _finished(files, responseText, e) {
+	      var _iterator29 = _createForOfIteratorHelper(files),
+	          _step29;
+
+	      try {
+	        for (_iterator29.s(); !(_step29 = _iterator29.n()).done;) {
+	          var file = _step29.value;
+	          file.status = Dropzone.SUCCESS;
+	          this.emit("success", file, responseText, e);
+	          this.emit("complete", file);
+	        }
+	      } catch (err) {
+	        _iterator29.e(err);
+	      } finally {
+	        _iterator29.f();
+	      }
+
+	      if (this.options.uploadMultiple) {
+	        this.emit("successmultiple", files, responseText, e);
+	        this.emit("completemultiple", files);
+	      }
+
+	      if (this.options.autoProcessQueue) {
+	        return this.processQueue();
+	      }
+	    } // Called internally when processing is finished.
+	    // Individual callbacks have to be called in the appropriate sections.
+
+	  }, {
+	    key: "_errorProcessing",
+	    value: function _errorProcessing(files, message, xhr) {
+	      var _iterator30 = _createForOfIteratorHelper(files),
+	          _step30;
+
+	      try {
+	        for (_iterator30.s(); !(_step30 = _iterator30.n()).done;) {
+	          var file = _step30.value;
+	          file.status = Dropzone.ERROR;
+	          this.emit("error", file, message, xhr);
+	          this.emit("complete", file);
+	        }
+	      } catch (err) {
+	        _iterator30.e(err);
+	      } finally {
+	        _iterator30.f();
+	      }
+
+	      if (this.options.uploadMultiple) {
+	        this.emit("errormultiple", files, message, xhr);
+	        this.emit("completemultiple", files);
+	      }
+
+	      if (this.options.autoProcessQueue) {
+	        return this.processQueue();
+	      }
+	    }
+	  }], [{
+	    key: "uuidv4",
+	    value: function uuidv4() {
+	      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+	        var r = Math.random() * 16 | 0,
+	            v = c === 'x' ? r : r & 0x3 | 0x8;
+	        return v.toString(16);
+	      });
+	    }
+	  }]);
+
+	  return Dropzone;
+	}(Emitter);
+
+	Dropzone.initClass();
+	Dropzone.version = "5.7.2"; // This is a map of options for your different dropzones. Add configurations
+	// to this object for your different dropzone elemens.
+	//
+	// Example:
+	//
+	//     Dropzone.options.myDropzoneElementId = { maxFilesize: 1 };
+	//
+	// To disable autoDiscover for a specific element, you can set `false` as an option:
+	//
+	//     Dropzone.options.myDisabledElementId = false;
+	//
+	// And in html:
+	//
+	//     <form action="/upload" id="my-dropzone-element-id" class="dropzone"></form>
+
+	Dropzone.options = {}; // Returns the options for an element or undefined if none available.
+
+	Dropzone.optionsForElement = function (element) {
+	  // Get the `Dropzone.options.elementId` for this element if it exists
+	  if (element.getAttribute("id")) {
+	    return Dropzone.options[camelize(element.getAttribute("id"))];
+	  } else {
+	    return undefined;
+	  }
+	}; // Holds a list of all dropzone instances
+
+
+	Dropzone.instances = []; // Returns the dropzone for given element if any
+
+	Dropzone.forElement = function (element) {
+	  if (typeof element === "string") {
+	    element = document.querySelector(element);
+	  }
+
+	  if ((element != null ? element.dropzone : undefined) == null) {
+	    throw new Error("No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone.");
+	  }
+
+	  return element.dropzone;
+	}; // Set to false if you don't want Dropzone to automatically find and attach to .dropzone elements.
+
+
+	Dropzone.autoDiscover = true; // Looks for all .dropzone elements and creates a dropzone for them
+
+	Dropzone.discover = function () {
+	  var dropzones;
+
+	  if (document.querySelectorAll) {
+	    dropzones = document.querySelectorAll(".dropzone");
+	  } else {
+	    dropzones = []; // IE :(
+
+	    var checkElements = function checkElements(elements) {
+	      return function () {
+	        var result = [];
+
+	        var _iterator31 = _createForOfIteratorHelper(elements),
+	            _step31;
+
+	        try {
+	          for (_iterator31.s(); !(_step31 = _iterator31.n()).done;) {
+	            var el = _step31.value;
+
+	            if (/(^| )dropzone($| )/.test(el.className)) {
+	              result.push(dropzones.push(el));
+	            } else {
+	              result.push(undefined);
+	            }
+	          }
+	        } catch (err) {
+	          _iterator31.e(err);
+	        } finally {
+	          _iterator31.f();
+	        }
+
+	        return result;
+	      }();
+	    };
+
+	    checkElements(document.getElementsByTagName("div"));
+	    checkElements(document.getElementsByTagName("form"));
+	  }
+
+	  return function () {
+	    var result = [];
+
+	    var _iterator32 = _createForOfIteratorHelper(dropzones),
+	        _step32;
+
+	    try {
+	      for (_iterator32.s(); !(_step32 = _iterator32.n()).done;) {
+	        var dropzone = _step32.value;
+
+	        // Create a dropzone unless auto discover has been disabled for specific element
+	        if (Dropzone.optionsForElement(dropzone) !== false) {
+	          result.push(new Dropzone(dropzone));
+	        } else {
+	          result.push(undefined);
+	        }
+	      }
+	    } catch (err) {
+	      _iterator32.e(err);
+	    } finally {
+	      _iterator32.f();
+	    }
+
+	    return result;
+	  }();
+	}; // Since the whole Drag'n'Drop API is pretty new, some browsers implement it,
+	// but not correctly.
+	// So I created a blacklist of userAgents. Yes, yes. Browser sniffing, I know.
+	// But what to do when browsers *theoretically* support an API, but crash
+	// when using it.
+	//
+	// This is a list of regular expressions tested against navigator.userAgent
+	//
+	// ** It should only be used on browser that *do* support the API, but
+	// incorrectly **
+	//
+
+
+	Dropzone.blacklistedBrowsers = [// The mac os and windows phone version of opera 12 seems to have a problem with the File drag'n'drop API.
+	/opera.*(Macintosh|Windows Phone).*version\/12/i]; // Checks if the browser is supported
+
+	Dropzone.isBrowserSupported = function () {
+	  var capableBrowser = true;
+
+	  if (window.File && window.FileReader && window.FileList && window.Blob && window.FormData && document.querySelector) {
+	    if (!("classList" in document.createElement("a"))) {
+	      capableBrowser = false;
+	    } else {
+	      // The browser supports the API, but may be blacklisted.
+	      var _iterator33 = _createForOfIteratorHelper(Dropzone.blacklistedBrowsers),
+	          _step33;
+
+	      try {
+	        for (_iterator33.s(); !(_step33 = _iterator33.n()).done;) {
+	          var regex = _step33.value;
+
+	          if (regex.test(navigator.userAgent)) {
+	            capableBrowser = false;
+	            continue;
+	          }
+	        }
+	      } catch (err) {
+	        _iterator33.e(err);
+	      } finally {
+	        _iterator33.f();
+	      }
+	    }
+	  } else {
+	    capableBrowser = false;
+	  }
+
+	  return capableBrowser;
+	};
+
+	Dropzone.dataURItoBlob = function (dataURI) {
+	  // convert base64 to raw binary data held in a string
+	  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+	  var byteString = atob(dataURI.split(',')[1]); // separate out the mime component
+
+	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]; // write the bytes of the string to an ArrayBuffer
+
+	  var ab = new ArrayBuffer(byteString.length);
+	  var ia = new Uint8Array(ab);
+
+	  for (var i = 0, end = byteString.length, asc = 0 <= end; asc ? i <= end : i >= end; asc ? i++ : i--) {
+	    ia[i] = byteString.charCodeAt(i);
+	  } // write the ArrayBuffer to a blob
+
+
+	  return new Blob([ab], {
+	    type: mimeString
+	  });
+	}; // Returns an array without the rejected item
+
+
+	var without = function without(list, rejectedItem) {
+	  return list.filter(function (item) {
+	    return item !== rejectedItem;
+	  }).map(function (item) {
+	    return item;
+	  });
+	}; // abc-def_ghi -> abcDefGhi
+
+
+	var camelize = function camelize(str) {
+	  return str.replace(/[\-_](\w)/g, function (match) {
+	    return match.charAt(1).toUpperCase();
+	  });
+	}; // Creates an element from string
+
+
+	Dropzone.createElement = function (string) {
+	  var div = document.createElement("div");
+	  div.innerHTML = string;
+	  return div.childNodes[0];
+	}; // Tests if given element is inside (or simply is) the container
+
+
+	Dropzone.elementInside = function (element, container) {
+	  if (element === container) {
+	    return true;
+	  } // Coffeescript doesn't support do/while loops
+
+
+	  while (element = element.parentNode) {
+	    if (element === container) {
+	      return true;
+	    }
+	  }
+
+	  return false;
+	};
+
+	Dropzone.getElement = function (el, name) {
+	  var element;
+
+	  if (typeof el === "string") {
+	    element = document.querySelector(el);
+	  } else if (el.nodeType != null) {
+	    element = el;
+	  }
+
+	  if (element == null) {
+	    throw new Error("Invalid `".concat(name, "` option provided. Please provide a CSS selector or a plain HTML element."));
+	  }
+
+	  return element;
+	};
+
+	Dropzone.getElements = function (els, name) {
+	  var el, elements;
+
+	  if (els instanceof Array) {
+	    elements = [];
+
+	    try {
+	      var _iterator34 = _createForOfIteratorHelper(els),
+	          _step34;
+
+	      try {
+	        for (_iterator34.s(); !(_step34 = _iterator34.n()).done;) {
+	          el = _step34.value;
+	          elements.push(this.getElement(el, name));
+	        }
+	      } catch (err) {
+	        _iterator34.e(err);
+	      } finally {
+	        _iterator34.f();
+	      }
+	    } catch (e) {
+	      elements = null;
+	    }
+	  } else if (typeof els === "string") {
+	    elements = [];
+
+	    var _iterator35 = _createForOfIteratorHelper(document.querySelectorAll(els)),
+	        _step35;
+
+	    try {
+	      for (_iterator35.s(); !(_step35 = _iterator35.n()).done;) {
+	        el = _step35.value;
+	        elements.push(el);
+	      }
+	    } catch (err) {
+	      _iterator35.e(err);
+	    } finally {
+	      _iterator35.f();
+	    }
+	  } else if (els.nodeType != null) {
+	    elements = [els];
+	  }
+
+	  if (elements == null || !elements.length) {
+	    throw new Error("Invalid `".concat(name, "` option provided. Please provide a CSS selector, a plain HTML element or a list of those."));
+	  }
+
+	  return elements;
+	}; // Asks the user the question and calls accepted or rejected accordingly
+	//
+	// The default implementation just uses `window.confirm` and then calls the
+	// appropriate callback.
+
+
+	Dropzone.confirm = function (question, accepted, rejected) {
+	  if (window.confirm(question)) {
+	    return accepted();
+	  } else if (rejected != null) {
+	    return rejected();
+	  }
+	}; // Validates the mime type like this:
+	//
+	// https://developer.mozilla.org/en-US/docs/HTML/Element/input#attr-accept
+
+
+	Dropzone.isValidFile = function (file, acceptedFiles) {
+	  if (!acceptedFiles) {
+	    return true;
+	  } // If there are no accepted mime types, it's OK
+
+
+	  acceptedFiles = acceptedFiles.split(",");
+	  var mimeType = file.type;
+	  var baseMimeType = mimeType.replace(/\/.*$/, "");
+
+	  var _iterator36 = _createForOfIteratorHelper(acceptedFiles),
+	      _step36;
+
+	  try {
+	    for (_iterator36.s(); !(_step36 = _iterator36.n()).done;) {
+	      var validType = _step36.value;
+	      validType = validType.trim();
+
+	      if (validType.charAt(0) === ".") {
+	        if (file.name.toLowerCase().indexOf(validType.toLowerCase(), file.name.length - validType.length) !== -1) {
+	          return true;
+	        }
+	      } else if (/\/\*$/.test(validType)) {
+	        // This is something like a image/* mime type
+	        if (baseMimeType === validType.replace(/\/.*$/, "")) {
+	          return true;
+	        }
+	      } else {
+	        if (mimeType === validType) {
+	          return true;
+	        }
+	      }
+	    }
+	  } catch (err) {
+	    _iterator36.e(err);
+	  } finally {
+	    _iterator36.f();
+	  }
+
+	  return false;
+	}; // Augment jQuery
+
+
+	if (typeof jQuery !== 'undefined' && jQuery !== null) {
+	  jQuery.fn.dropzone = function (options) {
+	    return this.each(function () {
+	      return new Dropzone(this, options);
+	    });
+	  };
+	}
+
+	if ( module !== null) {
+	  module.exports = Dropzone;
+	} else {
+	  window.Dropzone = Dropzone;
+	} // Dropzone file status codes
+
+
+	Dropzone.ADDED = "added";
+	Dropzone.QUEUED = "queued"; // For backwards compatibility. Now, if a file is accepted, it's either queued
+	// or uploading.
+
+	Dropzone.ACCEPTED = Dropzone.QUEUED;
+	Dropzone.UPLOADING = "uploading";
+	Dropzone.PROCESSING = Dropzone.UPLOADING; // alias
+
+	Dropzone.CANCELED = "canceled";
+	Dropzone.ERROR = "error";
+	Dropzone.SUCCESS = "success";
+	/*
+
+	 Bugfix for iOS 6 and 7
+	 Source: http://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios
+	 based on the work of https://github.com/stomita/ios-imagefile-megapixel
+
+	 */
+	// Detecting vertical squash in loaded image.
+	// Fixes a bug which squash image vertically while drawing into canvas for some images.
+	// This is a bug in iOS6 devices. This function from https://github.com/stomita/ios-imagefile-megapixel
+
+	var detectVerticalSquash = function detectVerticalSquash(img) {
+	  var iw = img.naturalWidth;
+	  var ih = img.naturalHeight;
+	  var canvas = document.createElement("canvas");
+	  canvas.width = 1;
+	  canvas.height = ih;
+	  var ctx = canvas.getContext("2d");
+	  ctx.drawImage(img, 0, 0);
+
+	  var _ctx$getImageData = ctx.getImageData(1, 0, 1, ih),
+	      data = _ctx$getImageData.data; // search image edge pixel position in case it is squashed vertically.
+
+
+	  var sy = 0;
+	  var ey = ih;
+	  var py = ih;
+
+	  while (py > sy) {
+	    var alpha = data[(py - 1) * 4 + 3];
+
+	    if (alpha === 0) {
+	      ey = py;
+	    } else {
+	      sy = py;
+	    }
+
+	    py = ey + sy >> 1;
+	  }
+
+	  var ratio = py / ih;
+
+	  if (ratio === 0) {
+	    return 1;
+	  } else {
+	    return ratio;
+	  }
+	}; // A replacement for context.drawImage
+	// (args are for source and destination).
+
+
+	var drawImageIOSFix = function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+	  var vertSquashRatio = detectVerticalSquash(img);
+	  return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
+	}; // Based on MinifyJpeg
+	// Source: http://www.perry.cz/files/ExifRestorer.js
+	// http://elicon.blog57.fc2.com/blog-entry-206.html
+
+
+	var ExifRestore = /*#__PURE__*/function () {
+	  function ExifRestore() {
+	    _classCallCheck(this, ExifRestore);
+	  }
+
+	  _createClass(ExifRestore, null, [{
+	    key: "initClass",
+	    value: function initClass() {
+	      this.KEY_STR = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+	    }
+	  }, {
+	    key: "encode64",
+	    value: function encode64(input) {
+	      var output = '';
+	      var chr1 = undefined;
+	      var chr2 = undefined;
+	      var chr3 = '';
+	      var enc1 = undefined;
+	      var enc2 = undefined;
+	      var enc3 = undefined;
+	      var enc4 = '';
+	      var i = 0;
+
+	      while (true) {
+	        chr1 = input[i++];
+	        chr2 = input[i++];
+	        chr3 = input[i++];
+	        enc1 = chr1 >> 2;
+	        enc2 = (chr1 & 3) << 4 | chr2 >> 4;
+	        enc3 = (chr2 & 15) << 2 | chr3 >> 6;
+	        enc4 = chr3 & 63;
+
+	        if (isNaN(chr2)) {
+	          enc3 = enc4 = 64;
+	        } else if (isNaN(chr3)) {
+	          enc4 = 64;
+	        }
+
+	        output = output + this.KEY_STR.charAt(enc1) + this.KEY_STR.charAt(enc2) + this.KEY_STR.charAt(enc3) + this.KEY_STR.charAt(enc4);
+	        chr1 = chr2 = chr3 = '';
+	        enc1 = enc2 = enc3 = enc4 = '';
+
+	        if (!(i < input.length)) {
+	          break;
+	        }
+	      }
+
+	      return output;
+	    }
+	  }, {
+	    key: "restore",
+	    value: function restore(origFileBase64, resizedFileBase64) {
+	      if (!origFileBase64.match('data:image/jpeg;base64,')) {
+	        return resizedFileBase64;
+	      }
+
+	      var rawImage = this.decode64(origFileBase64.replace('data:image/jpeg;base64,', ''));
+	      var segments = this.slice2Segments(rawImage);
+	      var image = this.exifManipulation(resizedFileBase64, segments);
+	      return "data:image/jpeg;base64,".concat(this.encode64(image));
+	    }
+	  }, {
+	    key: "exifManipulation",
+	    value: function exifManipulation(resizedFileBase64, segments) {
+	      var exifArray = this.getExifArray(segments);
+	      var newImageArray = this.insertExif(resizedFileBase64, exifArray);
+	      var aBuffer = new Uint8Array(newImageArray);
+	      return aBuffer;
+	    }
+	  }, {
+	    key: "getExifArray",
+	    value: function getExifArray(segments) {
+	      var seg = undefined;
+	      var x = 0;
+
+	      while (x < segments.length) {
+	        seg = segments[x];
+
+	        if (seg[0] === 255 & seg[1] === 225) {
+	          return seg;
+	        }
+
+	        x++;
+	      }
+
+	      return [];
+	    }
+	  }, {
+	    key: "insertExif",
+	    value: function insertExif(resizedFileBase64, exifArray) {
+	      var imageData = resizedFileBase64.replace('data:image/jpeg;base64,', '');
+	      var buf = this.decode64(imageData);
+	      var separatePoint = buf.indexOf(255, 3);
+	      var mae = buf.slice(0, separatePoint);
+	      var ato = buf.slice(separatePoint);
+	      var array = mae;
+	      array = array.concat(exifArray);
+	      array = array.concat(ato);
+	      return array;
+	    }
+	  }, {
+	    key: "slice2Segments",
+	    value: function slice2Segments(rawImageArray) {
+	      var head = 0;
+	      var segments = [];
+
+	      while (true) {
+	        var length;
+
+	        if (rawImageArray[head] === 255 & rawImageArray[head + 1] === 218) {
+	          break;
+	        }
+
+	        if (rawImageArray[head] === 255 & rawImageArray[head + 1] === 216) {
+	          head += 2;
+	        } else {
+	          length = rawImageArray[head + 2] * 256 + rawImageArray[head + 3];
+	          var endPoint = head + length + 2;
+	          var seg = rawImageArray.slice(head, endPoint);
+	          segments.push(seg);
+	          head = endPoint;
+	        }
+
+	        if (head > rawImageArray.length) {
+	          break;
+	        }
+	      }
+
+	      return segments;
+	    }
+	  }, {
+	    key: "decode64",
+	    value: function decode64(input) {
+	      var chr1 = undefined;
+	      var chr2 = undefined;
+	      var chr3 = '';
+	      var enc1 = undefined;
+	      var enc2 = undefined;
+	      var enc3 = undefined;
+	      var enc4 = '';
+	      var i = 0;
+	      var buf = []; // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+
+	      var base64test = /[^A-Za-z0-9\+\/\=]/g;
+
+	      if (base64test.exec(input)) {
+	        console.warn('There were invalid base64 characters in the input text.\nValid base64 characters are A-Z, a-z, 0-9, \'+\', \'/\',and \'=\'\nExpect errors in decoding.');
+	      }
+
+	      input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
+
+	      while (true) {
+	        enc1 = this.KEY_STR.indexOf(input.charAt(i++));
+	        enc2 = this.KEY_STR.indexOf(input.charAt(i++));
+	        enc3 = this.KEY_STR.indexOf(input.charAt(i++));
+	        enc4 = this.KEY_STR.indexOf(input.charAt(i++));
+	        chr1 = enc1 << 2 | enc2 >> 4;
+	        chr2 = (enc2 & 15) << 4 | enc3 >> 2;
+	        chr3 = (enc3 & 3) << 6 | enc4;
+	        buf.push(chr1);
+
+	        if (enc3 !== 64) {
+	          buf.push(chr2);
+	        }
+
+	        if (enc4 !== 64) {
+	          buf.push(chr3);
+	        }
+
+	        chr1 = chr2 = chr3 = '';
+	        enc1 = enc2 = enc3 = enc4 = '';
+
+	        if (!(i < input.length)) {
+	          break;
+	        }
+	      }
+
+	      return buf;
+	    }
+	  }]);
+
+	  return ExifRestore;
+	}();
+
+	ExifRestore.initClass();
+	/*
+	 * contentloaded.js
+	 *
+	 * Author: Diego Perini (diego.perini at gmail.com)
+	 * Summary: cross-browser wrapper for DOMContentLoaded
+	 * Updated: 20101020
+	 * License: MIT
+	 * Version: 1.2
+	 *
+	 * URL:
+	 * http://javascript.nwbox.com/ContentLoaded/
+	 * http://javascript.nwbox.com/ContentLoaded/MIT-LICENSE
+	 */
+	// @win window reference
+	// @fn function reference
+
+	var contentLoaded = function contentLoaded(win, fn) {
+	  var done = false;
+	  var top = true;
+	  var doc = win.document;
+	  var root = doc.documentElement;
+	  var add = doc.addEventListener ? "addEventListener" : "attachEvent";
+	  var rem = doc.addEventListener ? "removeEventListener" : "detachEvent";
+	  var pre = doc.addEventListener ? "" : "on";
+
+	  var init = function init(e) {
+	    if (e.type === "readystatechange" && doc.readyState !== "complete") {
+	      return;
+	    }
+
+	    (e.type === "load" ? win : doc)[rem](pre + e.type, init, false);
+
+	    if (!done && (done = true)) {
+	      return fn.call(win, e.type || e);
+	    }
+	  };
+
+	  var poll = function poll() {
+	    try {
+	      root.doScroll("left");
+	    } catch (e) {
+	      setTimeout(poll, 50);
+	      return;
+	    }
+
+	    return init("poll");
+	  };
+
+	  if (doc.readyState !== "complete") {
+	    if (doc.createEventObject && root.doScroll) {
+	      try {
+	        top = !win.frameElement;
+	      } catch (error) {}
+
+	      if (top) {
+	        poll();
+	      }
+	    }
+
+	    doc[add](pre + "DOMContentLoaded", init, false);
+	    doc[add](pre + "readystatechange", init, false);
+	    return win[add](pre + "load", init, false);
+	  }
+	}; // As a single function to be able to write tests.
+
+
+	Dropzone._autoDiscoverFunction = function () {
+	  if (Dropzone.autoDiscover) {
+	    return Dropzone.discover();
+	  }
+	};
+
+	contentLoaded(window, Dropzone._autoDiscoverFunction);
+
+	function __guard__(value, transform) {
+	  return typeof value !== 'undefined' && value !== null ? transform(value) : undefined;
+	}
+
+	function __guardMethod__(obj, methodName, transform) {
+	  if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
+	    return transform(obj, methodName);
+	  } else {
+	    return undefined;
+	  }
+	}
+	});
+
 	/* ====== Index ======
 
 	1. JEKYLL INSTANT SEARCH
@@ -9856,7 +13248,7 @@
 	8. DATE PICKER
 
 	====== End ======*/
-
+	dropzone.autoDiscover = false;
 	$(document).ready(function() {
 
 	  /*======== 1. JEKYLL INSTANT SEARCH ========*/
@@ -9876,6 +13268,10 @@
 
 
 	  /*======== 2. SCROLLBAR CONTENT ========*/
+
+	  var myDropzone = new dropzone(".dropzone", {
+	    url: "/file/post"
+	  });
 
 	  var dataScrollHeight = $("[data-scroll-height]");
 	  function scrollWithBigMedia(media) {

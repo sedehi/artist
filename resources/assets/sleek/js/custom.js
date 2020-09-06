@@ -12,6 +12,8 @@
 
 ====== End ======*/
 
+import Dropzone from 'dropzone';
+Dropzone.autoDiscover = false;
 $(document).ready(function() {
   "use strict";
 
@@ -32,6 +34,10 @@ $(document).ready(function() {
 
 
   /*======== 2. SCROLLBAR CONTENT ========*/
+
+  var myDropzone = new Dropzone(".dropzone", {
+    url: "/file/post"
+  });
 
   var dataScrollHeight = $("[data-scroll-height]");
   function scrollWithBigMedia(media) {
