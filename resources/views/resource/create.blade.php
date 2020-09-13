@@ -13,7 +13,7 @@
         @csrf
 
         @foreach($panels as $panel)
-                <div class="card card-default mb-0">
+                <div class="card card-default mb-0 @if(!$loop->first) mt-3 @endif">
                     <div class="card-header card-header-border-bottom">
                         <h5>{{$panel->getLabel()}}</h5>
                     </div>
