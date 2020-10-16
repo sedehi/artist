@@ -2,8 +2,8 @@
 @import 'variables';
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../node_modules/dropzone/dist/dropzone";
-
+@import "../node_modules/bootstrap-fileinput/scss/fileinput";
+@import "../node_modules/bootstrap-fileinput/scss/fileinput-rtl";
 @import 'reboot';
 @import 'utilities/spacing';
 @import 'utilities/background';

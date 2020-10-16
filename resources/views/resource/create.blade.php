@@ -20,7 +20,6 @@
                     @include('artist::resource.form',['fields' => $panel->getFields()])
                 </div>
         @endforeach
-
         <div class="card-footer bg-white border-top-0 border-bottom">
             <button class="btn btn-md btn-primary" type="submit">Create</button>
             <button class="btn btn-md btn-primary" type="submit">Create and Add Another</button>
