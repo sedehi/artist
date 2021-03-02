@@ -22,6 +22,8 @@ class ArtistServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
+
+
     }
 
     /**
@@ -67,9 +69,9 @@ class ArtistServiceProvider extends ServiceProvider
         ], 'artist.assets');
 
         // Publishing the translation files.
-        /*$this->publishes([
+        $this->publishes([
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/sedehi'),
-        ], 'artist.views');*/
+        ], 'artist.lang');
 
         // Registering package commands.
         // $this->commands([]);

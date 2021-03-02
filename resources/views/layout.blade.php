@@ -29,18 +29,10 @@
     @stack('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-
-
 <body class="header-static sidebar-fixed sidebar-dark header-light" id="body">
-
-
-
 <div class="wrapper">
-
     @include('artist::sidebar')
-
     <div class="page-wrapper">
-        <!-- Header -->
         @include('artist::header')
         <div class="content-wrapper">
             <div class="content">
