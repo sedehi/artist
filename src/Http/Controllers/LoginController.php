@@ -11,15 +11,17 @@ class LoginController extends BaseController
         return view('artist::login');
     }
 
-    public function login(Request  $request)
+    public function login(Request $request)
     {
-        $request->validate(['email' => 'required|email','password' => 'required|min:6']);
+        $request->validate(['email' => 'required|email', 'password' => 'required|min:6']);
         $credentials = request()->only(['email', 'password']);
-        $login       = auth(config('artist.guard'))->attempt($credentials);
+        $login = auth(config('artist.guard'))->attempt($credentials);
         if ($login) {
             request()->session()->regenerate();
+
             return redirect()->route('artist.home');
         }
+
         return back()->withInput()->withErrors([
             'error' => trans('auth.failed'),
         ]);
