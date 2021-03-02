@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
     Route::get('/','HomeController')->name('artist.home');
+    Route::get('/login','LoginController@showLoginForm')->name('artist.login.form');
+    Route::post('/login','LoginController@login')->name('artist.login');
+    Route::post('/logout','LogoutController')->name('artist.logout');
     Route::get('index/{resource?}', 'IndexController')->name('artist.resource.index');
     Route::get('create/{resource?}', 'CreateController@create')->name('artist.resource.create');
     Route::post('create/{resource?}', 'CreateController@store')->name('artist.resource.store');
