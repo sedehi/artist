@@ -2,8 +2,8 @@
     <div id="sidebar" class="sidebar">
         <!-- Aplication Brand -->
         <div class="app-brand">
-            <a href="/index.html" title="Sleek Dashboard">
-                <span class="brand-name text-truncate">Sleek Dashboard</span>
+            <a href="{!! route('artist.home') !!}" title="Sleek Dashboard">
+                <span class="brand-name text-truncate">@lang('artist::artist.name')</span>
             </a>
         </div>
         <!-- begin sidebar scrollbar -->
@@ -29,9 +29,7 @@
                          data-parent="#sidebar-menu">
                         <div class="sub-menu">
 
-
-
-                            <li >
+                            <li>
                                 <a class="sidenav-item-link" href="chat.html">
                                     <span class="nav-text">Chat</span>
 
