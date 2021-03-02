@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
     Route::get('/','HomeController')->name('artist.home');
     Route::get('/login','LoginController@showLoginForm')->name('artist.login.form');

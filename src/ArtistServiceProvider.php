@@ -22,8 +22,6 @@ class ArtistServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
-
-
     }
 
     /**
