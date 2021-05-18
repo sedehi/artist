@@ -13,7 +13,7 @@
                 salam ss
             </label>
             <div class="col-md-9">
-                <input type="file" name="file" class="artist-fileupload" data-rtl="true" data-show-preview="true" data-language="fa" data-uploadUrl="test.com">
+                <input type="file" name="navid" class="files">
             </div>
         </div>
 </div>

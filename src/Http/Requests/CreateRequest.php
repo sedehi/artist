@@ -11,8 +11,8 @@ class CreateRequest extends ArtistRequest
      */
     public function rules()
     {
-        $resourceClass = $this->getResource();
 
+        $resourceClass = $this->getResource();
         $rules = [];
 
         $fields = $this->getFieldsForCreate(

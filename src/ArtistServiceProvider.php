@@ -54,7 +54,7 @@ class ArtistServiceProvider extends ServiceProvider
         // Publishing the configuration file.
         $this->publishes([
             __DIR__.'/../config/artist.php' => config_path('artist.php'),
-        ], 'artist.config');
+        ], 'artist-config');
 
         // Publishing the views.
         /*$this->publishes([
@@ -64,12 +64,12 @@ class ArtistServiceProvider extends ServiceProvider
         // Publishing assets.
         $this->publishes([
             __DIR__.'/../resources/assets/sleek/dist/assets' => public_path('admin'),
-        ], 'artist.assets');
+        ], 'artist-assets');
 
         // Publishing the translation files.
         $this->publishes([
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/sedehi'),
-        ], 'artist.lang');
+        ], 'artist-lang');
 
         // Registering package commands.
         // $this->commands([]);

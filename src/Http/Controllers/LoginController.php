@@ -18,12 +18,11 @@ class LoginController extends BaseController
         $login = auth(config('artist.guard'))->attempt($credentials);
         if ($login) {
             request()->session()->regenerate();
-
             return redirect()->route('artist.home');
         }
 
         return back()->withInput()->withErrors([
-            'error' => trans('auth.failed'),
+            'email' => trans('auth.failed'),
         ]);
     }
 }
