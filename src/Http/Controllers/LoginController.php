@@ -18,6 +18,7 @@ class LoginController extends BaseController
         $login = auth(config('artist.guard'))->attempt($credentials);
         if ($login) {
             request()->session()->regenerate();
+
             return redirect()->route('artist.home');
         }
 

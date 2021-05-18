@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Sedehi\Artist;
-
 
 class Menu
 {
-
     private $link;
     private $attributes;
     private $childs;
@@ -19,17 +16,20 @@ class Menu
     public function link($link)
     {
         $this->link = $link;
+
         return $this;
     }
 
-    public function attributes(array $attributes){
+    public function attributes(array $attributes)
+    {
         $this->attributes = $attributes;
+
         return $this;
     }
 
     public function childs($item)
     {
-        if(!is_array($item)){
+        if (! is_array($item)) {
             $item = [$item];
         }
 
@@ -38,7 +38,5 @@ class Menu
 
     public function render()
     {
-
     }
-
 }

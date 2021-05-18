@@ -11,7 +11,6 @@ class CreateRequest extends ArtistRequest
      */
     public function rules()
     {
-
         $resourceClass = $this->getResource();
         $rules = [];
 
