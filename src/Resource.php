@@ -60,7 +60,6 @@ class Resource
         return [];
     }
 
-
     public function fieldsForIndex()
     {
         return array_filter($this->fields(), function ($item) {
