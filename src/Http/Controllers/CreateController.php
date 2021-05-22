@@ -26,7 +26,7 @@ class CreateController extends BaseController
 
         $panels = $this->getPanelsForCreate($resource->fieldsForCreate());
 
-        return view($resource::$createView, compact('section', 'panels', 'formAction', 'formMethod','resource'));
+        return view($resource::$createView, compact('section', 'panels', 'formAction', 'formMethod', 'resource'));
     }
 
     public function store(CreateRequest $request)

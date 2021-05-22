@@ -15,5 +15,5 @@ Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespa
     Route::match(['PUT', 'PATCH'], 'edit/{resource?}/{resourceId}', 'EditController@update')->name('artist.resource.update');
     Route::get('detail/{resource?}/{resourceId}', 'DetailController')->name('artist.resource.detail');
     Route::delete('destroy/{resource?}', 'DestroyController')->name('artist.resource.destroy');
-    Route::post('upload/{resource?}/{resourceId?}', [UploadController::class,'upload'])->name('artist.resource.upload');
+    Route::post('upload/{resource?}/{resourceId?}', [UploadController::class, 'upload'])->name('artist.resource.upload');
 });
