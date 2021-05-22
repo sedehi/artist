@@ -30,13 +30,11 @@ class Resource
         return [];
     }
 
-
     /*
      * @todo custom admin routes
      */
     public function routes()
     {
-
     }
 
     /*
@@ -44,7 +42,6 @@ class Resource
      */
     public function roles()
     {
-
     }
 
     /*
@@ -52,10 +49,7 @@ class Resource
      */
     public function menu()
     {
-
     }
-
-
 
     public function fieldsForIndex()
     {
