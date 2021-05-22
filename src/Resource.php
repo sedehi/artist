@@ -30,6 +30,33 @@ class Resource
         return [];
     }
 
+
+    /*
+     * @todo custom admin routes
+     */
+    public function routes()
+    {
+
+    }
+
+    /*
+     * @todo custom admin roles
+     */
+    public function roles()
+    {
+
+    }
+
+    /*
+     * @todo custom admin menu
+     */
+    public function menu()
+    {
+
+    }
+
+
+
     public function fieldsForIndex()
     {
         return array_filter($this->fields(), function ($item) {
