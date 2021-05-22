@@ -1,3 +1,4 @@
+
 /* ====== Index ======
 
 1. JEKYLL INSTANT SEARCH
@@ -35,12 +36,22 @@ $(document).ready(function() {
 
   /*======== Upload =======*/
 
-  $(".artist-fileupload").fileinput({
+  FilePond.registerPlugin(FilePondPluginImagePreview);
+
+  $(".files").filepond({
     theme: "fas",
+   server: {
+     process: {
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       },
+     }
+   },
+   credits:false
   });
 
 
-  /*======== 2. SCROLLBAR CONTENT ========*/
+    /*======== 2. SCROLLBAR CONTENT ========*/
 
 
   var dataScrollHeight = $("[data-scroll-height]");

@@ -55,10 +55,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "bootstrap": "^4.5.3",
-    "bootstrap-fileinput": "^5.1.2",
-    "filepond": "^4.26.0",
+    "filepond-plugin-image-preview": "^4.6.6",
     "jquery": "^3.5.0",
-    "jquery-filepond": "^1.0.0",
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
