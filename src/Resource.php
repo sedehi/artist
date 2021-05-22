@@ -2,6 +2,7 @@
 
 namespace Sedehi\Artist;
 
+use Illuminate\Http\Request;
 use Sedehi\Artist\Fields\Field;
 
 class Resource
@@ -55,6 +56,13 @@ class Resource
 
     }
 
+    /*
+     * @todo actions
+     */
+    public function actions(Request $request)
+    {
+        return [];
+    }
 
 
     public function fieldsForIndex()
