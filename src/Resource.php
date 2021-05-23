@@ -31,7 +31,6 @@ class Resource
         return [];
     }
 
-
     /*
      * @todo custom admin roles
      */

@@ -25,12 +25,12 @@ class ArtistServiceProvider extends ServiceProvider
             $this->bootForConsole();
         }
 
-        Redirector::macro('artistRedirect',function(){
+        Redirector::macro('artistRedirect', function () {
             $controller = request()->route()->getAction('controller');
-            $controller = explode('@',$controller);
+            $controller = explode('@', $controller);
             $action = $controller[1];
             $controller = $controller[0];
-            switch ($action){
+            switch ($action) {
                 case 'store':
                 case 'update':
                 case 'destroy':
@@ -39,7 +39,8 @@ class ArtistServiceProvider extends ServiceProvider
                 default:
                    throw new Exception('wrong method');
             }
-            return redirect()->action([$controller,$action]);
+
+            return redirect()->action([$controller, $action]);
         });
     }
 

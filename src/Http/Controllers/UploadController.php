@@ -6,11 +6,9 @@ class UploadController extends BaseController
 {
     public function upload()
     {
-
     }
 
     public function delete()
     {
-
     }
 }
