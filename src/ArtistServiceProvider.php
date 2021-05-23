@@ -2,6 +2,8 @@
 
 namespace Sedehi\Artist;
 
+use Exception;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
 
 class ArtistServiceProvider extends ServiceProvider
@@ -22,6 +24,23 @@ class ArtistServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
+
+        Redirector::macro('artistRedirect',function(){
+            $controller = request()->route()->getAction('controller');
+            $controller = explode('@',$controller);
+            $action = $controller[1];
+            $controller = $controller[0];
+            switch ($action){
+                case 'store':
+                case 'update':
+                case 'destroy':
+                    $action = 'index';
+                    break;
+                default:
+                   throw new Exception('wrong method');
+            }
+            return redirect()->action([$controller,$action]);
+        });
     }
 
     /**

@@ -6,4 +6,6 @@ return [
     'titles' => [
         'home' => 'Admin',
     ],
+    'saved' => 'saved',
+    'deleted' => 'deleted',
 ];

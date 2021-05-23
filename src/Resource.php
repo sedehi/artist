@@ -31,12 +31,6 @@ class Resource
         return [];
     }
 
-    /*
-     * @todo custom admin routes
-     */
-    public function routes()
-    {
-    }
 
     /*
      * @todo custom admin roles
