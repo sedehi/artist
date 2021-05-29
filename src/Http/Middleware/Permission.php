@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sedehi\Artist\Http\Middleware;
-
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
@@ -11,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 class Permission
 {
-
     private $allowed = [];
 
     public function __construct(Guard $auth)
@@ -30,9 +27,9 @@ class Permission
         $currentController = explode('\\', strtolower(Route::currentRouteAction()));
 
         $sectionName = $currentController[3];
-        $method      = explode('@', end($currentController));
-        $controller  = reset($method);
-        $method      = end($method);
+        $method = explode('@', end($currentController));
+        $controller = reset($method);
+        $method = end($method);
 
         if (Gate::allows($sectionName.'.'.$controller.'.'.$method)) {
             return $next($request);
