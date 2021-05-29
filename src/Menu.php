@@ -55,10 +55,10 @@ class Menu
         return $this;
     }
 
-    public function render($hasIcon = true)
+    public function render()
     {
         $this->id = 'menu-'.md5($this->title.$this->url.spl_object_id($this));
-        return view('artist::menu',['item' => $this,'hasIcon' => true]);
+        return view('artist::menu',['item' => $this]);
     }
 
     public function isActive(){
