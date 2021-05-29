@@ -25,8 +25,7 @@ class DefineGates
     {
         foreach ($this->auth->user()->roles as $userRole) {
             foreach (unserialize($userRole->permission) as $section => $accessData) {
-
-                if (!is_array($accessData)) {
+                if (! is_array($accessData)) {
                     Gate::define($section, function ($user) {
                         return true;
                     });
@@ -35,8 +34,8 @@ class DefineGates
 
                 foreach ($accessData as $controller => $methods) {
                     foreach ($methods as $methodName => $value) {
-                        if (Str::contains($methodName,',')) {
-                            foreach (explode(',',$methodName) as $item) {
+                        if (Str::contains($methodName, ',')) {
+                            foreach (explode(',', $methodName) as $item) {
                                 Gate::define($section.'.'.$controller.'.'.$item, function ($user) {
                                     return true;
                                 });
