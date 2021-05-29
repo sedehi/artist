@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use function Symfony\Component\Translation\t;
 
 class DefineGates
 {
@@ -23,6 +24,7 @@ class DefineGates
 
     public function defineGates()
     {
+        return true;
         foreach ($this->auth->user()->roles as $userRole) {
             foreach (unserialize($userRole->permission) as $section => $accessData) {
 

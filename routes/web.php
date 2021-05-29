@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Sedehi\Artist\Http\Controllers\UploadController;
 
-Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
+Route::group(['prefix' => config('artist.path'), 'middleware' => ['web','artist'], 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
     Route::get('/', 'HomeController')->name('artist.home');
     Route::get('/login', 'LoginController@showLoginForm')->name('artist.login.form');
     Route::post('/login', 'LoginController@login')->name('artist.login');

@@ -4,7 +4,10 @@ namespace Sedehi\Artist;
 
 use Exception;
 use Illuminate\Routing\Redirector;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Sedehi\Artist\Http\Middleware\DefineGates;
+use Sedehi\Artist\Http\Middleware\Permission;
 
 class ArtistServiceProvider extends ServiceProvider
 {
@@ -15,6 +18,10 @@ class ArtistServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $router = $this->app->make(Router::class);
+        $router->pushMiddlewareToGroup('artist',DefineGates::class);
+        $router->pushMiddlewareToGroup('artist',Permission::class);
+
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'artist');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'artist');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
