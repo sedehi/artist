@@ -19,8 +19,8 @@ class ArtistServiceProvider extends ServiceProvider
     public function boot()
     {
         $router = $this->app->make(Router::class);
-        $router->pushMiddlewareToGroup('artist',DefineGates::class);
-        $router->pushMiddlewareToGroup('artist',Permission::class);
+        $router->pushMiddlewareToGroup('artist', DefineGates::class);
+        $router->pushMiddlewareToGroup('artist', Permission::class);
 
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'artist');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'artist');
