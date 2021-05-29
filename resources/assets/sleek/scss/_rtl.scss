@@ -1,7 +1,15 @@
 /*===== REBOOT =====*/
 html[dir="rtl"] {
   .sidebar li > a .caret:before {
-    content: '\f105';
+    //content: '\f105';
+  }
+
+  .sidebar .sub-menu>li>a .nav-text{
+    padding-left: 5px;
+  }
+
+  .sidebar .sub-menu>li .sub-menu>li>a:after{
+    content: none;
   }
 }
 

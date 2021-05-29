@@ -2,20 +2,34 @@
 
 namespace Sedehi\Artist;
 
+
+use Illuminate\Support\Str;
+
 class Menu
 {
-    private $link;
-    private $attributes;
-    private $childs;
+    public $url,$title,$attributes,$childs,$permission,$icon;
 
     public static function make()
     {
         return new self;
     }
 
-    public function link($link)
+    public function url($url)
     {
-        $this->link = $link;
+        $this->url = $url;
+
+        return $this;
+    }
+    public function title($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function permission($permission)
+    {
+        $this->permission = strtolower($permission);
 
         return $this;
     }
@@ -32,11 +46,22 @@ class Menu
         if (! is_array($item)) {
             $item = [$item];
         }
-
+        $this->childs = $item;
         return $this;
     }
 
-    public function render()
+    public function icon($icon){
+        $this->icon = $icon;
+        return $this;
+    }
+
+    public function render($hasIcon = true)
     {
+        $this->id = 'menu-'.md5($this->title.$this->url.spl_object_id($this));
+        return view('artist::menu',['item' => $this,'hasIcon' => true]);
+    }
+
+    public function isActive(){
+        return true;
     }
 }

@@ -18078,5 +18078,8 @@ tbody tr td:first-child {
   width: 45px; }
 
 /*===== REBOOT =====*/
-html[dir="rtl"] .sidebar li > a .caret:before {
-  content: '\f105'; }
+html[dir="rtl"] .sidebar .sub-menu > li > a .nav-text {
+  padding-right: 5px; }
+
+html[dir="rtl"] .sidebar .sub-menu > li .sub-menu > li > a:after {
+  content: none; }
