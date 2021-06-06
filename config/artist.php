@@ -5,4 +5,8 @@ return [
     'resource_path' => 'Http\ArtistResource',
     'dir' => 'rtl',
     'guard' => 'web',
+    'domain' => [
+        'api' => null,
+        'admin' => null,
+    ]
 ];

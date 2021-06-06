@@ -5,6 +5,7 @@ namespace Sedehi\Artist;
 use Exception;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Sedehi\Artist\Http\Middleware\DefineGates;
 use Sedehi\Artist\Http\Middleware\Permission;
@@ -26,11 +27,15 @@ class ArtistServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'artist');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->app->register(ArtistRouteServiceProvider::class);
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
+            $this->loadMigration();
         }
+
+        View::addLocation(app_path('Http/Controllers'));
 
         Redirector::macro('artistRedirect', function () {
             $controller = request()->route()->getAction('controller');
@@ -100,5 +105,12 @@ class ArtistServiceProvider extends ServiceProvider
 
         // Registering package commands.
         // $this->commands([]);
+    }
+
+
+    protected function loadMigration()
+    {
+        $migratePaths = glob(app_path('Http/Controllers/*/database/migrations'));
+        $this->loadMigrationsFrom($migratePaths);
     }
 }
