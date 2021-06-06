@@ -8,5 +8,5 @@ return [
     'domain' => [
         'api' => null,
         'admin' => null,
-    ]
+    ],
 ];

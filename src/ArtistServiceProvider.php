@@ -107,7 +107,6 @@ class ArtistServiceProvider extends ServiceProvider
         // $this->commands([]);
     }
 
-
     protected function loadMigration()
     {
         $migratePaths = glob(app_path('Http/Controllers/*/database/migrations'));

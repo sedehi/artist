@@ -1,6 +1,7 @@
 <?php
 
 namespace Sedehi\Artist;
+
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,6 @@ class ArtistRouteServiceProvider extends ServiceProvider
         });
     }
 
-
     protected function mapAdminRoutes()
     {
         Route::namespace($this->namespace)
@@ -38,8 +38,8 @@ class ArtistRouteServiceProvider extends ServiceProvider
             });
     }
 
-
-    protected function mapWebRoutes(){
+    protected function mapWebRoutes()
+    {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(function () {
@@ -50,7 +50,8 @@ class ArtistRouteServiceProvider extends ServiceProvider
             });
     }
 
-    protected function mapApiRoutes(){
+    protected function mapApiRoutes()
+    {
         Route::middleware('api')
             ->namespace($this->namespace)
             ->domain(config('artist.domain.api'))
