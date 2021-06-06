@@ -3,11 +3,11 @@
 namespace Sedehi\Artist\Libs;
 
 use Exception;
-use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ImageMaker
 {
@@ -17,18 +17,18 @@ class ImageMaker
     protected $path;
     protected $name;
     protected $dimensions;
-    protected $originalFilePrefix      = 'original';
+    protected $originalFilePrefix = 'original';
     protected $defaultConversionMethod = 'resize';
-    protected $disk                    = 'public';
+    protected $disk = 'public';
     protected $watermarkPath;
     protected $watermarkPosition;
-    protected $largeSizeWidth        = 1920;
-    protected $keepOriginal          = false;
-    protected $keepLargeSize         = false;
-    protected $forceRegenerate       = false;
+    protected $largeSizeWidth = 1920;
+    protected $keepOriginal = false;
+    protected $keepLargeSize = false;
+    protected $forceRegenerate = false;
     protected $includeSubDirectories = false;
-    protected $unusedFiles           = [];
-    protected $extensions            = [
+    protected $unusedFiles = [];
+    protected $extensions = [
         'jpg',
         'jpeg',
         'png',
@@ -42,7 +42,7 @@ class ImageMaker
 
     public static function make($file = null)
     {
-        if (!class_exists(\Intervention\Image\Image::class)) {
+        if (! class_exists(\Intervention\Image\Image::class)) {
             throw new Exception('Intervention package not installed');
         }
         self::$file = $file;
@@ -52,7 +52,7 @@ class ImageMaker
 
     public function path($path)
     {
-        $this->path = rtrim($path, '/') . '/';
+        $this->path = rtrim($path, '/').'/';
 
         return $this;
     }
@@ -80,7 +80,7 @@ class ImageMaker
 
     public function watermark($fullPath, $position = 'bottom-right')
     {
-        $this->watermarkPath     = $fullPath;
+        $this->watermarkPath = $fullPath;
         $this->watermarkPosition = $position;
 
         return $this;
@@ -132,17 +132,17 @@ class ImageMaker
     {
         if (null === $this->name) {
             if (self::$file instanceof UploadedFile) {
-                $this->name = time() . '_' . self::$file->hashName();
+                $this->name = time().'_'.self::$file->hashName();
             } else {
                 $this->name = File::basename(self::$file);
             }
         }
         if (null !== $type) {
             if ($type == 'original') {
-                return $this->getPrefix($type) . ($customName ?? $this->name);
+                return $this->getPrefix($type).($customName ?? $this->name);
             }
             if ($type == 'dimension') {
-                return $this->getPrefix($type, $dimension) . ($customName ?? $this->name);
+                return $this->getPrefix($type, $dimension).($customName ?? $this->name);
             }
         }
 
@@ -152,12 +152,12 @@ class ImageMaker
     private function getPrefix($type, $dimension = null)
     {
         if ($type == 'original') {
-            return $this->originalFilePrefix . '-';
+            return $this->originalFilePrefix.'-';
         }
         if ($type == 'dimension') {
-            $prefix = Arr::get($dimension, 'width', 'auto') . 'x' . Arr::get($dimension, 'height', 'auto') . '-';
+            $prefix = Arr::get($dimension, 'width', 'auto').'x'.Arr::get($dimension, 'height', 'auto').'-';
 
-            return $prefix . $this->getConversionMethod($dimension) . '-';
+            return $prefix.$this->getConversionMethod($dimension).'-';
         }
 
         return null;
@@ -170,7 +170,7 @@ class ImageMaker
 
     public function store()
     {
-        if (!$this->dimensions) {
+        if (! $this->dimensions) {
             throw new Exception('No dimensions specified');
         }
         if ($this->keepOriginal) {
@@ -190,11 +190,11 @@ class ImageMaker
         if ($file instanceof UploadedFile) {
             $file->storeAs($this->path, $this->getName('original'), [
                 'disk'       => $this->disk,
-                'visibility' => 'private'
+                'visibility' => 'private',
             ]);
         } else {
-            Storage::disk($this->disk)->put($this->path . $this->getName('original'), file_get_contents($file), [
-                'visibility' => 'private'
+            Storage::disk($this->disk)->put($this->path.$this->getName('original'), file_get_contents($file), [
+                'visibility' => 'private',
             ]);
         }
     }
@@ -216,7 +216,7 @@ class ImageMaker
             $constraint->upsize();
         });
         $this->addWatermark($maker);
-        Storage::disk($this->disk)->put(($path ?? $this->path) . ($name ?? $this->getName()), $maker->encode(null, 100));
+        Storage::disk($this->disk)->put(($path ?? $this->path).($name ?? $this->getName()), $maker->encode(null, 100));
         $maker->destroy();
     }
 
@@ -227,7 +227,7 @@ class ImageMaker
             $this->setDimensionConversionProperties($dimension);
             $this->addWatermark($this->dimensionMaker);
             Storage::disk($this->disk)
-                   ->put(($path ?? $this->path) . $this->getName('dimension', $dimension, $name), $this->dimensionMaker->encode(null, 100));
+                   ->put(($path ?? $this->path).$this->getName('dimension', $dimension, $name), $this->dimensionMaker->encode(null, 100));
             $this->dimensionMaker->destroy();
         }
     }
@@ -235,7 +235,7 @@ class ImageMaker
     private function setDimensionConversionProperties($dimension)
     {
         $method = $this->getConversionMethod($dimension);
-        $width  = Arr::get($dimension, 'width');
+        $width = Arr::get($dimension, 'width');
         $height = Arr::get($dimension, 'height');
         if (null !== $width && null !== $height) {
             return $this->dimensionMaker->{$method}($width, $height);
@@ -260,13 +260,13 @@ class ImageMaker
 
     public function remove()
     {
-        if (!$this->path || !$this->name) {
+        if (! $this->path || ! $this->name) {
             throw new Exception('Path and Name should be specified');
         }
-        $files = File::glob($this->getFullPath($this->path . '*' . $this->name));
+        $files = File::glob($this->getFullPath($this->path.'*'.$this->name));
         if ($this->keepOriginal) {
             $files = array_filter($files, function ($item) {
-                return !str_contains($item, $this->originalFilePrefix . '-');
+                return ! str_contains($item, $this->originalFilePrefix.'-');
             });
         }
         if ($this->keepLargeSize) {
@@ -275,7 +275,7 @@ class ImageMaker
             });
         }
         $files = array_map(function ($item) {
-            return $this->path . File::basename($item);
+            return $this->path.File::basename($item);
         }, $files);
         Storage::disk($this->disk)->delete($files);
     }
@@ -293,9 +293,9 @@ class ImageMaker
     private function getFileCollection($path, $fileName = null)
     {
         if (null !== $fileName) {
-            $files = glob($this->getFullPath($path . '*' . $fileName), GLOB_NOSORT);
+            $files = glob($this->getFullPath($path.'*'.$fileName), GLOB_NOSORT);
         } else {
-            $files = glob($this->getFullPath($path . '*' . '.{' . implode(',', $this->extensions) . '}'), GLOB_BRACE | GLOB_NOSORT);
+            $files = glob($this->getFullPath($path.'*'.'.{'.implode(',', $this->extensions).'}'), GLOB_BRACE | GLOB_NOSORT);
         }
 
         // exclude original and large size images and group files with original name
@@ -311,12 +311,12 @@ class ImageMaker
         if (null !== self::$file) {
             return self::$file;
         }
-        $originalFile = $this->getFullPath($path . $this->getName('original', null, $fileName));
+        $originalFile = $this->getFullPath($path.$this->getName('original', null, $fileName));
         // if original file exists then regenerate new file from it
         if (File::exists($originalFile)) {
             return $originalFile;
         }
-        $largeFile = $this->getFullPath($path . $fileName);
+        $largeFile = $this->getFullPath($path.$fileName);
         // if large file exists then regenerate new file from it
         if (File::exists($largeFile)) {
             return $largeFile;
@@ -326,13 +326,13 @@ class ImageMaker
 
     public function regenerate()
     {
-        if (!$this->dimensions) {
+        if (! $this->dimensions) {
             throw new Exception('No dimensions specified');
         }
         // regenerate only source file if exists
         if (null !== self::$file) {
             $name = $this->name ?? File::basename(self::$file);
-            if (!File::exists(dirname(self::$file) . '/' . $name)) {
+            if (! File::exists(dirname(self::$file).'/'.$name)) {
                 throw new Exception('Source file not found.');
             }
             $this->regenerateFiles($this->path, $name);
@@ -354,16 +354,16 @@ class ImageMaker
                 $exists = $collection->contains(function ($value, $key) use ($name) {
                     return str_contains($value, $name);
                 });
-                if (!$exists) {
+                if (! $exists) {
                     $this->createImage($this->getRegenerateSourceFile($path, $originalFileName), $path, $originalFileName, [$dimension]);
                 }
             }
             // collect files for delete or force regenerate existing files
             foreach ($collection as $file) {
                 $fileName = File::basename($file);
-                $exists   = $newFileNames->has($fileName);
+                $exists = $newFileNames->has($fileName);
                 // update unused files array for delete
-                if (!$exists) {
+                if (! $exists) {
                     array_push($this->unusedFiles, $file);
                     continue;
                 }
@@ -376,7 +376,7 @@ class ImageMaker
         // delete unused files
         if (count($this->unusedFiles)) {
             $this->unusedFiles = array_map(function ($item) use ($path) {
-                return $path . '/' . File::basename($item);
+                return $path.'/'.File::basename($item);
             }, $this->unusedFiles);
             Storage::disk($this->disk)->delete($this->unusedFiles);
         }
@@ -385,11 +385,11 @@ class ImageMaker
     private function regenerateSubDirectory($path)
     {
         $diskPath = $this->getFullPath(null);
-        $pattern  = $diskPath . $path . '*';
-        $folders  = glob($pattern, GLOB_ONLYDIR);
+        $pattern = $diskPath.$path.'*';
+        $folders = glob($pattern, GLOB_ONLYDIR);
         if (count($folders)) {
             foreach ($folders as $folder) {
-                $this->regenerateSubDirectory(substr($folder, strlen($diskPath)) . '/');
+                $this->regenerateSubDirectory(substr($folder, strlen($diskPath)).'/');
             }
         }
         $this->regenerateFiles($path);
