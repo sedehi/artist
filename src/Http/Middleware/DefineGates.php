@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use function Symfony\Component\Translation\t;
 
 class DefineGates
 {
