@@ -33,7 +33,6 @@ class ArtistServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
         $loader->alias('Jalalian', Jalalian::class);
 
-
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
             $this->loadMigration();
