@@ -3,10 +3,12 @@
 namespace Sedehi\Artist;
 
 use Exception;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Morilog\Jalali\Jalalian;
 use Sedehi\Artist\Http\Middleware\DefineGates;
 use Sedehi\Artist\Http\Middleware\Permission;
 
@@ -28,8 +30,10 @@ class ArtistServiceProvider extends ServiceProvider
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->app->register(ArtistRouteServiceProvider::class);
+        $loader = AliasLoader::getInstance();
+        $loader->alias('Jalalian', Jalalian::class);
 
-        // Publishing is only necessary when using the CLI.
+
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
             $this->loadMigration();

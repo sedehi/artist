@@ -31,16 +31,10 @@ class Resource
         return [];
     }
 
-    /*
-     * @todo custom admin roles
-     */
     public function roles()
     {
     }
 
-    /*
-     * @todo custom admin menu
-     */
     public function menu()
     {
     }
