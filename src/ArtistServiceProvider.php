@@ -93,9 +93,9 @@ class ArtistServiceProvider extends ServiceProvider
         ], 'artist-config');
 
         // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/sedehi'),
-        ], 'artist.views');*/
+        $this->publishes([
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/artist'),
+        ], 'artist-views');
 
         // Publishing assets.
         $this->publishes([
