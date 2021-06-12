@@ -3,13 +3,13 @@
 @endphp
 <div class="card-header">
     <div class="row">
-        <h4 class="c-grey-900 col-md-6">
+        <h5 class="c-grey-900 col-md-6 mt-3">
             <span>@yield('title')</span>
             @include('vendor.artist.pagination.pagination-info',$items)
-        </h4>
+        </h5>
         <div class="col-md-6">
             @if (view()->exists("$sectionName.views.admin.".$controllerClass::$viewForm.".search-form"))
-                <button type="button" class="btn btn-primary table-header-btn" data-toggle="collapse" data-target="#searchCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <button type="button" class="btn btn-primary table-header-btn float-right" data-toggle="collapse" data-target="#searchCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                     <i class="fa fa-search"></i>
                 </button>
             @endif
