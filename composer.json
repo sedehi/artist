@@ -21,7 +21,7 @@
         "mockery/mockery": "^1.1",
         "orchestra/testbench": "~3|~4|~5",
         "sempro/phpunit-pretty-print": "^1.0",
-        "sedehi/artist": "dev-master"
+        "sedehi/artist-console": "dev-master"
     },
     "autoload": {
         "psr-4": {
