@@ -11,7 +11,7 @@ use Sedehi\Artist\Http\Controllers\HomeController;
 class Permission
 {
     private $allowed = [
-        HomeController::class
+        HomeController::class,
     ];
 
     public function __construct(Guard $auth)

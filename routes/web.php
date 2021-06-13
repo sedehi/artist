@@ -6,7 +6,7 @@ use Sedehi\Artist\Http\Controllers\UploadController;
 Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespace' => 'Sedehi\Artist\Http\Controllers'], function () {
     Route::get('/login', 'LoginController@showLoginForm')->name('artist.login.form');
     Route::post('/login', 'LoginController@login')->name('artist.login');
-    Route::group(['middleware' => 'artist'],function(){
+    Route::group(['middleware' => 'artist'], function () {
         Route::get('/', 'HomeController')->name('artist.home');
         Route::post('/logout', 'LogoutController')->name('artist.logout');
         Route::get('index/{resource?}', 'IndexController')->name('artist.resource.index');
@@ -18,5 +18,4 @@ Route::group(['prefix' => config('artist.path'), 'middleware' => 'web', 'namespa
         Route::delete('destroy/{resource?}', 'DestroyController')->name('artist.resource.destroy');
         Route::post('upload/{resource?}/{resourceId?}', [UploadController::class, 'upload'])->name('artist.resource.upload');
     });
-
 });

@@ -23,7 +23,7 @@ class ArtistServiceProvider extends ServiceProvider
     public function boot()
     {
         $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('artist-auth' , Authenticate::class);
+        $router->aliasMiddleware('artist-auth', Authenticate::class);
         $router->pushMiddlewareToGroup('artist', 'artist-auth:'.config('artist.guard'));
         $router->pushMiddlewareToGroup('artist', DefineGates::class);
         $router->pushMiddlewareToGroup('artist', Permission::class);
