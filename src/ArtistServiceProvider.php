@@ -9,6 +9,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Morilog\Jalali\Jalalian;
+use Sedehi\Artist\Http\Middleware\Authenticate;
 use Sedehi\Artist\Http\Middleware\DefineGates;
 use Sedehi\Artist\Http\Middleware\Permission;
 
@@ -22,6 +23,8 @@ class ArtistServiceProvider extends ServiceProvider
     public function boot()
     {
         $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('artist-auth' , Authenticate::class);
+        $router->pushMiddlewareToGroup('artist', 'artist-auth:'.config('artist.guard'));
         $router->pushMiddlewareToGroup('artist', DefineGates::class);
         $router->pushMiddlewareToGroup('artist', Permission::class);
 

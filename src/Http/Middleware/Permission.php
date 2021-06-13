@@ -6,10 +6,13 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Sedehi\Artist\Http\Controllers\HomeController;
 
 class Permission
 {
-    private $allowed = [];
+    private $allowed = [
+        HomeController::class
+    ];
 
     public function __construct(Guard $auth)
     {
@@ -18,8 +21,6 @@ class Permission
 
     public function handle($request, Closure $next)
     {
-        return $next($request);
-
         if (in_array(Route::currentRouteAction(), $this->allowed)) {
             return $next($request);
         }

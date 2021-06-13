@@ -26,13 +26,13 @@
                             <div class="form-group col-md-12 mb-4">
                                 <input type="text" name="email" class="form-control input-lg @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Email">
                                 @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-12 ">
                                 <input type="password"  name="password" class="form-control input-lg @error('password') is-invalid @enderror" id="password" placeholder="Password">
                                 @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-12">

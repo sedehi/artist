@@ -4,7 +4,7 @@ return [
     'path' => 'admin',
     'resource_path' => 'Http\ArtistResource',
     'dir' => 'rtl',
-    'guard' => 'web',
+    'guard' => 'artist',
     'domain' => [
         'api' => null,
         'admin' => null,

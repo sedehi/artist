@@ -23,7 +23,6 @@ class DefineGates
 
     public function defineGates()
     {
-        return true;
         foreach ($this->auth->user()->roles as $userRole) {
             foreach (unserialize($userRole->permission) as $section => $accessData) {
                 if (! is_array($accessData)) {

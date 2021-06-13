@@ -23,6 +23,7 @@
 <script src="{{asset('admin/plugins/filepond/filepond-plugin-image-preview.min.js')}}"></script>
 <script src="{{asset('admin/plugins/filepond/filepond.min.js')}}"></script>
 <script src="{{asset('admin/plugins/filepond/filepond.jquery.js')}}"></script>
+<script src="{{asset('admin/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{asset('admin/js/sleek.bundle.js')}}"></script>
 @stack('js')
 </body>
