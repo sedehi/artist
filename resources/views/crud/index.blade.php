@@ -6,14 +6,14 @@
     $sectionName = $action[3];
     $controllerName = $action[6];
 @endphp
-@extends('vendor.artist.layout')
-@section('title',trans('admin.name'))
+@extends('artist::layout')
+@section('title',trans('artist::artist.name'))
 @section('content')
     <div class="row">
-        @includeIf('vendor.section.search')
+        @includeIf('artist::section.search')
         <div class="col-md-12">
             <div class="card">
-                @yield('table_header',View::make('vendor.artist.crud.index-table-header',compact([
+                @yield('table_header',View::make('artist::crud.index-table-header',compact([
                     'items',
                     'sectionName',
                     'actionClass',
@@ -22,11 +22,11 @@
                         <table class="table table-hover table-responsive-stack">
                             <thead>
                             <tr>
-                                @yield('table_head',View::make('vendor.artist.crud.index-table-head'))
+                                @yield('table_head',View::make('artist::crud.index-table-head'))
                             </tr>
                             </thead>
                             <tbody>
-                            @yield('table_body',View::make('vendor.artist.crud.index-table-body',compact([
+                            @yield('table_body',View::make('artist::crud.index-table-body',compact([
                                 'items',
                                 'sectionName',
                                 'actionClass',
@@ -39,7 +39,7 @@
                         $items instanceof \Illuminate\Pagination\Paginator ||
                         $items instanceof Illuminate\Pagination\LengthAwarePaginator
                     )
-                        {!! $items->appends(Request::except('page'))->render('vendor.pagination.bootstrap-4') !!}
+                        {!! $items->appends(Request::except('page'))->render('artist::pagination.default') !!}
                     @endif
                 </div>
             </div>

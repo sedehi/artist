@@ -57,7 +57,8 @@
     "bootstrap": "^4.5.3",
     "filepond-plugin-image-preview": "^4.6.6",
     "jquery": "^3.5.0",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "node-sass": "^4.14.1",

@@ -7,7 +7,9 @@ return [
         'home' => 'Admin',
     ],
     'pagination' => [
-        'result' => 'result'
+        'result' => 'نتیجه',
+        'show' => 'نمایش',
+        'to' => 'تا'
     ],
     'saved' => 'saved',
     'deleted' => 'deleted',

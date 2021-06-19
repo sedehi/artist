@@ -148,37 +148,14 @@ $(document).ready(function() {
 
   /*======== 5. TOASTER ========*/
 
-  var toaster = $('#toaster')
 
-  function callToaster(positionClass) {
-    toastr.options = {
-      closeButton: true,
-      debug: false,
-      newestOnTop: false,
-      progressBar: true,
-      positionClass: positionClass,
-      preventDuplicates: false,
-      onclick: null,
-      showDuration: "300",
-      hideDuration: "1000",
-      timeOut: "5000",
-      extendedTimeOut: "1000",
-      showEasing: "swing",
-      hideEasing: "linear",
-      showMethod: "fadeIn",
-      hideMethod: "fadeOut"
-    };
-    toastr.success("Welcome to Sleek Dashboard", "Howdy!");
-  }
-
-  if(toaster.length != 0){
-    if (document.dir != "rtl") {
-      callToaster("toast-top-right");
-    } else {
-      callToaster("toast-top-left");
-    }
-
-  }
+  // if(toaster.length != 0){
+  //   if (document.dir != "rtl") {
+  //     callToaster("toast-top-right");
+  //   } else {
+  //     callToaster("toast-top-left");
+  //   }
+  // }
 
   /*======== 6. PROGRESS BAR ========*/
   $('.slim-scroll-right-sidebar-2').slimScroll({
