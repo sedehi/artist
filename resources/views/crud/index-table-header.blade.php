@@ -4,7 +4,6 @@
 <div class="card-header">
     <div class="row">
         <h5 class="c-grey-900 col-md-6 mt-3">
-            <span>@yield('title')</span>
             @include('artist::pagination.pagination-info',$items)
         </h5>
         <div class="col-md-6">

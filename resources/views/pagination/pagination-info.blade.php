@@ -1,7 +1,6 @@
 @if (!$items->isEmpty())
-    <span>&nbsp;&nbsp;&nbsp;</span>
-    <span class="fsz-sm">{{ __('admin.show') }}</span>
-    <span class="fsz-sm">{{ $items->firstItem() }} {{ __('admin.to') }} {{ $items->lastItem() }}</span>
+    <span class="fsz-sm">{{ __('artist::artist.pagination.show') }}</span>
+    <span class="fsz-sm">{{ $items->firstItem() }} {{ __('artist::artist.pagination.to') }} {{ $items->lastItem() }}</span>
     <span class="fsz-sm">از</span>
-    <span class="fsz-sm">{{ $items->total() }} {{ __('admin.result') }}</span>
+    <span class="fsz-sm">{{ $items->total() }} {{ __('artist::artist.pagination.result') }}</span>
 @endif

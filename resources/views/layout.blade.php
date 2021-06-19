@@ -19,6 +19,9 @@
     </div>
 </div>
 <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
+<script>
+    window.jquery = $;
+</script>
 <script src="{{asset('admin/plugins/slimscrollbar/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('admin/plugins/filepond/filepond-plugin-image-preview.min.js')}}"></script>
 <script src="{{asset('admin/plugins/filepond/filepond.min.js')}}"></script>

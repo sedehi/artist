@@ -19,21 +19,21 @@
                     'actionClass',
                     'controllerName'
                 ])))
-                        <table class="table table-hover table-responsive-stack">
-                            <thead>
-                            <tr>
-                                @yield('table_head',View::make('artist::crud.index-table-head'))
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @yield('table_body',View::make('artist::crud.index-table-body',compact([
-                                'items',
-                                'sectionName',
-                                'actionClass',
-                                'controllerName'
-                            ])))
-                            </tbody>
-                        </table>
+                <table class="table table-hover table-responsive-stack">
+                    <thead>
+                        <tr>
+                            @yield('table_head',View::make('artist::crud.index-table-head'))
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @yield('table_body',View::make('artist::crud.index-table-body',compact([
+                            'items',
+                            'sectionName',
+                            'actionClass',
+                            'controllerName'
+                        ])))
+                    </tbody>
+                </table>
                 <div class="card-footer">
                     @if(
                         $items instanceof \Illuminate\Pagination\Paginator ||

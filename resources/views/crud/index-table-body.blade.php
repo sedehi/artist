@@ -11,15 +11,15 @@
         </td>
         <td>
             @if(Gate::allows(strtolower($sectionName).'.'.strtolower($controllerName).'.edit'))
-                <a href="{!! action([$actionClass,'edit'],$item->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
+                <a class="btn btn-sm btn-outline-info" href="{!! action([$actionClass,'edit'],$item->id) !!}"><i class="fas fa-pencil-alt"></i></a>
             @endif
             @if(Gate::allows(strtolower($sectionName).'.'.strtolower($controllerName).'.show'))
-                <a href="{!! action($actionClass.'@'.'show',$item->id) !!}"><i class="fa fa-eye"></i></a>
+                <a class="btn btn-sm btn-outline-info" href="{!! action($actionClass.'@'.'show',$item->id) !!}"><i class="fas fa-eye"></i></a>
             @endif
         </td>
     </tr>
 @empty
     <tr>
-        <td colspan="20" class="text-center">@lang('admin.no_data_to_show')</td>
+        <td colspan="20" class="text-center">@lang('artist::artist.no_data_to_show')</td>
     </tr>
 @endforelse

@@ -13,4 +13,5 @@ return [
     ],
     'saved' => 'saved',
     'deleted' => 'deleted',
+    'no_data_to_show' => 'اطلاعاتی برای نمایش وجود ندارد.'
 ];
