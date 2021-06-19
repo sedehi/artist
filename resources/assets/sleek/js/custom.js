@@ -50,7 +50,6 @@ $(document).ready(function() {
    credits:false
   });
 
-
     /*======== 2. SCROLLBAR CONTENT ========*/
 
 
@@ -213,9 +212,41 @@ $(document).ready(function() {
       .prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length));
   });
 
+  // $(document).on('change', '.delete-item , .check-all', function () {
+  //   var btn = $(this).find('.btn-delete');
+  //   var deleteForm = $(this).find('.delete-form');
+  //   btn.html('<i class="fa fa-trash"></i>');
+  //   deleteForm.html('');
+  //
+  //   var csrfToken = $('meta[name=csrf-token]').attr('content');
+  //   deleteForm.append('<input type="hidden" name="_token" value="'+csrfToken+'">');
+  //   deleteForm.append('<input type="hidden" name="_method" value="delete">');
+  //   $(this).closest('table').find('.delete-item:checked').each(function () {
+  //     deleteForm.append('<input type="hidden" name="id[]" value="' + $(this).val() + '">');
+  //   });
+  //
+  //   if ($(this).closest('table').find('.delete-item:checked').length > 0) {
+  //     btn.removeClass('d-none');
+  //   } else {
+  //     btn.addClass('d-none');
+  //   }
+  // });
+
+  $(document).on('change', '.check-all', function () {
+    $(this).closest('table').find('tbody :checkbox')
+      .prop('checked', $(this).is(':checked'))
+      .closest('tr').toggleClass('table-active', $(this).is(':checked'));
+  });
+
+  $(document).on('change', 'tbody :checkbox', function () {
+    $(this).closest('tr').toggleClass('table-active', this.checked);
+
+    $(this).closest('table').find('.check-all').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length));
+  });
+
   $(document).on('change', '.delete-item , .check-all', function () {
-    var btn = $(this).closest('.card').find('.btn-delete');
-    var deleteForm = $(this).closest('.card').find('.delete-form');
+    var btn = $(this).closest('.card').find('.delete-btn');
+    var deleteForm = $('#delete-form');
     btn.html('<i class="fa fa-trash"></i>');
     deleteForm.html('');
 
@@ -223,7 +254,7 @@ $(document).ready(function() {
     deleteForm.append('<input type="hidden" name="_token" value="'+csrfToken+'">');
     deleteForm.append('<input type="hidden" name="_method" value="delete">');
     $(this).closest('table').find('.delete-item:checked').each(function () {
-      deleteForm.append('<input type="hidden" name="id[]" value="' + $(this).val() + '">');
+      deleteForm.append('<input type="hidden" name="deleteId[]" value="' + $(this).val() + '">');
     });
 
     if ($(this).closest('table').find('.delete-item:checked').length > 0) {
@@ -233,11 +264,20 @@ $(document).ready(function() {
     }
   });
 
-  $('.btn-delete').on('click',function(e){
+
+  $('.delete-btn').on('click',function(e){
     if(confirm('از حذف اطلاعات اطمینان دارید؟')){
-      $(this).closest('.card').find('.delete-form').submit();
+      $('#delete-form').submit();
     }
   });
+
+  // $(document).on('change', '.delete-item , .check-all', function () {
+  //   var btn = $('.delete-btn');
+  //   btn.html('حذف');
+  //   $(this).closest('table').find('.delete-item:checked').each(function () {
+  //     btn.append('<input type="hidden" name="deleteId[]" value="' + $(this).val() + '">');
+  //   });
+  // });
 
 
   $('.table-responsive-stack').find("th").each(function (i) {
