@@ -7,7 +7,7 @@ return [
         'home' => 'Admin',
     ],
     'pagination' => [
-        'result' => 'result'
+        'result' => 'result',
     ],
     'saved' => 'saved',
     'deleted' => 'deleted',
