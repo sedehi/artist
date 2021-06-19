@@ -9,7 +9,7 @@ return [
     'pagination' => [
         'result' => 'نتیجه',
         'show' => 'نمایش',
-        'to' => 'تا'
+        'to' => 'تا',
     ],
     'saved' => 'saved',
     'deleted' => 'deleted',
