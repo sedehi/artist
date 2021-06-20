@@ -13,7 +13,6 @@ use Morilog\Jalali\Jalalian;
 use Sedehi\Artist\Http\Middleware\Authenticate;
 use Sedehi\Artist\Http\Middleware\DefineGates;
 use Sedehi\Artist\Http\Middleware\Permission;
-use Sedehi\Artist\View\Components\Inputs\Text;
 
 class ArtistServiceProvider extends ServiceProvider
 {
@@ -63,9 +62,7 @@ class ArtistServiceProvider extends ServiceProvider
             return redirect()->action([$controller, $action]);
         });
 
-
         Blade::componentNamespace('Sedehi\\Artist\\View\\Components', 'artist');
-
     }
 
     /**

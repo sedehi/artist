@@ -7,7 +7,10 @@ use Illuminate\View\Component;
 class Text extends Component
 {
     public $grid = 'col-md-6';
-    public $model , $title , $class, $value;
+    public $model;
+    public $title;
+    public $class;
+    public $value;
     public $type = 'text';
 
     /**
@@ -27,7 +30,6 @@ class Text extends Component
      */
     public function render()
     {
-
         return view('artist::components.inputs.text');
     }
 }
