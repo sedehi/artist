@@ -7,7 +7,7 @@
     @include("$sectionName.views.admin.".$controllerClass::$viewForm.".search")
 @elseif(view()->exists("$sectionName.views.admin.".$controllerClass::$viewForm.".search-form"))
     <div class="col-md-12 collapse mb-3 @if(count(request()->except('page'))) show @endif" id="searchCollapse">
-        <div class="bgc-white p-20 bd">
+        <div class="bg-white p-4">
             <button type="button" class="close" aria-label="Close" data-toggle="collapse" data-target="#searchCollapse">
                 <span aria-hidden="true">&times;</span>
             </button>

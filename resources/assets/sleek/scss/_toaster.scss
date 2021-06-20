@@ -1,10 +1,8 @@
 /*===== Toaster  =====*/
 #toast-container{
   margin-top: 65px;
-  right:0;
   z-index: 999;
   .toast-success {
-    background-color: $primary;
     opacity: 1;
   }
 }
@@ -13,4 +11,13 @@
 }
 #toast-container>div:hover{
   box-shadow: none;
+}
+
+html:dir(rtl) #toast-container{
+  left:15px;
+  right:unset;
+}
+html:dir(ltr) #toast-container{
+  left: unset;
+  right:15px;
 }

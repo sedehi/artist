@@ -10,7 +10,7 @@
 @section('title',trans('artist::artist.name'))
 @section('content')
     <div class="row">
-        @includeIf('artist::section.search')
+        @include('artist::crud.search')
         <div class="col-md-12">
             <div class="card">
                 @yield('table_header',View::make('artist::crud.index-table-header',compact([

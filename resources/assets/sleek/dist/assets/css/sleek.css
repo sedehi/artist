@@ -1,3 +1,4 @@
+@import url(materialdesignicons.min.css);
 @font-face {
   font-family: Vazir;
   src: url("../fonts/vazir/Vazir.eot");
@@ -17299,10 +17300,8 @@ input[type=radio] {
 /*===== Toaster  =====*/
 #toast-container {
   margin-top: 65px;
-  right: 0;
   z-index: 999; }
   #toast-container .toast-success {
-    background-color: #4c84ff;
     opacity: 1; }
 
 #toast-container > div {
@@ -17310,6 +17309,14 @@ input[type=radio] {
 
 #toast-container > div:hover {
   box-shadow: none; }
+
+html:dir(rtl) #toast-container {
+  left: 15px;
+  right: unset; }
+
+html:dir(ltr) #toast-container {
+  left: unset;
+  right: 15px; }
 
 /*===== TODO LIST ======*/
 .todo-single-item {
