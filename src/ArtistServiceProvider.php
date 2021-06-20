@@ -6,12 +6,14 @@ use Exception;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Morilog\Jalali\Jalalian;
 use Sedehi\Artist\Http\Middleware\Authenticate;
 use Sedehi\Artist\Http\Middleware\DefineGates;
 use Sedehi\Artist\Http\Middleware\Permission;
+use Sedehi\Artist\View\Components\Inputs\Text;
 
 class ArtistServiceProvider extends ServiceProvider
 {
@@ -60,6 +62,10 @@ class ArtistServiceProvider extends ServiceProvider
 
             return redirect()->action([$controller, $action]);
         });
+
+
+        Blade::componentNamespace('Sedehi\\Artist\\View\\Components', 'artist');
+
     }
 
     /**
