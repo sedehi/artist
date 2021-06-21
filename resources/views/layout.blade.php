@@ -30,5 +30,21 @@
 <script src="{{asset('admin/js/sleek.bundle.js')}}"></script>
 @include('artist::notifications')
 @stack('js')
+<script>
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    $(".files").each(function(k,el){
+        $(this).filepond({
+            name:$(this).attr('name'),
+            server: {
+                process: {
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                }
+            },
+            credits:false
+        });
+    });
+</script>
 </body>
 </html>

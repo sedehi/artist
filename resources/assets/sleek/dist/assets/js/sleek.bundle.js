@@ -7099,20 +7099,6 @@
 
 	  /*======== Upload =======*/
 
-	  // FilePond.registerPlugin(FilePondPluginImagePreview);
-
-	  $(".files").filepond({
-	    name:'file',
-	    theme:'fas',
-	   server: {
-	     process: {
-	       headers: {
-	         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	       },
-	     }
-	   },
-	   credits:false
-	  });
 
 	    /*======== 2. SCROLLBAR CONTENT ========*/
 

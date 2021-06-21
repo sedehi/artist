@@ -32,6 +32,7 @@ class ArtistRouteServiceProvider extends ServiceProvider
                 }
 
                 Route::middleware('artist')
+                    ->prefix(config('artist.path'))
                     ->group(function () {
                         $routes = glob(app_path('Http/Controllers/*/routes/admin.php'));
                         foreach ($routes as $route) {

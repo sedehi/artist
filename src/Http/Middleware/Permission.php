@@ -7,11 +7,13 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Sedehi\Artist\Http\Controllers\HomeController;
+use Sedehi\Artist\Http\Controllers\UploadController;
 
 class Permission
 {
     private $allowed = [
         HomeController::class,
+        'Sedehi\Artist\Http\Controllers\UploadController@upload',
     ];
 
     public function __construct(Guard $auth)

@@ -9,9 +9,7 @@
     if($attributes->has('class')){
        $class =  $attributes['class'];
     }
-    if($type !== 'password'){
-        $value =old($name,isset($model) ? $model[$name] : null);
-    }
+    $value =old($name,isset($model) ? $model[$name] : null);
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
