@@ -7,7 +7,6 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Sedehi\Artist\Http\Controllers\HomeController;
-use Sedehi\Artist\Http\Controllers\UploadController;
 
 class Permission
 {
