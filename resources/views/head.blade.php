@@ -8,6 +8,7 @@
     @else
         <link rel="stylesheet" href="{{asset('admin/css/sleek.min.css')}}" />
     @endif
+    <link href="{{asset('admin/plugins/materialdesignicons.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/plugins/filepond/filepond.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/plugins/filepond/filepond-plugin-image-preview.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/plugins/toastr/toastr.min.css')}}" rel="stylesheet" />

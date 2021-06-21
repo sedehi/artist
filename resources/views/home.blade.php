@@ -1,6 +1,7 @@
 @extends('artist::layout')
 @section('title',trans('artist::artist.titles.home'))
 @section('content')
+
     <div class="row">
         <div class="col-xl-3 col-sm-6">
             <div class="card card-mini mb-4">

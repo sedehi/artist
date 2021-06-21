@@ -17,7 +17,6 @@
 
 $(document).ready(function() {
   "use strict";
-
   /*======== 1. JEKYLL INSTANT SEARCH ========*/
 
   // var searchInput = $('#search-input');
@@ -36,10 +35,11 @@ $(document).ready(function() {
 
   /*======== Upload =======*/
 
-  FilePond.registerPlugin(FilePondPluginImagePreview);
+  // FilePond.registerPlugin(FilePondPluginImagePreview);
 
   $(".files").filepond({
-    theme: "fas",
+    name:'file',
+    theme:'fas',
    server: {
      process: {
        headers: {
@@ -183,25 +183,6 @@ $(document).ready(function() {
     };
 
 
-  /*======== 8. DATE PICKER ========*/
-  // $('input[name="dateRange"]').daterangepicker({
-  //   autoUpdateInput: false,
-  //   singleDatePicker: true,
-  //   locale: {
-  //     cancelLabel: 'Clear'
-  //   }
-  // });
-
-  // $('input[name="dateRange"]').on('apply.daterangepicker', function (ev, picker) {
-  //   $(this).val(picker.startDate.format('MM/DD/YYYY'));
-  // });
-
-  // $('input[name="dateRange"]').on('cancel.daterangepicker', function (ev, picker) {
-  //   $(this).val('');
-  // });
-
-
-
 
   $(document).on('change', '.check-all', function () {
     $(this).closest('table').find('tbody :checkbox').prop('checked', $(this).is(':checked'));
@@ -211,26 +192,6 @@ $(document).ready(function() {
     $(this).closest('table').find('.check-all')
       .prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length));
   });
-
-  // $(document).on('change', '.delete-item , .check-all', function () {
-  //   var btn = $(this).find('.btn-delete');
-  //   var deleteForm = $(this).find('.delete-form');
-  //   btn.html('<i class="fa fa-trash"></i>');
-  //   deleteForm.html('');
-  //
-  //   var csrfToken = $('meta[name=csrf-token]').attr('content');
-  //   deleteForm.append('<input type="hidden" name="_token" value="'+csrfToken+'">');
-  //   deleteForm.append('<input type="hidden" name="_method" value="delete">');
-  //   $(this).closest('table').find('.delete-item:checked').each(function () {
-  //     deleteForm.append('<input type="hidden" name="id[]" value="' + $(this).val() + '">');
-  //   });
-  //
-  //   if ($(this).closest('table').find('.delete-item:checked').length > 0) {
-  //     btn.removeClass('d-none');
-  //   } else {
-  //     btn.addClass('d-none');
-  //   }
-  // });
 
   $(document).on('change', '.check-all', function () {
     $(this).closest('table').find('tbody :checkbox')
