@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Login to Admin',
-    'login' => 'Sign In',
-    'button' => 'Sign In',
+    'title' => 'ورود به مدیریت',
+    'login' => 'ورود',
+    'button' => 'ورود به حساب',
 ];

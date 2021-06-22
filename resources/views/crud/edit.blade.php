@@ -14,11 +14,10 @@
             <form action="{{ action([$controllerClass,'update'],Route::current()->parameters() + request()->query()) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('put') }}
-
                 @include("$sectionName.views.admin.".$controllerClass::$viewForm.".form")
-                <button type="submit" class="btn btn-primary">@lang('admin.submit')</button>
+                <button type="submit" class="btn btn-primary">@lang('artist::artist.submit')</button>
                 @if(method_exists($controllerClass,'index'))
-                    <a href="{{ action([$controllerClass,'index'],request()->all()) }}" class="btn btn-warning">بازگشت</a>
+                    <a href="{{ action([$controllerClass,'index'],request()->all()) }}" class="btn btn-warning">@lang('artist::artist.back')</a>
                 @endif
             </form>
         </div>

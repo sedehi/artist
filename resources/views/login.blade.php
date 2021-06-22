@@ -24,13 +24,13 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-12 mb-4">
-                                <input type="text" name="email" class="form-control input-lg @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Email">
+                                <input type="text" name="email" class="form-control input-lg @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="@lang('artist::attributes.email')">
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-12 ">
-                                <input type="password"  name="password" class="form-control input-lg @error('password') is-invalid @enderror" id="password" placeholder="Password">
+                                <input type="password"  name="password" class="form-control input-lg @error('password') is-invalid @enderror" id="password" placeholder="@lang('artist::attributes.password')">
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
