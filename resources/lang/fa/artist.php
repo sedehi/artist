@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'Admin',
+    'name' => 'مدیریت',
     'select_an_option'  =>  'انتخاب کنید',
     'titles' => [
         'home' => 'مدیریت',
@@ -11,6 +11,7 @@ return [
         'show' => 'نمایش',
         'to' => 'تا',
     ],
+    'list' => 'لیست',
     'create' => 'ایجاد',
     'edit' => 'ویرایش',
     'delete' => 'حذف',
