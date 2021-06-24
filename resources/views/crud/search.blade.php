@@ -11,16 +11,16 @@
             <button type="button" class="close" aria-label="Close" data-toggle="collapse" data-target="#searchCollapse">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h6 class="c-grey-900">@lang('admin.search')</h6>
+            <h6 class="c-grey-900">@lang('artist::artist.search')</h6>
             <div class="mT-30">
                 <form method="get">
                     @if(property_exists($controllerClass,'viewForm'))
                         @includeIf("$sectionName.views.admin.".$controllerClass::$viewForm.".search-form")
                     @endif
-                    <button type="submit" class="btn btn-primary">@lang('admin.search')</button>
+                    <button type="submit" class="btn btn-primary">@lang('artist::artist.search')</button>
                     @if (count(request()->except('page')))
                         <a href="{{action([$controllerClass,'index'],Route::current()->parameters())}}" class="btn btn-warning">
-                            <span>@lang('admin.all_data')</span>
+                            <span>@lang('artist::artist.all_data')</span>
                         </a>
                     @endif
                 </form>

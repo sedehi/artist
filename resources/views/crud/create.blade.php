@@ -14,8 +14,8 @@
             <form action="{{ action([$controllerClass,'store'],Route::current()->parameters()) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 @include("$sectionName.views.admin.".$controllerClass::$viewForm.".form")
-                <button type="submit" class="btn btn-primary" id="submit">@lang('admin.submit')</button>
-                <a href="{{ action([$controllerClass,'index'],request()->all()) }}" class="btn btn-warning">بازگشت</a>
+                <button type="submit" class="btn btn-primary" id="submit">@lang('artist::artist.submit')</button>
+                <a href="{{ action([$controllerClass,'index'],request()->all()) }}" class="btn btn-warning">@lang('artist::artist.back')</a>
             </form>
         </div>
     </div>
