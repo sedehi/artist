@@ -14,8 +14,9 @@
     <label for="{{$name}}">{{$title}}</label>
     <select name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror">
         @foreach($options as $optionKey => $optionValue)
-            <option value="{{ $optionKey }}" @if ($value == $optionKey) selected @endif
-            >{{ $optionValue }}</option>
+            <option value="{{ $optionKey }}" @if ($value == $optionKey) selected @endif>
+                {{ $optionValue }}
+            </option>
         @endforeach
     </select>
     @error($name)
