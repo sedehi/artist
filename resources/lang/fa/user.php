@@ -7,6 +7,6 @@ return [
 
     'messages'  => [
         'wrong_current_password'    =>  'رمز عبور فعلی اشتباه می باشد',
-        'password_updated_successfully' =>  'رمز عبور با موفقیت تغییر کرد'
+        'password_updated_successfully' =>  'رمز عبور با موفقیت تغییر کرد',
     ],
 ];
