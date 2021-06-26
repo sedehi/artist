@@ -18,7 +18,7 @@ trait hasUpload
         return rtrim($this->uploadPath(), '/').'/'.$this->{$field};
     }
 
-    public function saveFile($tempId,$fieldName = null)
+    public function saveFile($tempId, $fieldName = null)
     {
         if (is_array($tempId)) {
             $tempId = head($tempId);
@@ -62,10 +62,11 @@ trait hasUpload
         return in_array(File::extension($fileName), ['png', 'svg', 'bmp', 'jpeg', 'jpg']);
     }
 
-    private function getDimensions($field){
-        if(is_null($field)){
+    private function getDimensions($field)
+    {
+        if (is_null($field)) {
             return $this->dimensions;
-        }else{
+        } else {
             return  $this->dimensions[$field];
         }
     }
