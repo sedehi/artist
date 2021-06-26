@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Sedehi\Artist\Http\Controllers\HomeController;
+use Sedehi\Artist\Http\Controllers\LogoutController;
 
 class Permission
 {
@@ -14,6 +15,9 @@ class Permission
         HomeController::class,
         'Sedehi\Artist\Http\Controllers\UploadController@upload',
         'Sedehi\Artist\Http\Controllers\UploadController@delete',
+        'App\Http\Controllers\User\Controllers\Admin\ChangePasswordController@index',
+        'App\Http\Controllers\User\Controllers\Admin\ChangePasswordController@change',
+        LogoutController::class,
     ];
 
     public function __construct(Guard $auth)

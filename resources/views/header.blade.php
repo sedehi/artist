@@ -12,35 +12,29 @@
                 <!-- User Account -->
                 <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="d-none d-lg-inline-block">Abdus Salam</span>
+                        <span class="d-none d-lg-inline-block">{{auth()->user()->full_name}}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <!-- User image -->
                         <li class="dropdown-header">
                             <div class="d-inline-block">
-                                Abdus Salam <small class="pt-1">iamabdus@gmail.com</small>
+                                {{auth()->user()->full_name}} <small class="pt-1">{{auth()->user()->email}}</small>
                             </div>
                         </li>
 
                         <li>
-                            <a href="user-profile.html">
-                                <i class="mdi mdi-account"></i> My Profile
+                            <a href="{{route('admin.password.index')}}">
+                                <i class="mdi mdi-account"> </i>@lang('artist::user.change_password')
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="mdi mdi-email"></i> Message
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#"> <i class="mdi mdi-diamond-stone"></i> Projects </a>
-                        </li>
-                        <li class="right-sidebar-in">
-                            <a href="javascript:0"> <i class="mdi mdi-settings"></i> Setting </a>
-                        </li>
-
                         <li class="dropdown-footer">
-                            <a href="index.html"> <i class="mdi mdi-logout"></i> Log Out </a>
+                            <form id="logout-form" action="{{ route('artist.logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('artist.logout') }}" >
+                                <i class="mdi mdi-logout"></i>
+                                @lang('artist::auth.logout')
+                            </a>
                         </li>
                     </ul>
                 </li>

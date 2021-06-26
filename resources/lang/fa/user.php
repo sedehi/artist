@@ -4,6 +4,7 @@ return [
     'admins_list' => 'لیست مدیران',
     'managers' => 'مدیران',
     'manager' => 'مدیر',
+    'change_password' => 'تغییر رمز عبور',
 
     'messages'  => [
         'wrong_current_password'    =>  'رمز عبور فعلی اشتباه می باشد',
