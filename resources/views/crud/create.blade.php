@@ -11,7 +11,7 @@
 @section('content')
     <div class="row bg-white p-4">
         <div class="col-md-12">
-            <form action="{{ action([$controllerClass,'store'],Route::current()->parameters()) }}" method="post" enctype="multipart/form-data">
+            <form id="submit-form" action="{{ action([$controllerClass,'store'],Route::current()->parameters()) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 @include("$sectionName.views.admin.".$controllerClass::$viewForm.".form")
                 <button type="submit" class="btn btn-primary" id="submit">@lang('admin.submit')</button>

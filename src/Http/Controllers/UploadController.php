@@ -2,40 +2,41 @@
 
 namespace Sedehi\Artist\Http\Controllers;
 
-use Illuminate\Validation\Validator;
+use Sedehi\Artist\Models\UploadTemporary;
 
 class UploadController extends BaseController
 {
-    public function sectionUpload($section, $model, $id = null)
-    {
-    }
-
-    public function sectionDelete()
-    {
-    }
-
     public function upload()
     {
-        $files = request()->file('files');
-        if (! is_array($files)) {
-            $files = [$files];
+        request()->validate(['file' => 'required|file']);
+        $file = request()->file('file');
+        $path = config('artist.upload_temporary_path');
+
+        if ($this->isImage($file)) {
+            request()->validate(['file' => 'required|image']);
         }
-        foreach ($files as $file) {
-            if ($this->isImage($file)) {
-                $validator = Validator::make([
-                    'file' => $file,
-                ], [
-                    'file' => 'required|image|file',
-                ]);
-                if ($validator->failed()) {
-                    dd('ss');
-                }
-            }
-        }
+
+        $fileName = time().$file->hashName();
+        $file->move($path,$fileName);
+        $temp = new UploadTemporary();
+        $temp->name = $fileName;
+        $temp->path = $path;
+        $temp->save();
+
+        return  response()->json([
+            'uuid' => $temp->id,
+            'name' => $temp->name,
+            'path' => $temp->path,
+            'success' => true,
+        ]);
+
     }
 
     public function delete()
     {
+       $item = UploadTemporary::where('id',request()->getContent())->firstOrFail();
+       $item->remove();
+
     }
 
     private function isImage($file)

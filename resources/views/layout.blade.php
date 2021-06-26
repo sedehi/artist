@@ -36,14 +36,26 @@
         $(this).filepond({
             name:$(this).attr('name'),
             server: {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json',
+                },
                 process: {
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    onerror: (response) => {
+                        serverResponse = JSON.parse(response);
+                        toastr.error(serverResponse.errors.file);
                     },
-                }
+                    onload: (formData) => {
+                        serverResponse = JSON.parse(formData);
+                        $('#submit-form').append('<input type="hidden" id="upload-'+serverResponse.uuid+'" name="files[]" value="'+ serverResponse.uuid +'">');
+                        return  serverResponse.uuid;
+                    },
+                },
             },
             credits:false
         });
+
+
     });
 </script>
 </body>

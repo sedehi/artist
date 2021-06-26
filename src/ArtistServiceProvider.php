@@ -4,6 +4,7 @@ namespace Sedehi\Artist;
 
 use Exception;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
@@ -43,24 +44,7 @@ class ArtistServiceProvider extends ServiceProvider
         }
 
         View::addLocation(app_path('Http/Controllers'));
-
-        Redirector::macro('artistRedirect', function () {
-            $controller = request()->route()->getAction('controller');
-            $controller = explode('@', $controller);
-            $action = $controller[1];
-            $controller = $controller[0];
-            switch ($action) {
-                case 'store':
-                case 'update':
-                case 'destroy':
-                    $action = 'index';
-                    break;
-                default:
-                   throw new Exception('wrong method');
-            }
-
-            return redirect()->action([$controller, $action]);
-        });
+        $this->registerMacros();
 
         Blade::componentNamespace('Sedehi\\Artist\\View\\Components', 'artist');
     }
@@ -112,13 +96,41 @@ class ArtistServiceProvider extends ServiceProvider
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/sedehi'),
         ], 'artist-lang');
 
-        // Registering package commands.
-        // $this->commands([]);
     }
 
     protected function loadMigration()
     {
-        $migratePaths = glob(app_path('Http/Controllers/*/database/migrations'));
+        $migratePaths = glob(app_path('Http/Controllers/*/database/migrations')) ;
+        $migratePaths = array_merge($migratePaths,[__DIR__.'/../database/migrations']);
         $this->loadMigrationsFrom($migratePaths);
+
+    }
+
+
+    private function registerMacros(){
+        Redirector::macro('artistRedirect', function () {
+            $controller = request()->route()->getAction('controller');
+            $controller = explode('@', $controller);
+            $action = $controller[1];
+            $controller = $controller[0];
+            switch ($action) {
+                case 'store':
+                case 'update':
+                case 'destroy':
+                    $action = 'index';
+                    break;
+                default:
+                    throw new Exception('wrong method');
+            }
+
+            return redirect()->action([$controller, $action]);
+        });
+
+        Request::macro('artistIsResource',function(){
+            if(request()->route()->named('artist.resource.*')){
+                return true;
+            }
+            return false;
+        });
     }
 }

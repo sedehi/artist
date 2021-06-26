@@ -13,6 +13,7 @@ class Permission
     private $allowed = [
         HomeController::class,
         'Sedehi\Artist\Http\Controllers\UploadController@upload',
+        'Sedehi\Artist\Http\Controllers\UploadController@delete',
     ];
 
     public function __construct(Guard $auth)

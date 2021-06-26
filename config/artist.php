@@ -9,4 +9,5 @@ return [
         'api' => null,
         'admin' => null,
     ],
+    'upload_temporary_path' => storage_path('artist/temp'),
 ];

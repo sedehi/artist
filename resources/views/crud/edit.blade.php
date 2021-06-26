@@ -11,7 +11,7 @@
 @section('content')
     <div class="row bg-white p-4">
         <div class="col-md-12">
-            <form action="{{ action([$controllerClass,'update'],Route::current()->parameters() + request()->query()) }}" method="post" enctype="multipart/form-data">
+            <form id="submit-form" action="{{ action([$controllerClass,'update'],Route::current()->parameters() + request()->query()) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('put') }}
 
