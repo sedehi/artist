@@ -8,29 +8,29 @@ use Sedehi\Artist\Models\UploadTemporary;
 
 trait hasUpload
 {
-    public $disk = null;
-
-    public $dimensions = [];
-
-    public $keepLargeSize = true;
-
-    public $keepOriginal = false;
 
     public function uploadPath()
     {
         return 'users/'.$this->created_at->format('Y-m-d');
     }
 
-    public function moveFile($fieldName, $tempId)
-    {
-        $temp = UploadTemporary::where('id', $tempId)->frist();
+    public function getFullPath($field){
+        return rtrim($this->uploadPath(),'/').'/'.$this->{$field};
+    }
 
-        if ($this->isImage($temp->name)) {
+    public function saveFile($tempId)
+    {
+        if(is_array($tempId)){
+            $tempId = head($tempId);
+        }
+        $temp = UploadTemporary::where('id', $tempId)->first();
+        $fileName = $temp->name;
+        if ($this->isImage($fileName)) {
             $image = ImageMaker::make($temp->full_path)
                 ->disk($this->disk)
                 ->path($this->uploadPath())
                 ->dimensions($this->dimensions)
-                ->name($temp->name);
+                ->name($fileName);
 
             if ($this->keepLargeSize) {
                 $image = $image->keepLargeSize();
@@ -41,18 +41,15 @@ trait hasUpload
             }
             $image->store();
         } else {
-            Storage::disk($this->disk)->move($temp->full_path, rtrim($this->uploadPath()).'/'.$this->{$fieldName});
+            File::move($temp->full_path,Storage::disk($this->disk)->path(rtrim($this->uploadPath(),'/').'/'.$fileName));
         }
-
-        $this->{$fieldName} = $temp->name;
-        $this->save();
-
         $temp->remove();
+        return $fileName;
     }
 
     public function removeFile($fieldName)
     {
-        if ($this->isImage($fieldName)) {
+        if ($this->isImage($this->{$fieldName})) {
             ImageMaker::make()->path($this->uploadPath())->name($this->{$fieldName})->remove();
         } else {
             Storage::disk($this->disk)->delete(rtrim($this->uploadPath()).'/'.$this->{$fieldName});

@@ -32,9 +32,10 @@
 @stack('js')
 <script>
     FilePond.registerPlugin(FilePondPluginImagePreview);
-    $(".files").each(function(k,el){
+    $(".files").each(function(){
+
         $(this).filepond({
-            name:$(this).attr('name'),
+            files:$(this).data('files'),
             server: {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -47,9 +48,25 @@
                     },
                     onload: (formData) => {
                         serverResponse = JSON.parse(formData);
-                        $('#submit-form').append('<input type="hidden" id="upload-'+serverResponse.uuid+'" name="files[]" value="'+ serverResponse.uuid +'">');
+                        $("input[name=remove_"+$(this).data('name')+"]").remove();
+                        $('#submit-form').append('<input type="hidden" id="upload-'+serverResponse.uuid+'" name="'+$(this).data('name')+'" value="'+ serverResponse.uuid +'">');
                         return  serverResponse.uuid;
                     },
+                },
+                revert: {
+                    onerror: (response) => {
+                        serverResponse = JSON.parse(response);
+                        toastr.error(serverResponse.errors.file);
+                    },
+                    onload: (formData) => {
+                        serverResponse = JSON.parse(formData);
+                        $('#upload-'+serverResponse.uuid).remove();
+                    },
+                },
+                remove: (source, load, error) => {
+                    $('#submit-form').append('<input type="hidden" name="remove_'+$(this).data('name')+'" value="'+ source +'">');
+                    error('oh my goodness');
+                    load();
                 },
             },
             credits:false
@@ -57,6 +74,8 @@
 
 
     });
+
+
 </script>
 </body>
 </html>
