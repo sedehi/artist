@@ -8,19 +8,19 @@ use Sedehi\Artist\Models\UploadTemporary;
 
 trait hasUpload
 {
-
     public function uploadPath()
     {
         return 'users/'.$this->created_at->format('Y-m-d');
     }
 
-    public function getFullPath($field){
-        return rtrim($this->uploadPath(),'/').'/'.$this->{$field};
+    public function getFullPath($field)
+    {
+        return rtrim($this->uploadPath(), '/').'/'.$this->{$field};
     }
 
     public function saveFile($tempId,$fieldName = null)
     {
-        if(is_array($tempId)){
+        if (is_array($tempId)) {
             $tempId = head($tempId);
         }
         $temp = UploadTemporary::where('id', $tempId)->first();
@@ -41,9 +41,10 @@ trait hasUpload
             }
             $image->store();
         } else {
-            File::move($temp->full_path,Storage::disk($this->disk)->path(rtrim($this->uploadPath(),'/').'/'.$fileName));
+            File::move($temp->full_path, Storage::disk($this->disk)->path(rtrim($this->uploadPath(), '/').'/'.$fileName));
         }
         $temp->remove();
+
         return $fileName;
     }
 
