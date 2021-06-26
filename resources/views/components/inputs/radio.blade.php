@@ -11,14 +11,15 @@
     $value = old($name,optional($model)->{$name});
 @endphp
 <div class="form-group {{$grid}}">
-    <label for="{{$name}}">{{$title}}</label>
+    <label>{{$title}}</label>
 
     @foreach($options as $optionKey => $optionValue)
-        <label class="control outlined control-radio">
+        <label for="{{$name}}-radio-{{$loop->iteration}}" class="control outlined control-radio">
             {{ $optionValue }}
             <input type="radio"
                    name="{{$name}}"
                    value="{{ $optionKey }}"
+                   id="{{$name}}-radio-{{$loop->iteration}}"
                    @if ($value == $optionKey) checked @endif
                    @if($class) class="{!! $class !!}" @endif
             >
