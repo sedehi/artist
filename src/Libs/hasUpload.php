@@ -18,7 +18,7 @@ trait hasUpload
         return rtrim($this->uploadPath(),'/').'/'.$this->{$field};
     }
 
-    public function saveFile($tempId)
+    public function saveFile($tempId,$fieldName = null)
     {
         if(is_array($tempId)){
             $tempId = head($tempId);
@@ -29,7 +29,7 @@ trait hasUpload
             $image = ImageMaker::make($temp->full_path)
                 ->disk($this->disk)
                 ->path($this->uploadPath())
-                ->dimensions($this->dimensions)
+                ->dimensions($this->getDimensions($fieldName))
                 ->name($fileName);
 
             if ($this->keepLargeSize) {
@@ -59,5 +59,13 @@ trait hasUpload
     private function isImage($fileName)
     {
         return in_array(File::extension($fileName), ['png', 'svg', 'bmp', 'jpeg', 'jpg']);
+    }
+
+    private function getDimensions($field){
+        if(is_null($field)){
+            return $this->dimensions;
+        }else{
+            return  $this->dimensions[$field];
+        }
     }
 }
