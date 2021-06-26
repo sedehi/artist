@@ -95,19 +95,17 @@ class ArtistServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/sedehi'),
         ], 'artist-lang');
-
     }
 
     protected function loadMigration()
     {
-        $migratePaths = glob(app_path('Http/Controllers/*/database/migrations')) ;
-        $migratePaths = array_merge($migratePaths,[__DIR__.'/../database/migrations']);
+        $migratePaths = glob(app_path('Http/Controllers/*/database/migrations'));
+        $migratePaths = array_merge($migratePaths, [__DIR__.'/../database/migrations']);
         $this->loadMigrationsFrom($migratePaths);
-
     }
 
-
-    private function registerMacros(){
+    private function registerMacros()
+    {
         Redirector::macro('artistRedirect', function () {
             $controller = request()->route()->getAction('controller');
             $controller = explode('@', $controller);
@@ -126,10 +124,11 @@ class ArtistServiceProvider extends ServiceProvider
             return redirect()->action([$controller, $action]);
         });
 
-        Request::macro('artistIsResource',function(){
-            if(request()->route()->named('artist.resource.*')){
+        Request::macro('artistIsResource', function () {
+            if (request()->route()->named('artist.resource.*')) {
                 return true;
             }
+
             return false;
         });
     }

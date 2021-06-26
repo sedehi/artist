@@ -17,7 +17,7 @@ class UploadController extends BaseController
         }
 
         $fileName = time().$file->hashName();
-        $file->move($path,$fileName);
+        $file->move($path, $fileName);
         $temp = new UploadTemporary();
         $temp->name = $fileName;
         $temp->path = $path;
@@ -29,14 +29,12 @@ class UploadController extends BaseController
             'path' => $temp->path,
             'success' => true,
         ]);
-
     }
 
     public function delete()
     {
-       $item = UploadTemporary::where('id',request()->getContent())->firstOrFail();
-       $item->remove();
-
+        $item = UploadTemporary::where('id', request()->getContent())->firstOrFail();
+        $item->remove();
     }
 
     private function isImage($file)
