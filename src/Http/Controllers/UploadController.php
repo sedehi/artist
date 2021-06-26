@@ -36,9 +36,10 @@ class UploadController extends BaseController
         $id = request()->getContent();
         $item = UploadTemporary::where('id', $id)->firstOrFail();
         $item->remove();
+
         return response()->json([
             'success' => true,
-            'uuid' => $id
+            'uuid' => $id,
         ]);
     }
 
