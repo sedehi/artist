@@ -11,6 +11,7 @@
     <link href="{{asset('admin/plugins/materialdesignicons.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/plugins/filepond/filepond.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/plugins/filepond/filepond-plugin-image-preview.min.css')}}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css" rel="stylesheet"/>
     <link href="{{asset('admin/plugins/toastr/toastr.min.css')}}" rel="stylesheet" />
     @stack('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">

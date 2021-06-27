@@ -24,6 +24,7 @@
 </script>
 <script src="{{asset('admin/plugins/slimscrollbar/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('admin/plugins/filepond/filepond-plugin-image-preview.min.js')}}"></script>
+<script src="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.js"></script>
 <script src="{{asset('admin/plugins/filepond/filepond.min.js')}}"></script>
 <script src="{{asset('admin/plugins/filepond/filepond.jquery.js')}}"></script>
 <script src="{{asset('admin/plugins/toastr/toastr.min.js')}}"></script>
@@ -34,6 +35,7 @@
 
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFilePoster);
     $(".files").each(function(){
 
 
@@ -71,6 +73,7 @@
                 },
                 remove: (source, load, error) => {
                     $('#submit-form').append('<input type="hidden" name="remove_'+$(this).data('name')+'" value="'+ source +'">');
+                    $("#upload-"+source).remove();
                     error('oh my goodness');
                     load();
                 },
