@@ -11,6 +11,7 @@ class Text extends Component
     public $title;
     public $class;
     public $value;
+    public $field;
     public $type = 'text';
 
     /**
@@ -18,9 +19,10 @@ class Text extends Component
      *
      * @return void
      */
-    public function __construct($model = null)
+    public function __construct($field = null, $model = null)
     {
         $this->model = $model;
+        $this->field = $field;
     }
 
     /**
