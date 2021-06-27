@@ -28,10 +28,9 @@ class PruneUploadTemporaryCommand extends Command
      */
     public function handle()
     {
-        UploadTemporary::where('created_at','<',now()->subMinutes(config('artist.upload_temporary_expire_time')))->chunk(500,function($items){
+        UploadTemporary::where('created_at', '<', now()->subMinutes(config('artist.upload_temporary_expire_time')))->chunk(500, function ($items) {
             $items->each->remove();
         });
         $this->info('Done.');
     }
-
 }

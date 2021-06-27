@@ -10,5 +10,5 @@ return [
         'admin' => null,
     ],
     'upload_temporary_path' => storage_path('artist/temp'),
-    'upload_temporary_expire_time' => 60*6,
+    'upload_temporary_expire_time' => 60 * 6,
 ];

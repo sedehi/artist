@@ -23,6 +23,5 @@ class UploadTemporary extends Model
             File::delete($this->full_path);
         }
         $this->delete();
-
     }
 }
