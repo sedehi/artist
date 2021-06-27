@@ -11,15 +11,17 @@ class Textarea extends Component
     public $title;
     public $class;
     public $value;
+    public $field;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($model = null)
+    public function __construct($field = null, $model = null)
     {
         $this->model = $model;
+        $this->field = $field;
     }
 
     /**

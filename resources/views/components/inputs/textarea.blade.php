@@ -1,19 +1,28 @@
 @php
+    if(isset($field)){
+       $attributes = $attributes->merge($field->getHtmlAttributes());
+    }
     $name = $attributes['name'];
     if($attributes->has('title')){
        $title =  $attributes['title'];
     }else{
         $title = trans('validation.attributes.'.$name);
     }
-
     if($attributes->has('class')){
        $class =  $attributes['class'];
     }
-    $value =old($name,isset($model) ? $model[$name] : null);
+    if (isset($field)) {
+        $value = old($name,$field->value());
+    } else {
+        $value = old($name,optional($model)->{$name});
+    }
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <textarea name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{{ $value }}</textarea>
+    <textarea {{ $attributes }} name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{{ $value }}</textarea>
+    @if (isset($field->help))
+        <span class="help-block">{!! $field->getHelp() !!}</span>
+    @endif
     @error($name)
         <div class="invalid-feedback">
             {{$message}}
