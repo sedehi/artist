@@ -1,4 +1,7 @@
 @php
+    if(isset($field)){
+       $attributes = $attributes->merge($field->getHtmlAttributes());
+    }
     $name = $attributes['name'];
     if($attributes->has('type')){
        $type =  $attributes['type'];
@@ -8,17 +11,26 @@
     }else{
         $title = trans('validation.attributes.'.$name);
     }
-
     if($attributes->has('class')){
        $class =  $attributes['class'];
     }
+    if ($errors->has($name)) {
+        $class .= ' is-invalid';
+    }
     if($type !== 'password'){
-        $value =old($name,isset($model) ? $model[$name] : null);
+        if (isset($field)) {
+            $value = old($name,$field->value());
+        } else {
+            $value = old($name,isset($model) ? $model[$name] : null);
+        }
     }
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <input type="{{$type}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" value="{{ $value }}" />
+    <input {{ $attributes }} type="{{$type}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" value="{{ $value }}" />
+    @if (isset($field->help))
+        <span class="help-block">{!! $field->getHelp() !!}</span>
+    @endif
     @error($name)
         <div class="invalid-feedback">
             {{$message}}
