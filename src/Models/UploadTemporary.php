@@ -21,7 +21,8 @@ class UploadTemporary extends Model
     {
         if (File::exists($this->full_path)) {
             File::delete($this->full_path);
-            $this->delete();
         }
+        $this->delete();
+
     }
 }

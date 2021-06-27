@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Morilog\Jalali\Jalalian;
+use Sedehi\Artist\Console\Command\PruneUploadTemporaryCommand;
 use Sedehi\Artist\Http\Middleware\Authenticate;
 use Sedehi\Artist\Http\Middleware\DefineGates;
 use Sedehi\Artist\Http\Middleware\Permission;
@@ -47,6 +48,8 @@ class ArtistServiceProvider extends ServiceProvider
         $this->registerMacros();
 
         Blade::componentNamespace('Sedehi\\Artist\\View\\Components', 'artist');
+
+        $this->commands(PruneUploadTemporaryCommand::class);
     }
 
     /**
