@@ -7346,6 +7346,54 @@
 	  //
 	  // }
 
+
+
+	  FilePond.registerPlugin(FilePondPluginImagePreview);
+	  FilePond.registerPlugin(FilePondPluginFilePoster);
+	  $(".files").each(function(){
+	    $(this).filepond({
+	      allowReplace:true,
+	      files:$(this).data('files'),
+	      server: {
+	        headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+	          'Accept': 'application/json',
+	        },
+	        process: {
+	          onerror: (response) => {
+	            var serverResponse = JSON.parse(response);
+	            toastr.error(serverResponse.errors.file);
+	          },
+	          onload: (formData) => {
+	           var  serverResponse = JSON.parse(formData);
+	            $("input[name='remove_"+$(this).data('name')+"']").remove();
+	            $('#submit-form').append('<input type="hidden" id="upload-'+serverResponse.uuid+'" name="'+$(this).data('name')+'" value="'+ serverResponse.uuid +'">');
+	            return  serverResponse.uuid;
+	          },
+	        },
+	        revert: {
+	          onerror: (response) => {
+	            var serverResponse = JSON.parse(response);
+	            toastr.error(serverResponse.errors.file);
+	          },
+	          onload: (formData) => {
+	           var  serverResponse = JSON.parse(formData);
+	            $('#upload-'+serverResponse.uuid).remove();
+	          },
+	        },
+	        remove: (source, load, error) => {
+	          $('#submit-form').append('<input type="hidden"  id="remove_'+source+'" name="remove_'+$(this).data('name')+'" value="'+ source +'">');
+	          $("#upload-"+source).remove();
+	          error('oh my goodness');
+	          load();
+	        },
+	      },
+	      credits:false
+	    });
+
+
+	  });
+
 	  /*======== 1. SCROLLBAR SIDEBAR ========*/
 	  var sidebarScrollbar = $(".sidebar-scrollbar");
 	  if (sidebarScrollbar.length != 0) {
