@@ -10,7 +10,7 @@ trait hasUpload
 {
     public function uploadPath()
     {
-        return 'users/'.$this->created_at->format('Y-m-d');
+        return '/';
     }
 
     public function getFullPath($field)
