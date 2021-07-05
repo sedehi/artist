@@ -1,4 +1,5 @@
 @php
+    $rows = $cols = null ;
     if(isset($field)){
        $attributes = $attributes->merge($field->getHtmlAttributes());
     }
@@ -11,6 +12,12 @@
     if($attributes->has('class')){
        $class =  $attributes['class'];
     }
+    if($attributes->has('rows')){
+       $rows =  $attributes['rows'];
+    }
+    if($attributes->has('cols')){
+       $cols =  $attributes['cols'];
+    }
     if (isset($field)) {
         $value = old($name,$field->value());
     } else {
@@ -19,7 +26,7 @@
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <textarea {{ $attributes }} name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{{ $value }}</textarea>
+    <textarea {{ $attributes }} rows="{{$rows}" cols="{{$cols}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{{ $value }}</textarea>
     @if (isset($field->help))
         <span class="help-block">{!! $field->getHelp() !!}</span>
     @endif
