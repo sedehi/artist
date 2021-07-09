@@ -12,16 +12,18 @@ class Select extends Component
     public $title;
     public $class;
     public $value;
+    public $field;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($options, $model = null)
+    public function __construct($options = [], $model = null, $field = null)
     {
         $this->options = $options;
         $this->model = $model;
+        $this->field = $field;
     }
 
     /**
