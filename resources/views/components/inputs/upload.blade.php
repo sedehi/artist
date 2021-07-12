@@ -53,6 +53,7 @@
             }
 
         }else{
+
             if(!is_null($model->{$name}) && Storage::disk($model->disk)->exists($model->getFullPath($name))){
             $items = [
                     [
@@ -106,7 +107,8 @@
     </div>
     @enderror
 </div>
-
-@foreach($items as $item)
-    <input type="hidden" id="upload-{{$item['source']}}" name="{{$name}}" value="{{$item['source']}}">
-@endforeach
+@if(isset($old) && count($old))
+    @foreach($items as $item)
+        <input type="hidden" id="upload-{{$item['source']}}" name="{{$name}}" value="{{$item['source']}}">
+    @endforeach
+@endif
