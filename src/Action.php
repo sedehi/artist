@@ -15,6 +15,11 @@ class Action
     public $name;
     public $btnClass = 'btn btn-primary';
 
+    public $model;
+    public function __construct($model = null)
+    {
+        $this->model = $model;
+    }
 
     public function view()
     {
