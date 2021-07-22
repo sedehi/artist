@@ -28,14 +28,12 @@ class Action
 
     public function renderView()
     {
-        if(!is_null($this->view())){
+        if (! is_null($this->view())) {
             return $this->view();
         }
 
         return  null;
     }
-
-
 
     public function getShowOnIndex()
     {
@@ -46,6 +44,7 @@ class Action
     {
         return $this->showOnDetail;
     }
+
     public function getShowOnTableRow()
     {
         return $this->showOnTableRow;
@@ -59,6 +58,7 @@ class Action
 
         return $this;
     }
+
     public function onlyOnTableRow()
     {
         $this->showOnIndex = false;
@@ -76,7 +76,6 @@ class Action
 
         return $this;
     }
-
 
     private function showCallback(&$property, $callback)
     {
@@ -104,13 +103,13 @@ class Action
 
         return $this;
     }
+
     public function showOnTableRow($callback = true)
     {
         $this->showCallback($this->showOnTableRow, $callback);
 
         return $this;
     }
-
 
     private function hideCallback(&$property, $callback)
     {
@@ -145,5 +144,4 @@ class Action
 
         return $this;
     }
-
 }
