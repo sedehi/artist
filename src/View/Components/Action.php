@@ -16,7 +16,7 @@ class Action extends Component
      *
      * @return void
      */
-    public function __construct($action =null,$resource,$model = null)
+    public function __construct($action = null, $resource, $model = null)
     {
         $this->model = $model;
         $this->action = $action;
@@ -31,6 +31,7 @@ class Action extends Component
     public function render()
     {
         dd($this->model);
+
         return view('artist::components.action');
     }
 }

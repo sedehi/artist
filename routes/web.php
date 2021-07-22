@@ -29,5 +29,4 @@ Route::group(['prefix' => config('artist.path'), 'middleware' => 'web'], functio
         Route::delete('upload', [UploadController::class, 'delete'])->name('artist.resource.upload.delete');
         Route::post('action', ActionController::class)->name('action.dispatch');
     });
-
 });
