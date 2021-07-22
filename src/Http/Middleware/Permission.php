@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Sedehi\Artist\Http\Controllers\ActionController;
 use Sedehi\Artist\Http\Controllers\HomeController;
 use Sedehi\Artist\Http\Controllers\LogoutController;
 
@@ -18,6 +19,7 @@ class Permission
         'App\Http\Controllers\User\Controllers\Admin\ChangePasswordController@index',
         'App\Http\Controllers\User\Controllers\Admin\ChangePasswordController@change',
         LogoutController::class,
+        ActionController::class,
     ];
 
     public function __construct(Guard $auth)

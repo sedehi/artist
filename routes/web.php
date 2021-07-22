@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Sedehi\Artist\Http\Controllers\ActionController;
 use Sedehi\Artist\Http\Controllers\CreateController;
 use Sedehi\Artist\Http\Controllers\DestroyController;
 use Sedehi\Artist\Http\Controllers\DetailController;
@@ -26,5 +27,7 @@ Route::group(['prefix' => config('artist.path'), 'middleware' => 'web'], functio
         Route::delete('destroy/{resource?}', DestroyController::class)->name('artist.resource.destroy');
         Route::post('upload', [UploadController::class, 'upload'])->name('artist.resource.upload');
         Route::delete('upload', [UploadController::class, 'delete'])->name('artist.resource.upload.delete');
+        Route::post('action', ActionController::class)->name('action.dispatch');
     });
+
 });

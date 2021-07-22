@@ -26,7 +26,7 @@
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <textarea {{ $attributes }} rows="{{$rows}" cols="{{$cols}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{{ $value }}</textarea>
+    <textarea {{ $attributes }} rows="{{$rows}}" cols="{{$cols}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{{ $value }}</textarea>
     @if (isset($field->help))
         <span class="help-block">{!! $field->getHelp() !!}</span>
     @endif
