@@ -31,6 +31,7 @@ return [
         'deleted' => 'اطلاعات با موفقیت حذف شد',
     ],
     'actions' => [
+        'action_button' => 'عملیات',
         'cancel_button_text' => 'لغو',
         'confirm_button_text' => 'تایید',
         'confirm_text' => 'آیا مطمئن هستید که می خواهید این عملیات انجام شود؟',

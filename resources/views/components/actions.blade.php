@@ -2,7 +2,14 @@
     $resourceClass = new $resource;
     $actions = $resourceClass->actions(request());
 @endphp
-@foreach($actions as $action)
-    <x-artist::action :model="$model" :action="$action"/>
-@endforeach
+<div class="dropdown d-inline-block mb-1">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="actionsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+        @lang('artist::artist.actions.action_button')
+    </button>
+    <div class="dropdown-menu" aria-labelledby="actionsMenu">
+        @foreach($actions as $action)
+            <x-artist::action link :model="$model" :action="$action"/>
+        @endforeach
+    </div>
+</div>
 
