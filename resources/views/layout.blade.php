@@ -36,6 +36,6 @@
     $('#{{old('modal_id')}}').modal('show')
 </script>
 @endif
-
+@stack('action_modals')
 </body>
 </html>
