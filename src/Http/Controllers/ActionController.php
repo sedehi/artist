@@ -15,8 +15,9 @@ class ActionController extends BaseController
             $model = $model::find($request->get('primary_key'));
         }
 
-        $action::dispatch($model);
         $actionClass = new $action;
+        $request->validate($actionClass->rules());
+        $action::dispatch($model);
 
         return redirect()->back()->with('success', $actionClass->successText);
     }

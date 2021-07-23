@@ -2,7 +2,7 @@
     $resourceClass = new $resource;
     $actions = $resourceClass->actions(request());
 @endphp
-<div class="dropdown d-inline-block mb-1">
+<div class="dropdown d-inline-block">
     <button class="btn btn-primary dropdown-toggle" type="button" id="actionsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
         @lang('artist::artist.actions.action_button')
     </button>

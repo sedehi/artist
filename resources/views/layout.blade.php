@@ -31,5 +31,11 @@
 <script src="{{asset('admin/js/sleek.bundle.js')}}"></script>
 @include('artist::notifications')
 @stack('js')
+@if(old('modal_id'))
+<script type="text/javascript">
+    $('#{{old('modal_id')}}').modal('show')
+</script>
+@endif
+
 </body>
 </html>

@@ -204,4 +204,9 @@ class Action
 
         return $this;
     }
+
+    public function rules()
+    {
+        return [];
+    }
 }

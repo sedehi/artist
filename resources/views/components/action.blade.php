@@ -10,10 +10,10 @@
     if(!is_null($view)){
         $hasModal = true;
     }
-    $id = \Illuminate\Support\Str::slug($action.$model[$model->getKeyName()])
+    $id = \Illuminate\Support\Str::slug($action.$model[$model->getKeyName()]);
 @endphp
 @if($actionClass->getShowOnTableRow())
-    <form method="post" action="{{route('action.dispatch')}}" class="d-inline-block">
+    <form method="post" action="{{route('action.dispatch')}}" @if(!$attributes->has('link')) class="d-inline-block" @endif>
     @csrf
     <input type="hidden" name="action" value="{{$action}}">
     @if(isset($resource))
@@ -28,7 +28,7 @@
     @endif
     @if($hasModal)
         <button type="button" data-toggle="modal" data-target="#{{$id}}" class="@if($attributes->has('link')) dropdown-item @else {{$actionClass->btnClass}} @endif">{{$actionClass->name}}</button>
-        <div class="modal fade" id="{{$id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="{{$id}}" tabindex="-1" aria-labelledby="{{$id}}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
