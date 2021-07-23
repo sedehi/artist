@@ -14,7 +14,7 @@ class Actions extends Component
      *
      * @return void
      */
-    public function __construct($model = null,$resource =null)
+    public function __construct($model = null, $resource = null)
     {
         $this->model = $model;
         $this->resource = $resource;
