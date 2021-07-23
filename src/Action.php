@@ -15,11 +15,21 @@ class Action
     public $name;
     public $btnClass = 'btn btn-primary';
 
+    public $cancelButtonText;
+    public $confirmButtonText;
+    public $confirmText;
+    public $successText;
+    public $withConfirmation = false;
+
     public $model;
 
     public function __construct($model = null)
     {
         $this->model = $model;
+        $this->cancelButtonText = trans('artist::artist.actions.cancel_button_text');
+        $this->confirmButtonText = trans('artist::artist.actions.confirm_button_text');
+        $this->confirmText = trans('artist::artist.actions.confirm_text');
+        $this->successText = trans('artist::artist.actions.success_text');
     }
 
     public function view()
@@ -143,6 +153,46 @@ class Action
     {
         $this->hideCallback($this->showOnTableRow, $callback);
 
+        return $this;
+    }
+
+    public function name($name){
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function buttonClass($class){
+        $this->btnClass = $class;
+        return $this;
+    }
+
+    public function cancelButtonText($text)
+    {
+        $this->cancelButtonText = $text;
+        return $this;
+    }
+
+    public function confirmButtonText($text)
+    {
+        $this->confirmButtonText = $text;
+        return $this;
+    }
+
+    public function confirmText($text)
+    {
+        $this->confirmText = $text;
+        return $this;
+    }
+    public function successText($text)
+    {
+        $this->successText = $text;
+        return $this;
+    }
+
+    public function withConfirmation()
+    {
+        $this->withConfirmation = true;
         return $this;
     }
 }

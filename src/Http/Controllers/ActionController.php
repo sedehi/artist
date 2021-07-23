@@ -16,5 +16,7 @@ class ActionController extends BaseController
         }
 
         $action::dispatch($model);
+        $actionClass = new $action;
+        return redirect()->back()->with('success',$actionClass->successText);
     }
 }

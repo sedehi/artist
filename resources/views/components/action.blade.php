@@ -1,5 +1,10 @@
 @php
-    $actionClass = new $action;
+    if(is_object($action)){
+        $actionClass = $action;
+    }else{
+        $actionClass = new $action;
+    }
+    $action = get_class($action);
     $view = $actionClass->renderView();
     $hasModal = false;
     if(!is_null($view)){
@@ -18,7 +23,7 @@
         <input type="hidden" name="model" value="{{get_class($model)}}">
     @endif
     @if(!$hasModal)
-        <button type="submit" class="{{$actionClass->btnClass}}">{{$actionClass->name}}</button>
+        <button type="submit" @if($actionClass->withConfirmation) onclick="return confirm('{{$actionClass->confirmText}}')" @endif class="{{$actionClass->btnClass}}">{{$actionClass->name}}</button>
     @endif
     @if($hasModal)
         <button type="button" data-toggle="modal" data-target="#exampleModal" class="{{$actionClass->btnClass}}">{{$actionClass->name}}</button>
@@ -26,7 +31,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{$actionClass->name}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -35,8 +40,8 @@
                         {!! $view->render() !!}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">{{$actionClass->name}}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{$actionClass->cancelButtonText}}</button>
+                        <button type="submit" @if($actionClass->withConfirmation) onclick="return confirm('{{$actionClass->confirmText}}')" @endif class="{{$actionClass->btnClass}}">{{$actionClass->confirmButtonText}}</button>
                     </div>
                 </div>
             </div>
