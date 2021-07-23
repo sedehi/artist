@@ -34,6 +34,6 @@ return [
         'cancel_button_text' => 'لغو',
         'confirm_button_text' => 'تایید',
         'confirm_text' => 'آیا مطمئن هستید که می خواهید این عملیات انجام شود؟',
-        'success_text' => 'عملیات با موفقیت انجام شد.'
-    ]
+        'success_text' => 'عملیات با موفقیت انجام شد.',
+    ],
 ];

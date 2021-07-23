@@ -156,43 +156,52 @@ class Action
         return $this;
     }
 
-    public function name($name){
+    public function name($name)
+    {
         $this->name = $name;
 
         return $this;
     }
 
-    public function buttonClass($class){
+    public function buttonClass($class)
+    {
         $this->btnClass = $class;
+
         return $this;
     }
 
     public function cancelButtonText($text)
     {
         $this->cancelButtonText = $text;
+
         return $this;
     }
 
     public function confirmButtonText($text)
     {
         $this->confirmButtonText = $text;
+
         return $this;
     }
 
     public function confirmText($text)
     {
         $this->confirmText = $text;
+
         return $this;
     }
+
     public function successText($text)
     {
         $this->successText = $text;
+
         return $this;
     }
 
     public function withConfirmation()
     {
         $this->withConfirmation = true;
+
         return $this;
     }
 }
