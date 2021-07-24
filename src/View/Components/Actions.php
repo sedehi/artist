@@ -1,6 +1,6 @@
 <?php
 
-namespace Sedehi\Artist\View\Inputs;
+namespace Sedehi\Artist\View;
 
 use Illuminate\View\Component;
 
