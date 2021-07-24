@@ -30,12 +30,12 @@
 <script src="{{asset('admin/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{asset('admin/js/sleek.bundle.js')}}"></script>
 @include('artist::notifications')
+@stack('action_modals')
 @stack('js')
 @if(old('modal_id'))
 <script type="text/javascript">
     $('#{{old('modal_id')}}').modal('show')
 </script>
 @endif
-@stack('action_modals')
 </body>
 </html>
