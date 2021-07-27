@@ -2,6 +2,7 @@
 @import 'variables';
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/persian-datepicker/dist/css/persian-datepicker.min";
 @import 'reboot';
 @import 'utilities/spacing';
 @import 'utilities/background';
@@ -16,12 +17,12 @@
 @import 'buttons';
 @import 'card';
 @import 'caret';
-@import 'chat';
+//@import 'chat';
 @import 'carousel';
 @import 'chart';
-@import 'calendar';
+//@import 'calendar';
 @import 'dropdown';
-@import 'code';
+//@import 'code';
 //@import 'date-range-picker';
 @import 'forms';
 @import 'media';
@@ -29,20 +30,20 @@
 @import 'grid';
 @import 'icons';
 @import 'list-group';
-@import 'map';
+//@import 'map';
 @import 'modal';
 @import 'navbar';
 @import 'pagination';
 @import 'progress';
 @import 'popover-tooltip';
-@import 'profile';
+//@import 'profile';
 @import 'sidebar';
 @import 'spinkit';
 @import 'separator';
 @import 'switchers';
 @import 'tabs';
 @import 'toaster';
-@import 'todo';
+//@import 'todo';
 @import 'type';
 @import 'tables';
 @import 'widgets';

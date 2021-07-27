@@ -11,6 +11,8 @@ html[dir="rtl"] {
   .sidebar .sub-menu>li .sub-menu>li>a:after{
     content: none;
   }
+
+  .datepicker-plot-area{
+    position: static;
+  }
 }
-
-
