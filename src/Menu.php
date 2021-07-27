@@ -2,6 +2,8 @@
 
 namespace Sedehi\Artist;
 
+use Illuminate\Support\Facades\Gate;
+
 class Menu
 {
     public $url;
@@ -61,11 +63,28 @@ class Menu
         return $this;
     }
 
+    public function canSee(){
+        if(is_null($this->permission)){
+            $canSee = false;
+            foreach ((array)$this->childs as $child) {
+                if($child->canSee()){
+                    $canSee = true;
+                    break;
+                }
+            }
+
+            return  $canSee;
+        }
+
+        return Gate::allows($this->permission);
+    }
+
     public function render()
     {
         $this->id = 'menu-'.md5($this->title.$this->url.spl_object_id($this));
-
-        return view('artist::menu', ['item' => $this]);
+        if($this->canSee()){
+            return view('artist::menu', ['item' => $this]);
+        }
     }
 
     public function isActive()

@@ -24,7 +24,11 @@ class DefineGates
     public function defineGates()
     {
         foreach ($this->auth->user()->roles as $userRole) {
-            foreach (unserialize($userRole->permission) as $section => $accessData) {
+            $permissions = unserialize($userRole->permission);
+            if(is_null($permissions)){
+                return;
+            }
+            foreach ($permissions as $section => $accessData) {
                 if (! is_array($accessData)) {
                     Gate::define($section, function ($user) {
                         return true;
