@@ -25,7 +25,7 @@ class DefineGates
     {
         foreach ($this->auth->user()->roles as $userRole) {
             $permissions = unserialize($userRole->permission);
-            if(is_null($permissions)){
+            if (is_null($permissions)) {
                 return;
             }
             foreach ($permissions as $section => $accessData) {
