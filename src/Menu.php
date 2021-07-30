@@ -63,11 +63,12 @@ class Menu
         return $this;
     }
 
-    public function canSee(){
-        if(is_null($this->permission)){
+    public function canSee()
+    {
+        if (is_null($this->permission)) {
             $canSee = false;
-            foreach ((array)$this->childs as $child) {
-                if($child->canSee()){
+            foreach ((array) $this->childs as $child) {
+                if ($child->canSee()) {
                     $canSee = true;
                     break;
                 }
@@ -82,7 +83,7 @@ class Menu
     public function render()
     {
         $this->id = 'menu-'.md5($this->title.$this->url.spl_object_id($this));
-        if($this->canSee()){
+        if ($this->canSee()) {
             return view('artist::menu', ['item' => $this]);
         }
     }

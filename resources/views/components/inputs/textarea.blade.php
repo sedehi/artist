@@ -18,7 +18,9 @@
     if($attributes->has('cols')){
        $cols =  $attributes['cols'];
     }
-    if (isset($field)) {
+    if ($attributes->has('value')) {
+        $value = $attributes['value'];
+    } elseif (isset($field)) {
         $value = old($name,$field->value());
     } else {
         $value = old($name,optional($model)->{$name});
