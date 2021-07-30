@@ -14,7 +14,7 @@
 @endphp
 @if($actionClass->getShowOnTableRow())
         @if(!$hasModal)
-            <button type="button" @if($actionClass->withConfirmation) onclick="(confirm('{{$actionClass->confirmText}}')? $('#form-{{$id}}').submit() :'' )" @endif class="@if($attributes->has('link')) dropdown-item @else {{$actionClass->btnClass}} @endif">{{$actionClass->name}}</button>
+            <button type="button" @if($actionClass->withConfirmation) onclick="(confirm('{{$actionClass->confirmText}}')? $('#form-{{$id}}').submit() :'' )" @else onclick="$('#form-{{$id}}').submit()" @endif class="@if($attributes->has('link')) dropdown-item @else {{$actionClass->btnClass}} @endif">{{$actionClass->name}}</button>
         @else
             <button type="button" data-toggle="modal" data-target="#{{$id}}" class="@if($attributes->has('link')) dropdown-item @else {{$actionClass->btnClass}} @endif">{{$actionClass->name}}</button>
         @endif
