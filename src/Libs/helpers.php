@@ -1,7 +1,8 @@
 <?php
 
-if(!function_exists('artist_make_upload_items')){
-    function artist_make_upload_items($item,$name){
+if (! function_exists('artist_make_upload_items')) {
+    function artist_make_upload_items($item, $name)
+    {
         return [
             'source' => $item->id,
             'options' => [
@@ -9,12 +10,12 @@ if(!function_exists('artist_make_upload_items')){
                 'file' => [
                     'name' => $item->{$name},
                     'type' =>  Storage::disk($item->disk)->mimeType($item->getFullPath($name)),
-                    'size' => Storage::disk($item->disk)->size($item->getFullPath($name))
+                    'size' => Storage::disk($item->disk)->size($item->getFullPath($name)),
                 ],
                 'metadata'=> [
-                    'poster'=> Storage::disk($item->disk)->url($item->getFullPath($name))
-                ]
-            ]
+                    'poster'=> Storage::disk($item->disk)->url($item->getFullPath($name)),
+                ],
+            ],
         ];
     }
 }
