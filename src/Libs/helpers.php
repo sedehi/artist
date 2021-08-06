@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Arr;
-
 if(!function_exists('artist_make_upload_items')){
     function artist_make_upload_items($item,$name){
         return [
