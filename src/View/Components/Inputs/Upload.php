@@ -17,9 +17,10 @@ class Upload extends Component
      *
      * @return void
      */
-    public function __construct($model = null)
+    public function __construct($model = null,$value = null)
     {
         $this->model = $model;
+        $this->value = $value;
     }
 
     /**
