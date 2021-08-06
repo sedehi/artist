@@ -16,7 +16,7 @@ trait hasUpload
 
     public function getFullPath($field)
     {
-        return rtrim($this->uploadPath(), '/').'/'.Arr::get($this,$field);
+        return rtrim($this->uploadPath(), '/').'/'.Arr::get($this, $field);
     }
 
     public function saveFile($tempId, $fieldName = null)
@@ -54,7 +54,7 @@ trait hasUpload
         if ($this->isImage($this->{$fieldName})) {
             ImageMaker::make()->path($this->uploadPath())->name($this->{$fieldName})->remove();
         } else {
-            Storage::disk($this->disk)->delete(rtrim($this->uploadPath()).'/'.Arr::get($this,$fieldName));
+            Storage::disk($this->disk)->delete(rtrim($this->uploadPath()).'/'.Arr::get($this, $fieldName));
         }
     }
 
