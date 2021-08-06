@@ -1,6 +1,7 @@
 @php
     $originalName = $attributes['name'];
     $name = str_replace('[]','',$originalName);
+    $fieldName = $name;
     $multiple = false;
     $required = null;
     $items = [];
@@ -12,6 +13,9 @@
     }
     if($attributes->has('class')){
        $class =  $attributes['class'];
+    }
+    if($attributes->has('field')){
+       $fieldName =  $attributes['field'];
     }
 
     if($attributes->has('required')){
@@ -34,13 +38,13 @@
                 $models = [$model];
             }
             foreach ($models as $model){
-                 if(!is_null($model->{$name}) && Storage::disk($model->disk)->exists($model->getFullPath($name))){
-                     $items = [artist_make_upload_items($model,$name)];
+                 if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($fieldName))){
+                     $items = [artist_make_upload_items($model,$fieldName)];
                  }
             }
         }else{
-           if(!is_null($model->{$name}) && Storage::disk($model->disk)->exists($model->getFullPath($name))){
-                $items = [artist_make_upload_items($model,$name)];
+           if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($fieldName))){
+                $items = [artist_make_upload_items($model,$fieldName)];
            }
         }
     }

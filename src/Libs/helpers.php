@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Arr;
+
 if(!function_exists('artist_make_upload_items')){
     function artist_make_upload_items($item,$name){
         return [
@@ -7,7 +9,7 @@ if(!function_exists('artist_make_upload_items')){
             'options' => [
                 'type' => 'local',
                 'file' => [
-                    'name' => $item->{$name},
+                    'name' => Arr::get($item,$name),
                     'type' =>  Storage::disk($item->disk)->mimeType($item->getFullPath($name)),
                     'size' => Storage::disk($item->disk)->size($item->getFullPath($name))
                 ],
