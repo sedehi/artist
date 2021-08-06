@@ -75,6 +75,7 @@
 
 @endphp
 <div class="form-group {{$grid}} d-block">
+    <label for="{{$name}}">{{$title}}</label>
     <input {{$multiple}} {{$required}} data-files='{!! json_encode($items) !!}' data-server-url="{{route('artist.resource.upload')}}"  type="file" data-name="{{$originalName}}" name="file" id="{{$name}}"  class="files {{$class}}">
     @error($name)
     <div class="invalid-feedback">
