@@ -4,7 +4,11 @@
     $fieldName = $name;
     $multiple = false;
     $required = null;
+    $options = null;
     $items = [];
+    if($attributes->has('options')){
+        $options = $attributes['options'];
+    }
     $old = old($name);
     if($attributes->has('title')){
        $title =  $attributes['title'];
@@ -76,7 +80,7 @@
 @endphp
 <div class="form-group {{$grid}} d-block">
     <label for="{{$name}}">{{$title}}</label>
-    <input {{$multiple}} {{$required}} data-files='{!! json_encode($items) !!}' data-server-url="{{route('artist.resource.upload')}}"  type="file" data-name="{{$originalName}}" name="file" id="{{$name}}"  class="files {{$class}}">
+    <input {{$multiple}} {{$required}} data-files='{!! json_encode($items) !!}' data-options="{{$options}}" data-server-url="{{route('artist.resource.upload')}}"  type="file" data-name="{{$originalName}}" name="file" id="{{$name}}"  class="files {{$class}}">
     @error($name)
     <div class="invalid-feedback">
         {{$message}}

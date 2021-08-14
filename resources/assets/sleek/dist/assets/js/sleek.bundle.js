@@ -10751,6 +10751,10 @@
 	          'Accept': 'application/json',
 	        },
 	        process: {
+	          ondata: (fd) => {
+	            fd.append('options', $(this).data('options'));
+	            return fd;
+	          },
 	          onerror: (response) => {
 	            var serverResponse = JSON.parse(response);
 	            toastr.error(serverResponse.errors.file);

@@ -21,6 +21,7 @@ trait hasUpload
 
     public function saveFile($tempId, $fieldName = null)
     {
+        dd($this->avatarOptions());
         if (is_array($tempId)) {
             $tempId = head($tempId);
         }
