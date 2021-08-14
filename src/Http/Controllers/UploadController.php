@@ -9,9 +9,9 @@ class UploadController extends BaseController
     public function upload()
     {
         $validation = [];
-        if(request()->filled('options')){
+        if (request()->filled('options')) {
             $options = request()->get('options');
-            $options = str_replace('()','',$options);
+            $options = str_replace('()', '', $options);
             $options = call_user_func($options);
             $validation = $options->validation;
         }
