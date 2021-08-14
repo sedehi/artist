@@ -7,6 +7,7 @@ class UploadOptions
     public $disk = 'public';
     public $dimensions;
     public $path;
+    public $field;
     public $validation = [];
     public $keepLargeSize = false;
     public $keepOriginal = false;
@@ -26,6 +27,13 @@ class UploadOptions
     public function validation($validation)
     {
         $this->validation = $validation;
+
+        return $this;
+    }
+
+    public function field($field)
+    {
+        $this->field = $field;
 
         return $this;
     }

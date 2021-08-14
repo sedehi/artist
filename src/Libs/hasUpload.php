@@ -9,19 +9,16 @@ use Sedehi\Artist\Models\UploadTemporary;
 
 trait hasUpload
 {
-    public function uploadPath()
+
+    public function getFullPath($methodName)
     {
-        return '/';
+        $options = $this->{$methodName}();
+        return rtrim($options->path, '/').'/'.Arr::get($this, $options->field);
     }
 
-    public function getFullPath($field)
+    public function saveFile($tempId, $methodName)
     {
-        return rtrim($this->uploadPath(), '/').'/'.Arr::get($this, $field);
-    }
-
-    public function saveFile($tempId, $fieldName = null)
-    {
-        dd($this->avatarOptions());
+        $options = $this->{$methodName}();
         if (is_array($tempId)) {
             $tempId = head($tempId);
         }
@@ -29,47 +26,39 @@ trait hasUpload
         $fileName = $temp->name;
         if ($this->isImage($fileName)) {
             $image = ImageMaker::make($temp->full_path)
-                ->disk($this->disk)
-                ->path($this->uploadPath())
-                ->dimensions($this->getDimensions($fieldName))
+                ->disk($options->disk)
+                ->path($options->path)
+                ->dimensions($options->dimensions)
                 ->name($fileName);
 
-            if ($this->keepLargeSize) {
+            if ($options->keepLargeSize) {
                 $image = $image->keepLargeSize();
             }
 
-            if ($this->keepOriginal) {
+            if ($options->keepOriginal) {
                 $image = $image->keepOriginal();
             }
             $image->store();
         } else {
-            File::move($temp->full_path, Storage::disk($this->disk)->path(rtrim($this->uploadPath(), '/').'/'.$fileName));
+            File::move($temp->full_path, Storage::disk($options->disk)->path(rtrim($options->path, '/').'/'.$fileName));
         }
         $temp->remove();
 
         return $fileName;
     }
 
-    public function removeFile($fieldName)
+    public function removeFile($methodName)
     {
-        if ($this->isImage($this->{$fieldName})) {
-            ImageMaker::make()->path($this->uploadPath())->name($this->{$fieldName})->remove();
+        $options = $this->{$methodName}();
+        if ($this->isImage($this->{$options->field})) {
+            ImageMaker::make()->path($options->path)->disk($options->disk)->name($this->{$options->field})->remove();
         } else {
-            Storage::disk($this->disk)->delete(rtrim($this->uploadPath()).'/'.Arr::get($this, $fieldName));
+            Storage::disk($options->disk)->delete(rtrim($this->uploadPath()).'/'.Arr::get($this, $options->field));
         }
     }
 
     private function isImage($fileName)
     {
         return in_array(File::extension($fileName), ['png', 'svg', 'bmp', 'jpeg', 'jpg']);
-    }
-
-    private function getDimensions($field)
-    {
-        if (is_null($field)) {
-            return $this->dimensions;
-        } else {
-            return  $this->dimensions[$field];
-        }
     }
 }
