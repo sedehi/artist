@@ -9,10 +9,10 @@ use Sedehi\Artist\Models\UploadTemporary;
 
 trait hasUpload
 {
-
     public function getFullPath($methodName)
     {
         $options = $this->{$methodName}();
+
         return rtrim($options->path, '/').'/'.Arr::get($this, $options->field);
     }
 
