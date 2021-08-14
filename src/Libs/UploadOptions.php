@@ -1,6 +1,6 @@
 <?php
-namespace Sedehi\Artist\Libs;
 
+namespace Sedehi\Artist\Libs;
 
 class UploadOptions
 {
@@ -8,7 +8,7 @@ class UploadOptions
     public $dimensions;
     public $path;
     public $validation = [];
-    public $keepLargeSize  = false;
+    public $keepLargeSize = false;
     public $keepOriginal = false;
 
     public static function make()
@@ -22,6 +22,7 @@ class UploadOptions
 
         return $this;
     }
+
     public function validation($validation)
     {
         $this->validation = $validation;
@@ -49,11 +50,11 @@ class UploadOptions
 
         return $this;
     }
+
     public function path($path)
     {
         $this->path = rtrim($path, '/').'/';
 
         return $this;
     }
-
 }
