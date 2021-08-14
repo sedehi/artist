@@ -8,14 +8,17 @@ class UploadController extends BaseController
 {
     public function upload()
     {
-        request()->validate(['file' => 'required|file']);
-        $file = request()->file('file');
-        $path = config('artist.upload_temporary_path');
-
-        if ($this->isImage($file)) {
-            request()->validate(['file' => 'required|image']);
+        $validation = [];
+        if(request()->filled('options')){
+            $options = request()->get('options');
+            $options = str_replace('()','',$options);
+            $options = call_user_func($options);
+            $validation = $options->validation;
         }
 
+        request()->validate(['file' => $validation]);
+        $file = request()->file('file');
+        $path = config('artist.upload_temporary_path');
         $fileName = time().$file->hashName();
         $file->move($path, $fileName);
         $temp = new UploadTemporary();
@@ -41,10 +44,5 @@ class UploadController extends BaseController
             'success' => true,
             'uuid' => $id,
         ]);
-    }
-
-    private function isImage($file)
-    {
-        return in_array($file->getClientOriginalExtension(), ['png', 'svg', 'bmp', 'jpeg', 'jpg']);
     }
 }
