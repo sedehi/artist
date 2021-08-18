@@ -51,7 +51,7 @@ trait HasUpload
     {
         $options = $this->{$methodName}();
 
-        if (str_contains($options->field,'.')) {
+        if (str_contains($options->field, '.')) {
             $fileName = Arr::get($this, $options->field);
         } else {
             $fileName = $this->{$options->field};
