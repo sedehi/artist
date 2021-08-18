@@ -23,19 +23,17 @@
     if($attributes->has('field')){
        $fieldName =  $attributes['field'];
     }
-
     if($attributes->has('required')){
        $required =  'required=true';
     }
-
     if($attributes->has('model')){
        $model =  $attributes['model'];
     }
     if($attributes->has('multiple')){
        $multiple = 'multiple';
     }
-
     if(!is_null($model)){
+        $uploadOptions = $model->{$optionsMethodName}();
         if ($multiple){
             if($model instanceof \Illuminate\Database\Eloquent\Collection){
                 $models = $model;
@@ -43,13 +41,13 @@
                 $models = [$model];
             }
             foreach ($models as $model){
-                 if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($optionsMethodName))){
-                     $items = [artist_make_upload_items($model,$fieldName,$optionsMethodName)];
+                 if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($uploadOptions->disk)->exists($model->getFullPath($optionsMethodName))){
+                     $items = [artist_make_upload_items($model, $uploadOptions, $optionsMethodName)];
                  }
             }
         }else{
-           if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($optionsMethodName))){
-                $items = [artist_make_upload_items($model,$fieldName,$optionsMethodName)];
+           if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($uploadOptions->disk)->exists($model->getFullPath($optionsMethodName))){
+                $items = [artist_make_upload_items($model, $uploadOptions, $optionsMethodName)];
            }
         }
     }
@@ -77,7 +75,6 @@
         }
 
     }
-
 @endphp
 <div class="form-group {{$grid}} d-block">
     <label for="{{$name}}">{{$title}}</label>

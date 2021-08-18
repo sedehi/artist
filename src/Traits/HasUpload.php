@@ -1,13 +1,13 @@
 <?php
 
-namespace Sedehi\Artist\Libs;
+namespace Sedehi\Artist\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Sedehi\Artist\Models\UploadTemporary;
 
-trait hasUpload
+trait HasUpload
 {
     public function getFullPath($methodName)
     {
@@ -51,7 +51,7 @@ trait hasUpload
     {
         $options = $this->{$methodName}();
 
-        if (str_contains($options->field, '.')) {
+        if (str_contains($options->field,'.')) {
             $fileName = Arr::get($this, $options->field);
         } else {
             $fileName = $this->{$options->field};
@@ -60,7 +60,7 @@ trait hasUpload
         if ($this->isImage($fileName)) {
             ImageMaker::make()->path($options->path)->disk($options->disk)->name($fileName)->remove();
         } else {
-            Storage::disk($options->disk)->delete(rtrim($this->uploadPath()).'/'.Arr::get($this, $options->field));
+            Storage::disk($options->disk)->delete(rtrim($options->path).'/'.Arr::get($this, $options->field));
         }
     }
 
