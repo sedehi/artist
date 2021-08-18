@@ -2,12 +2,14 @@
     $originalName = $attributes['name'];
     $name = str_replace('[]','',$originalName);
     $fieldName = $name;
+    $optionsMethodName = $fieldName;
     $multiple = false;
     $required = null;
     $options = null;
     $items = [];
     if($attributes->has('options')){
         $options = $attributes['options'];
+        $optionsMethodName = str_replace('()','',explode('::',$options)[1]);
     }
     $old = old($name);
     if($attributes->has('title')){
@@ -33,7 +35,6 @@
        $multiple = 'multiple';
     }
 
-
     if(!is_null($model)){
         if ($multiple){
             if($model instanceof \Illuminate\Database\Eloquent\Collection){
@@ -42,13 +43,13 @@
                 $models = [$model];
             }
             foreach ($models as $model){
-                 if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($fieldName))){
-                     $items = [artist_make_upload_items($model,$fieldName)];
+                 if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($optionsMethodName))){
+                     $items = [artist_make_upload_items($model,$fieldName,$optionsMethodName)];
                  }
             }
         }else{
-           if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($fieldName))){
-                $items = [artist_make_upload_items($model,$fieldName)];
+           if(!is_null(\Illuminate\Support\Arr::get($model,$fieldName)) && Storage::disk($model->disk)->exists($model->getFullPath($optionsMethodName))){
+                $items = [artist_make_upload_items($model,$fieldName,$optionsMethodName)];
            }
         }
     }
@@ -92,6 +93,3 @@
         <input type="hidden" id="upload-{{$item['source']}}" name="{{$originalName}}" value="{{$item['source']}}">
     @endforeach
 @endif
-
-
-
