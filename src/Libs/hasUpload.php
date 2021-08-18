@@ -50,8 +50,15 @@ trait hasUpload
     public function removeFile($methodName)
     {
         $options = $this->{$methodName}();
-        if ($this->isImage($this->{$options->field})) {
-            ImageMaker::make()->path($options->path)->disk($options->disk)->name($this->{$options->field})->remove();
+
+        if (str_contains($options->field,'.')) {
+            $fileName = Arr::get($this, $options->field);
+        } else {
+            $fileName = $this->{$options->field};
+        }
+
+        if ($this->isImage($fileName)) {
+            ImageMaker::make()->path($options->path)->disk($options->disk)->name($fileName)->remove();
         } else {
             Storage::disk($options->disk)->delete(rtrim($this->uploadPath()).'/'.Arr::get($this, $options->field));
         }
