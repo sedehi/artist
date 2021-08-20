@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Sedehi\Artist\Models\UploadTemporary;
+use Sedehi\Artist\Libs\ImageMaker;
 
 trait HasUpload
 {
