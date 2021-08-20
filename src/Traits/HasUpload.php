@@ -5,8 +5,8 @@ namespace Sedehi\Artist\Traits;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Sedehi\Artist\Models\UploadTemporary;
 use Sedehi\Artist\Libs\ImageMaker;
+use Sedehi\Artist\Models\UploadTemporary;
 
 trait HasUpload
 {
