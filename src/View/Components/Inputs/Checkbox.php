@@ -10,17 +10,19 @@ class Checkbox extends Component
     public $model;
     public $title;
     public $class;
-    public $checked = false;
-    public $value = 'on';
+    public $checked;
+    public $value;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($model = null)
+    public function __construct($model = null, $checked = false, $value = 'on')
     {
         $this->model = $model;
+        $this->checked = $checked;
+        $this->value = $value;
     }
 
     /**
