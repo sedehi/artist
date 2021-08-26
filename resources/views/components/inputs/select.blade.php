@@ -11,7 +11,9 @@
     if($attributes->has('class')){
        $class =  $attributes['class'];
     }
-    if (isset($field)) {
+    if ($attributes->has('value')) {
+        $value = $attributes['value'];
+    } elseif (isset($field)) {
         $value = old($name,$field->value());
     } else {
         $value = old($name,optional($model)->{$name});
@@ -22,7 +24,7 @@
     <label for="{{$name}}">{{$title}}</label>
     <select {{ $attributes }} name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror">
         @foreach($options as $optionKey => $optionValue)
-            <option value="{{ $optionKey }}" @if ($value == $optionKey) selected @endif>
+            <option value="{{ $optionKey }}" @if ($value == (string) $optionKey) selected @endif>
                 {{ $optionValue }}
             </option>
         @endforeach
