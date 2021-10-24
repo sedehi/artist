@@ -25,7 +25,7 @@ class Permission
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-        $this->allowed = array_merge($this->allowed,config('artist.allow_permissions',[]));
+        $this->allowed = array_merge($this->allowed, config('artist.allow_permissions', []));
     }
 
     public function handle($request, Closure $next)
