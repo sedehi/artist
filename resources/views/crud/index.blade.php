@@ -7,11 +7,17 @@
     $controllerName = $action[6];
 @endphp
 @extends('artist::layout')
-@section('title',trans('artist::artist.name'))
 @section('content')
     <div class="row">
         @include('artist::crud.search')
         <div class="col-md-12">
+            <h4 class="mb-3 page-header">
+                @hasSection('title')
+                    @yield('title')
+                @else
+                    {{ trans('admin.sections.'.Str::snake($sectionName).'.'.Str::snake($controllerName).'.index') }}
+                @endif
+            </h4>
             <div class="card">
                 @yield('table_header',View::make('artist::crud.index-table-header',compact([
                     'items',
