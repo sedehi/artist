@@ -2,13 +2,16 @@
     $editAction = str_replace('edit','update',Route::currentRouteAction());
     $controllerClass = str_replace('@update','',$editAction);
     $editAction = str_replace("App\Http\Controllers\\",'',$editAction);
-    $ns = explode('\\',str_replace("Controller@update",'',$editAction));
+    $ns = explode('\\',str_replace("@update",'',$editAction));
     $sectionName = $ns[0];
     $controllerName = $ns[3];
 @endphp
 @extends('artist::layout')
-@section('title',trans('admin.sections.'.strtolower($sectionName)).' | '.trans('admin.edit').' '.trans('admin.'.strtolower($controllerName)))
+@section('title',trans('artist::artist.edit').' '.trans('admin.sections.'.Str::snake($sectionName).'.'.Str::snake($controllerName).'.form'))
 @section('content')
+    <h4 class="mb-3 page-header">
+        {{ trans('artist::artist.edit').' '.trans('admin.sections.'.Str::snake($sectionName).'.'.Str::snake($controllerName).'.form') }}
+    </h4>
     <div class="row bg-white p-4">
         <div class="col-md-12">
             <form id="submit-form" action="{{ action([$controllerClass,'update'],Route::current()->parameters() + request()->query()) }}" method="post" enctype="multipart/form-data">
