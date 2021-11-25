@@ -124,7 +124,7 @@ class ArtistServiceProvider extends ServiceProvider
                     throw new Exception('wrong method');
             }
 
-            return redirect()->action([$controller, $action],$params);
+            return redirect()->action([$controller, $action], $params);
         });
 
         Request::macro('artistIsResource', function () {
