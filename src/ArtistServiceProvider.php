@@ -109,7 +109,7 @@ class ArtistServiceProvider extends ServiceProvider
 
     private function registerMacros()
     {
-        Redirector::macro('artistRedirect', function () {
+        Redirector::macro('artistRedirect', function ($params = []) {
             $controller = request()->route()->getAction('controller');
             $controller = explode('@', $controller);
             $action = $controller[1];
@@ -124,7 +124,7 @@ class ArtistServiceProvider extends ServiceProvider
                     throw new Exception('wrong method');
             }
 
-            return redirect()->action([$controller, $action]);
+            return redirect()->action([$controller, $action], $params);
         });
 
         Request::macro('artistIsResource', function () {
