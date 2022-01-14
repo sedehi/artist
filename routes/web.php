@@ -16,7 +16,6 @@ Route::group(['prefix' => config('artist.path'), 'middleware' => 'web'], functio
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('artist.login.form');
     Route::post('/login', [LoginController::class, 'login'])->name('artist.login');
     Route::group(['middleware' => 'artist'], function () {
-        Route::get('/', HomeController::class)->name('artist.home');
         Route::post('/logout', LogoutController::class)->name('artist.logout');
         Route::get('index/{resource?}', IndexController::class)->name('artist.resource.index');
         Route::get('create/{resource?}', [CreateController::class, 'create'])->name('artist.resource.create');

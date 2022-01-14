@@ -27,13 +27,12 @@ class ArtistRouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->domain(config('artist.domain.admin'))
             ->group(function () {
-                if (file_exists(base_path('routes/artist.php'))) {
-                    require base_path('routes/artist.php');
-                }
-
                 Route::middleware('artist')
                     ->prefix(config('artist.path'))
                     ->group(function () {
+                        if (file_exists(base_path('routes/artist.php'))) {
+                            require base_path('routes/artist.php');
+                        }
                         $routes = glob(app_path('Http/Controllers/*/routes/admin.php'));
                         foreach ($routes as $route) {
                             require $route;
