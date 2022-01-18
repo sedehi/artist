@@ -6,7 +6,6 @@ use Sedehi\Artist\Http\Controllers\CreateController;
 use Sedehi\Artist\Http\Controllers\DestroyController;
 use Sedehi\Artist\Http\Controllers\DetailController;
 use Sedehi\Artist\Http\Controllers\EditController;
-use Sedehi\Artist\Http\Controllers\HomeController;
 use Sedehi\Artist\Http\Controllers\IndexController;
 use Sedehi\Artist\Http\Controllers\LoginController;
 use Sedehi\Artist\Http\Controllers\LogoutController;
