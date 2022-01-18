@@ -25,7 +25,7 @@
                     'actionClass',
                     'controllerName'
                 ])))
-                <table class="table table-hover table-responsive-stack">
+                <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
                             @yield('table_head',View::make('artist::crud.index-table-head'))
