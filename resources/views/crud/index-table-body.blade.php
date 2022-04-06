@@ -1,15 +1,15 @@
 @forelse($items as $item)
     <tr>
-        <td scope="row" class="col">
+        <td scope="row">
             <div class="form-check">
                 <input type="checkbox" name="deleteId[]" value="{{$item->id}}" class="form-check-input position-static delete-item">
             </div>
-        </td class="col">
-        <td class="col">{{ $item->title }}</td>
-        <td class="col">
+        </td>
+        <td>{{ $item->title }}</td>
+        <td>
             {{ Jalalian::fromCarbon($item->created_at)->format('H:i - Y/m/d') }}
         </td>
-        <td class="col">
+        <td>
             @if(Gate::allows(strtolower($sectionName).'.'.strtolower($controllerName).'.edit'))
                 <a class="btn btn-sm btn-outline-info" href="{!! action([$actionClass,'edit'],$item->id) !!}"><i class="fas fa-pencil-alt"></i></a>
             @endif
