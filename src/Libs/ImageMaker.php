@@ -216,7 +216,7 @@ class ImageMaker
             $constraint->upsize();
         });
         $this->addWatermark($maker);
-        Storage::disk($this->disk)->put(($path ?? $this->path).($name ?? $this->getName()), $maker->encode(null, 100));
+        Storage::disk($this->disk)->put(($path ?? $this->path).($name ?? $this->getName()), $maker->encode(null, 90));
         $maker->destroy();
     }
 
@@ -227,7 +227,7 @@ class ImageMaker
             $this->setDimensionConversionProperties($dimension);
             $this->addWatermark($this->dimensionMaker);
             Storage::disk($this->disk)
-                   ->put(($path ?? $this->path).$this->getName('dimension', $dimension, $name), $this->dimensionMaker->encode(null, 100));
+                   ->put(($path ?? $this->path).$this->getName('dimension', $dimension, $name), $this->dimensionMaker->encode(null, 90));
             $this->dimensionMaker->destroy();
         }
     }
