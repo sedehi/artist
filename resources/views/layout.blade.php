@@ -29,6 +29,14 @@
 <script src="{{asset('admin/plugins/filepond/filepond.jquery.js')}}"></script>
 <script src="{{asset('admin/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{asset('admin/js/sleek.bundle.js')}}"></script>
+<script type="text/javascript">
+    $(document).on("FilePond:addfilestart", function(){
+        $('#submit-form').find('button[type="submit"]').attr('disabled',true);
+    });
+    $(document).on("FilePond:processfile FilePond:warning FilePond:error", function(){
+        $('#submit-form').find('button[type="submit"]').attr('disabled',false);
+    });
+</script>
 @include('artist::notifications')
 @stack('action_modals')
 @stack('js')
