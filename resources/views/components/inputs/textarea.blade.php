@@ -9,8 +9,11 @@
     }else{
         $title = trans('validation.attributes.'.$name);
     }
-    if($attributes->has('class')){
-       $class =  $attributes['class'];
+    if(!$attributes->has('class')){
+        $attributes = $attributes->merge(['class' => 'form-control']);
+    }
+    if ($errors->has($name)) {
+        $attributes = $attributes->merge(['class' => 'is-invalid']);
     }
     if($attributes->has('rows')){
        $rows =  $attributes['rows'];
@@ -28,7 +31,7 @@
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <textarea {{ $attributes }} rows="{{$rows}}" cols="{{$cols}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" >{!! $value !!}</textarea>
+    <textarea {{ $attributes }} rows="{{$rows}}" cols="{{$cols}}" name="{{$name}}" id="{{$name}}">{!! $value !!}</textarea>
     @if (isset($field->help))
         <span class="help-block">{!! $field->getHelp() !!}</span>
     @endif
