@@ -14,8 +14,11 @@
     }else{
         $title = trans('validation.attributes.'.$name);
     }
-    if($attributes->has('class')){
-       $class = $attributes['class'];
+    if(!$attributes->has('class')){
+        $attributes = $attributes->merge(['class' => 'form-control']);
+    }
+    if ($errors->has($name)) {
+        $attributes = $attributes->merge(['class' => 'is-invalid']);
     }
     if (isset($field)) {
         $value = old($name,$field->value());
@@ -36,7 +39,6 @@
                    value="{{ $optionKey }}"
                    id="{{$attributeId}}-radio-{{$loop->iteration}}"
                    @if ($value == $optionKey) checked @endif
-                   @if($class) class="{!! $class !!}" @endif
             >
             <div class="control-indicator"></div>
         </label>

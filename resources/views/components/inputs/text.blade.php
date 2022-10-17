@@ -11,11 +11,11 @@
     }else{
         $title = trans('validation.attributes.'.$name);
     }
-    if($attributes->has('class')){
-       $class =  $attributes['class'];
+    if(!$attributes->has('class')){
+        $attributes = $attributes->merge(['class' => 'form-control']);
     }
     if ($errors->has($name)) {
-        $class .= ' is-invalid';
+        $attributes = $attributes->merge(['class' => 'is-invalid']);
     }
     if($type !== 'password'){
         if (isset($field)) {
@@ -27,13 +27,13 @@
 @endphp
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <input {{ $attributes }} type="{{$type}}" name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror" value="{{ $value }}" />
+    <input {{ $attributes }} type="{{$type}}" name="{{$name}}" id="{{$name}}" value="{{ $value }}" />
     @if (isset($field->help))
         <span class="help-block">{!! $field->getHelp() !!}</span>
     @endif
     @error($name)
-        <div class="invalid-feedback">
-            {{$message}}
-        </div>
+    <div class="invalid-feedback">
+        {{$message}}
+    </div>
     @enderror
 </div>

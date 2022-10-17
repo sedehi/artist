@@ -8,8 +8,11 @@
     }else{
         $title = trans('validation.attributes.'.$name);
     }
-    if($attributes->has('class')){
-       $class =  $attributes['class'];
+    if(!$attributes->has('class')){
+        $attributes = $attributes->merge(['class' => 'form-control']);
+    }
+    if ($errors->has($name)) {
+        $attributes = $attributes->merge(['class' => 'is-invalid']);
     }
     if ($attributes->has('value')) {
         $value = $attributes['value'];
@@ -22,7 +25,7 @@
 
 <div class="form-group {{$grid}}">
     <label for="{{$name}}">{{$title}}</label>
-    <select {{ $attributes }} name="{{$name}}" id="{{$name}}" class="form-control {{$class}} @error($name) is-invalid @enderror">
+    <select {{ $attributes }} name="{{$name}}" id="{{$name}}">
         @foreach($options as $optionKey => $optionValue)
             <option value="{{ $optionKey }}" @if ($value == (string) $optionKey) selected @endif>
                 {{ $optionValue }}
